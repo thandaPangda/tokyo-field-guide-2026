@@ -1619,7 +1619,10 @@ async function geocodeProcess(){if(geoRunning)return;geoRunning=true;geoPhase='r
  }catch(e){geoFailures++;geoCache[address]={quality:'retry-later'};if(geoFailures>=4){geoPhase='limited';geoQueue=[];break;}}
  await new Promise(resolve=>setTimeout(resolve,GEO_CONFIG.paceMs));}
  geoRunning=false;geoPhase=geoFailures>=4?'limited':'done';geoProgress();}
-function beginGeoLookup(){geoCachedApply();const choices=new Set(mapBrowseEntries().map(e=>e.id));const candidates=geoLookupCandidates().sort((a,b)=>Number(choices.has(b.key))-Number(choices.has(a.key))),seen=new Set();geoQueue=[];for(const c of candidates){if(geoCache[c.address]?.quality==='retry-later')delete geoCache[c.address];if(!geoCache[c.address]&&!seen.has(c.address)){seen.add(c.address);geoQueue.push(c.address);}}
+// Prioritize visible sento addresses: every sento starts without map coordinates.
+// Still require GSI validation; never synthesize a coordinate for an unresolved bathhouse.
+function geoLookupPriority(row,choices){return Number(choices.has(row.key))*2+Number(Boolean(row.obj?.sentoId));}
+function beginGeoLookup(){geoCachedApply();const choices=new Set(mapBrowseEntries().map(e=>e.id));const candidates=geoLookupCandidates().sort((a,b)=>geoLookupPriority(b,choices)-geoLookupPriority(a,choices)),seen=new Set();geoQueue=[];for(const c of candidates){if(geoCache[c.address]?.quality==='retry-later')delete geoCache[c.address];if(!geoCache[c.address]&&!seen.has(c.address)){seen.add(c.address);geoQueue.push(c.address);}}
  geoPotential=geoQueue.length;geoProgress();if(geoQueue.length)geocodeProcess();}
 // Map filtering is intentionally separate from the main discovery tag facets.
 mapBrowseEntries=function(){return browseMatches({...browseState,...mapFilters,tags:new Set(),genre:'all',order:'time'});};
@@ -1669,13 +1672,14 @@ function drawClusterPins(force=false){if(!force&&GEO_CLUSTER.zoom===mapState.z&&
  const prior=mapState.markers,newMarkers=new Map();const next=clusterPoints(mapState.z);
  const fragment=document.createDocumentFragment();
  for(const g of next){let el=prior.get(g.key),kind=pinKind(g);if(!el){el=document.createElement('button');el.type='button';el.className='pin pin-symbol';}
- el.className='pin pin-symbol '+(g.isCluster?'pin-cluster':'pin-'+kind)+(g.hasApprox?' pin-approx':'');
+ el.className='pin pin-symbol '+(g.isCluster?'pin-cluster':'pin-'+kind)+(g.hasApprox?' pin-approx':'')+(g.isCluster&&g.items.some(x=>x.sentoId)?' pin-cluster-sento':'');
  if(g.key===mapState.selected)el.classList.add('selected');
- if(g.isCluster){el.innerHTML=MAP_CLUSTER_GLYPH+'<span class="cluster-number">'+g.siteCount+'</span>';
-  el.setAttribute('aria-label',`근처 ${g.siteCount}곳, ${g.items.length}개 콘텐츠 · 눌러 목록 보기`);
+ if(g.isCluster){const sentoCount=g.items.filter(x=>x.sentoId).length;
+  el.innerHTML=MAP_CLUSTER_GLYPH+'<span class="cluster-number">'+g.siteCount+'</span>'+(sentoCount?'<span class="cluster-sento-indicator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+markerSVG.sento+'</svg></span>':'');
+  el.setAttribute('aria-label',`근처 ${g.siteCount}곳, ${g.items.length}개 콘텐츠`+(sentoCount?` · 센토 ${sentoCount}곳 포함`:'')+' · 눌러 확대하거나 목록 보기');
  }else{el.innerHTML=`<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${markerSVG[kind]||markerSVG.other}</svg>${g.items.length>1?`<span class="pin-count">${g.items.length}</span>`:''}`;
   el.setAttribute('aria-label',g.items.map(i=>i.name).join(' · ')+(g.hasApprox?' · 주소 구역 기준 대략 위치':''));}
- el.onclick=()=>openGroup(g);el.title=g.isCluster?`근처 ${g.siteCount}곳 · 확대하거나 목록에서 선택`:(g.items.map(x=>x.name).join(' / ')+(g.hasApprox?' (대략 위치)':''));
+ el.onclick=()=>openGroup(g);el.title=g.isCluster?`근처 ${g.siteCount}곳${g.items.some(x=>x.sentoId)?' · 센토 포함':''} · 확대하거나 목록에서 선택`:(g.items.map(x=>x.name).join(' / ')+(g.hasApprox?' (대략 위치)':''));
  newMarkers.set(g.key,el);fragment.appendChild(el);}
  pinsEl.replaceChildren(fragment);mapState.markers=newMarkers;mapState.groups=next;applyMapClock();updateGeoLegend();}
 installMapPins=function(){rebuildMapGeoGroups();drawClusterPins(true);requestRender();};

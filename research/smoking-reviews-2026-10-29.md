@@ -51,8 +51,8 @@ GitHub `index.html` 내 **상시 장소 74건 + 센토 22건 + 공연장 22건**
 | P18 | TORIKO TOKYO | 시부야 · 우구이스다니초 | 실내 금연 | C | 기존 정보(작성일만 기록) | 2026년 10월 개업한 점포의 등록 정보에서 전석 금연으로 표시됩니다. 2026년 11월 실제 운영은 별도 확인하세요. | [출처](https://tabelog.com/tokyo/A1303/A130301/13327642/) |
 | P19 | 시부야 OIRAN | 시부야 · 도겐자카 | 전석 흡연 | C | 기존 정보(작성일만 기록) | 타베로그의 해당 점포 목록과 별도 흡연 안내 사이트 모두 전석 흡연 가능으로 표시합니다. 과거 영업시간은 오래되었을 수 있으므로 공식 홈페이지를 우선 확인하세요. | [출처](https://tabelog.com/tokyo/A1303/A130301/13113960/) |
 | P20 | MUSIC BAR BOUNCE | 시부야 · 도겐자카 | 일부 구역 | C | 기존 정보(작성일만 기록) | 두 실내 공간 중 특정 구역에서 흡연할 수 있다는 방문·매장 소개 정보가 있습니다. 좌석과 구역별 규칙이 다릅니다. | [출처](https://z-mile.com/gourmet/music-bar-bounce/) |
-| P21 | ENTER SHIBUYA | 시부야 · 진구마에 | 미확인 | C | 2026-02 방문블로그, 2026-05 Reddit | 실내 흡연 가능 경험·언급 있으나 종이담배 및 정확한 좌석/구역 조건 불명. 흡연 가능 추정과 확정은 구분 | [출처](https://note.com/warazi03/n/n924cf3f49132) · [추가](https://www.reddit.com/r/TokyoTravel/) |
-| P22 | VENT | 아오야마 · 오모테산도 | 일부 구역 | A | 2026-09 Reddit | 메인 댄스플로어 금연, 위층 바/지정 공간 흡연이라는 최근 현장 묘사. 행사별 재확인 | [출처](https://www.reddit.com/search/?q=VENT%20tokyo%20smoking%20September%202026) · [추가](https://www.clubjt.jp/place/spot/pref-13/city-13003/area-17243/) |
+| P21 | ENTER SHIBUYA | 시부야 · 진구마에 | 미확인 | C | 2026-02 방문블로그, 2026-06 Reddit | 실내 흡연 가능 경험·언급 있으나 종이담배 및 정확한 좌석/구역 조건 불명. 흡연 가능 추정과 확정은 구분 | [출처](https://note.com/warazi03/n/n924cf3f49132) · [추가](https://www.reddit.com/r/TokyoTravel/comments/1thjdlb/any_nonsmoking_clubs_in_tokyo/) |
+| P22 | VENT | 아오야마 · 오모테산도 | 일부 구역 | A | 2026-09 Reddit | 메인 댄스플로어 금연, 위층 바/지정 공간 흡연이라는 최근 현장 묘사. 행사별 재확인 | [출처](https://www.reddit.com/r/TheOverload/comments/1wl6po2/vent_in_tokyo/) · [추가](https://www.clubjt.jp/place/spot/pref-13/city-13003/area-17243/) |
 | P23 | WOMB | 시부야 · 마루야마초 | 일부 구역 | C | 기존 정보(작성일만 기록) | 메인 플로어는 금연, 일부 행사에서 별도 흡연구역 운영 사례가 있습니다. 이벤트별로 사용 가능 여부가 달라질 수 있습니다. | [출처](https://note.com/meronpan069/n/n3052d9713a6b) |
 | P24 | ZEROTOKYO | 신주쿠 · 가부키초 | 별도 흡연실 | C | 기존 정보(작성일만 기록) | 실내 공연 플로어는 금연이고, 건물의 지정된 실내 흡연 부스가 있습니다. B1에서 일반·가열식, B4에서는 가열식 전용 안내가 있습니다. | [출처](https://note.cocotame.jp/n/n313bc2ce40dc) |
 | P25 | Circus Tokyo | 시부야 · 3초메 | 일부 구역 | C | 기존 정보(작성일만 기록) | 공개된 공식 시설 안내도의 1층 흡연 구역을 확인했습니다. 공연장 모든 좌석의 흡연 허용을 뜻하지 않습니다. | [출처](https://circus-tokyo.jp/wp-content/uploads/2025/07/CIRCUSTOKYO.pdf) |
@@ -67,7 +67,7 @@ GitHub `index.html` 내 **상시 장소 74건 + 센토 22건 + 공연장 22건**
 | R26_F03 | 시나가와테이 | 니시신주쿠 | 전석 흡연 | C | 기존 정보(작성일만 기록) | 점포 안내 또는 현지 매장 정보에 전석 흡연 가능으로 기재되어 있습니다. 매장 규정은 변경될 수 있습니다. | [출처](https://tabelog.com/tokyo/A1304/A130401/13006909/) |
 | R26_F04 | 오카조키 | 나카노 | 실내 금연 | C | 기존 정보(작성일만 기록) | 점포 안내의 전 좌석 금연 표시를 확인했습니다. 별도 부스·외부 공간이 있을지는 자료에 명시되지 않았습니다. | [출처](https://tabelog.com/tokyo/A1319/A131902/13000216/) |
 | R26_F05 | 직립원인 재즈 킷사 | 가마타 | 미확인 | C | 기존 정보(작성일만 기록) | 이번 조사에서 해당 점포의 실내 흡연 정책을 뒷받침할 만한 명시적인 최신 자료를 확보하지 못했습니다. 금연이라고 단정할 수 없습니다. | [출처](https://tabelog.com/tokyo/A1315/A131503/13089388/) |
-| R26_F06 | 시부야 Tangle | 시부야 도겐자카 | 별도 흡연실 | B | 2025-12-12 현지 인터뷰/사진 | DEEPTOKYO가 매장 안쪽의 1인용 분리 흡연실을 사진과 함께 소개. 2026년 별도 변경 여부 확인 필요 | [출처](https://deeptokyo.jp/spot/nightlife/7847/) |
+| R26_F06 | 시부야 Tangle | 시부야 도겐자카 | 별도 흡연실 | B | 2025-12-12 취재, 2026-10-17 시설목록 갱신 | DEEPTOKYO가 매장 안쪽 1인용 분리 흡연실을 사진과 함께 소개. 2026-10-17 갱신된 별도 지역 가이드도 격리 흡연실 유지 표기 | [취재](https://deeptokyo.jp/spot/nightlife/7847/) · [2026-10 목록](https://www.corner.inc/place/p53H6JzydSfW) |
 | R26_F07 | 사카바 아키야 | 코엔지 | 실내 금연 | C | 기존 정보(작성일만 기록) | 객석 금연. 외부 흡연 공간 안내가 있어 실내 흡연으로 계산하지 않았습니다. | [출처](https://tabelog.com/tokyo/A1319/A131904/13114181/) |
 | R26_F08 | 츠카다 수산/서서 먹는 오뎅 츠카다 | 키치죠지 | 실내 금연 | C | 기존 정보(작성일만 기록) | 점포 안내의 전 좌석 금연 표시를 확인했습니다. 별도 부스·외부 공간이 있을지는 자료에 명시되지 않았습니다. | [출처](https://tabelog.com/tokyo/A1320/A132001/13238546/) |
 | R26_F09 | 친친켄 | 우에노 | 전석 흡연 | C | 기존 정보(작성일만 기록) | 타베로그에는 전석 흡연 가능으로 표시되지만 야외 테이블이 포함된 노포 중화식당입니다. 실내석과 외부석의 구분을 현장에서 확인하세요. | [출처](https://tabelog.com/tokyo/A1311/A131101/13008530/) |
@@ -94,7 +94,7 @@ GitHub `index.html` 내 **상시 장소 74건 + 센토 22건 + 공연장 22건**
 | R26_B01 | 재즈 인 엉클 톰 | 산겐자야 | 전석 흡연 | C | 기존 정보(작성일만 기록) | 점포 안내 또는 현지 매장 정보에 전석 흡연 가능으로 기재되어 있습니다. 매장 규정은 변경될 수 있습니다. | [출처](https://jazzinnuncletom.wixsite.com/mysite) |
 | R26_B02 | 스핀코스터 뮤직 바 신주쿠(요요기) | 요요기/미나미신주쿠 | 실내 금연 | C | 기존 정보(작성일만 기록) | 공식 FAQ: 매장 내부 금연, 외부에서 흡연 가능. 실내 좌석의 흡연을 허용하지 않습니다. | [출처](https://bar.spincoaster.com/faq) |
 | R26_B03 | 리틀 소울 카페 | 시모키타자와 | 전석 흡연 | C | 기존 정보(작성일만 기록) | 점포 안내 또는 현지 매장 정보에 전석 흡연 가능으로 기재되어 있습니다. 매장 규정은 변경될 수 있습니다. | [출처](https://tabelog.com/tokyo/A1318/A131802/13104598/) |
-| R26_B04 | 그랜드파더스 | 시부야 | 전석 흡연 | A | 2026-08 타베로그 방문 | 2026년 8월 방문자가 매장 내 흡연 직접 확인. 2024년 재떨이 언급도 존재 | [출처](https://map.yahoo.co.jp/v3/place/ML7hAuWkxcI/review/CFWrRemPSmy9Krdl17eJKQ) |
+| R26_B04 | 그랜드파더스 | 시부야 | 전석 흡연 | A | 2026-08-30 방문, 2026-10-24 지역안내 갱신 | 2026년 8월 방문자가 매장 내 흡연 직접 확인. 2024년 재떨이 언급도 존재 | [2026-08 후기](https://map.yahoo.co.jp/v3/place/ML7hAuWkxcI/review/CFWrRemPSmy9Krdl17eJKQ) · [2026-10 목록](https://www.corner.inc/place/pyKzH2Qbt4jF) |
 | R26_B05 | 비와이지 | 시부야 도겐자카 | 상충 | A | 2026-05-09 방문 | 흡연 가능 자체는 2026-05 방문 후기로 확인. 그러나 전석(타베로그)과 분연(핫페퍼)이 상충하므로 좌석 범위 미확정 | [출처](https://tabelog.com/tokyo/A1303/A130301/13007260/) · [추가](https://map.yahoo.co.jp/v3/place/cbRcZb3SHyw/review/qMqENAF1QuKV4v8Pzc2o-Q) |
 | R26_B06 | 스튜디오 뮬 | 시부야 카미야마초 | 실내 금연 | B | 2026-04-25까지 최신 후기 등록 | Retty 점포 데이터는 전석 금연. 최신 리뷰의 날짜가 곧 금연 정책 검증일은 아님; 독립 방문후기 증언 부족 | [출처](https://retty.me/area/PRE13/ARE664/SUB111/100001563497/reports/) · [추가](https://tabelog.com/tokyo/A1303/A130301/13301684/) |
 | R26_B08 | 가라지빌 | 조후 쓰쓰지가오카 | 실내 금연 | C | 기존 정보(작성일만 기록) | 조후시 지역 점포 안내에는 종일 금연으로 표기되어 있습니다. 음반 매장과 맥주 바를 겸하는 공간입니다. | [출처](https://chofu.com/garageville) |
@@ -113,7 +113,7 @@ GitHub `index.html` 내 **상시 장소 74건 + 센토 22건 + 공연장 22건**
 | ID | 시설 | 권역 | 판정 | 근거등급 | 검토 내용 | 출처 |
 |:--|:--|:--|:--|:--:|:--|:--|
 | kosugiyu_harajuku | 小杉湯原宿 | 시부야·하라주쿠·오모테산도 | 미확인 | D | 시설별 흡연 장소·정책을 검증할 명시적 최신 자료 미확보. | [시설정보](https://kosugiyu-harajuku.jp/) |
-| kairyoyu | 改良湯 | 시부야·하라주쿠·오모테산도 | 실내 금연 | B | 점포 내 흡연은 이용 제한 사유로 공식 공지 | [링크](https://kairyou-yu.com/) |
+| kairyoyu | 改良湯 | 시부야·하라주쿠·오모테산도 | 실내 금연 | B | 점포 내 흡연은 이용 제한 사유로 공식 공지 | [링크](https://kairyou-yu.com/about/) |
 | minamiaoyama_shimizuyu | 南青山 清水湯 | 시부야·하라주쿠·오모테산도 | 미확인 | D | 시설별 흡연 장소·정책을 검증할 명시적 최신 자료 미확보. | — |
 | kannonyu | 観音湯 | 시부야·하라주쿠·오모테산도 | 미확인 | D | 시설별 흡연 장소·정책을 검증할 명시적 최신 자료 미확보. | — |
 | koganeyu_shinjuku | 黄金湯 新宿 | 신주쿠·하쓰다이 | 미확인 | D | 시설별 흡연 장소·정책을 검증할 명시적 최신 자료 미확보. | [시설정보](https://koganeyu.com/) |
@@ -145,7 +145,7 @@ GitHub `index.html` 내 **상시 장소 74건 + 센토 22건 + 공연장 22건**
 | womb | WOMB | 시부야 마루야마초 | 일부 구역 | C | 기존 정보(작성일만 기록) | 메인 플로어는 금연, 일부 행사에서 별도 흡연구역 운영 사례가 있습니다. 이벤트별로 사용 가능 여부가 달라질 수 있습니다. | [출처](https://housemusiclovers.net/non-smorking-venue/) |
 | r_lounge | R Lounge | 시부야 우다가와초 | 일부 구역 | C | 2026-10-17 행사 안내 | 7층 행사 안내의 화장실 옆 흡연 코너 확인. 모든 층·행사 동일 정책이라고 단정 불가 | [출처](https://twipla.jp/) |
 | midnight | MIDNIGHT EAST | 시부야 도겐자카 | 일부 구역 | C | 2026-06~09 행사/매체 안내 | Spotify O-EAST 지정 흡연구역 및 AZUMAYA 테라스 흡연 사례. MIDNIGHT EAST 전체 공통 상시 조건은 불명 | [출처](https://shibuya-o.com/east/) · [추가](https://tabelog.com/) |
-| vent | VENT | 미나미아오야마 | 일부 구역 | A | 2026-09 Reddit 현장언급 | 메인 플로어 금연, 위층 바/구획 흡연으로 실방문후기와 기존 시설정보 부합 | [출처](https://www.clubjt.jp/place/spot/pref-13/city-13003/area-17243/) |
+| vent | VENT | 미나미아오야마 | 일부 구역 | A | 2026-09 Reddit 현장언급 | 메인 플로어 금연, 위층 바/구획 흡연으로 실방문후기와 기존 시설정보 부합 | [출처](https://www.reddit.com/r/TheOverload/comments/1wl6po2/vent_in_tokyo/) |
 | forestlimit | Forestlimit | 하타가야 | 미확인 | C | 기존 정보(작성일만 기록) | 공연장별 공식·최신 실내 흡연 안내를 충분히 확보하지 못했습니다. 행사 당일 정책을 확인하세요. | — |
 | clubasia | clubasia | 시부야 마루야마초 | 미확인 | D | 과거 행사 2024 | 과거 행사에서 흡연실 있었다는 자료만 있어 2026년 정책 미확정 | — |
 | circus | Circus Tokyo | 시부야 3초메 | 일부 구역 | C | 기존 정보(작성일만 기록) | 공개된 공식 시설 안내도의 1층 흡연 구역을 확인했습니다. 공연장 모든 좌석의 흡연 허용을 뜻하지 않습니다. | [출처](https://circus-tokyo.jp/wp-content/uploads/2025/07/CIRCUSTOKYO.pdf) |

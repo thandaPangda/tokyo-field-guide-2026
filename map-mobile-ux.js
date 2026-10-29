@@ -151,13 +151,15 @@
   handle.addEventListener('pointerdown', function (event) {
     if (!isMobile() || (event.pointerType === 'mouse' && event.button !== 0)) return;
     gesture = { id: event.pointerId, y: event.clientY, moved: false };
-    try { handle.setPointerCapture(event.pointerId); } catch (error) {}
+    swallowClick = false;
   });
-  handle.addEventListener('pointermove', function (event) {
+  // Window listeners preserve native button clicks; capturing the parent
+  // on pointerdown would retarget taps away from the actual toggle button.
+  window.addEventListener('pointermove', function (event) {
     if (!gesture || gesture.id !== event.pointerId) return;
     if (Math.abs(event.clientY - gesture.y) > 12) gesture.moved = true;
   });
-  handle.addEventListener('pointerup', function (event) {
+  window.addEventListener('pointerup', function (event) {
     if (!gesture || gesture.id !== event.pointerId) return;
     var delta = event.clientY - gesture.y;
     if (Math.abs(delta) >= 32) {
@@ -167,7 +169,7 @@
     }
     gesture = null;
   });
-  handle.addEventListener('pointercancel', function () { gesture = null; });
+  window.addEventListener('pointercancel', function () { gesture = null; });
   handle.addEventListener('click', function (event) {
     if (!swallowClick) return;
     event.preventDefault();

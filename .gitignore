@@ -1,0 +1,74 @@
+# TOKYO FIELD GUIDE 2026 — prevent accidental local-only uploads.
+# .gitignore is a safety net, not a secret scanner. Never force-add credentials.
+
+# Local secrets and environment configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+*.local.env
+*.secret
+*.secrets
+secrets/
+.private/
+private/
+
+# Key pairs, signing certificates and common credential stores
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.asc
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.kdbx
+credentials.json
+credentials.*.json
+service-account*.json
+service_account*.json
+*serviceAccountKey*.json
+
+# Cloud and IaC local credentials/state
+.aws/
+.gcp/
+.azure/
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+terraform.tfvars.json
+
+# Editor, operating system and temporary files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+*.bak
+*.log
+
+# Dependency directories, caches and build output
+node_modules/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+.cache/
+dist/
+build/
+coverage/
+.nyc_output/
+.next/

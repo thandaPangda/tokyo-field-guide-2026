@@ -788,7 +788,9 @@ body.app-ready #sento-static{display:none!important}#sento-static{max-width:1050
 .smoking-detail-box a{color:#325f51;text-decoration:underline;font-size:11px}
 .smoking-detail-source{display:block;margin-top:6px;font-size:10px;color:#708078}
 @media(max-width:390px){.smoking-facet-buttons button{padding:7px 9px;font-size:10px}.smoking-filter-head span{font-size:10px}}
-</style></head>
+</style><!-- Mobile map-first UX: branch-only enhancement -->
+<link rel="stylesheet" href="./map-mobile-ux.css"/>
+</head>
 <body>
 <header class="site-header"><div class="topline"><div class="brand"><div class="brand-mark">TFG</div><div><div class="brand-title">TOKYO<span class="brand-divider"></span><span class="brand-secondary">FIELD GUIDE</span></div><div class="brand-sub">11—15 NOV 2026   ·   THREE PEOPLE, ONE CITY</div></div></div><nav aria-label="주요 메뉴" class="topnav"><a class="navbtn" href="#offline-events" id="navDiscover">탐색</a><a class="navbtn" href="#offline-map" id="navMap">지도</a><a class="navbtn" href="#offline-events" id="navExplore">전체 검색</a><a class="navbtn" href="#saved" id="navSaved">찜 <span class="saved-nav-count" id="savedCountMini">0</span></a><a aria-hidden="true" class="navbtn nav-hidden" href="#offline-art" id="navArt" tabindex="-1">현대미술</a></nav></div></header>
 <main>
@@ -1788,4 +1790,6 @@ window.__TOKYO_GEO_QA__={geoLookupCandidates,geoCache,geoProgress,clusterPoints,
 
 initSaved();initExplorer();initBrowse();initGlobal();initMapBrowse();setupSize();renderMapTab();showRoute(location.hash.replace(/^#/,'')||'discover');
 document.body.classList.add('app-ready');
-window.__TOKYO_TEST__={mapState,mapFilters,mapClock,zoomAt,panBy,position,renderExplorer,navigate,lookup:LOOKUP,renderMapTab,applyMapClock,openingState};</script></body></html>
+window.__TOKYO_TEST__={mapState,mapFilters,mapClock,zoomAt,panBy,position,renderExplorer,navigate,lookup:LOOKUP,renderMapTab,applyMapClock,openingState};</script><!-- Mobile map-first UX: runs after the original map implementation -->
+<script src="./map-mobile-ux.js"></script>
+</body></html>

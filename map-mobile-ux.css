@@ -334,3 +334,33 @@
 @media (prefers-reduced-motion: reduce) {
   #view-map .map-aside { transition: none !important; }
 }
+
+
+/*
+ * Sento markers: the normal bath icon is already provided by markerSVG.sento.
+ * A mixed-location cluster receives a small bathhouse badge, so sentos
+ * remain discoverable without sacrificing the existing cluster count.
+ */
+#view-map .pin.pin-symbol.pin-cluster-sento {
+  overflow: visible;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-sento-indicator {
+  position: absolute;
+  right: -8px;
+  bottom: -7px;
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  background: #367c93;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 7px rgba(27, 62, 74, .25);
+  pointer-events: none;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-sento-indicator svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+}

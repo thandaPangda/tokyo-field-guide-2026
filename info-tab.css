@@ -151,3 +151,93 @@
  .info-tax-options .info-filter{min-width:130px}
 }
 @media(prefers-reduced-motion:reduce){.info-tax-meter>span{transition:none}}
+
+
+/* Community-backed Pokemon buying guidance · scoped to information page. */
+#view-info .info-buy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+#view-info .info-buy-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #dee8de;
+  border-radius: 13px;
+  padding: 16px 15px;
+  min-width: 0;
+}
+#view-info .info-buy-index {
+  font-size: 10px;
+  color: #62846a;
+  font-weight: 760;
+  letter-spacing: .04em;
+}
+#view-info .info-buy-card h3 {
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -.025em;
+  margin: 0;
+  color: #314d39;
+}
+#view-info .info-buy-card p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #607263;
+  margin: 0;
+  flex: 1 1 auto;
+}
+#view-info .info-source-chip {
+  font-size: 10px;
+  font-weight: 670;
+  color: #516b57;
+  padding: 5px 7px;
+  border: 1px solid #dce7dc;
+  background: #f3f7f2;
+  border-radius: 7px;
+  align-self: flex-start;
+}
+#view-info .info-community-list {
+  display: grid;
+  gap: 8px;
+}
+#view-info .info-community-list article {
+  background: #fff;
+  border: 1px solid #e2e8de;
+  border-radius: 11px;
+  padding: 13px 16px;
+}
+#view-info .info-community-list strong {
+  font-size: 13px;
+  color: #3e5a44;
+  line-height: 1.55;
+}
+#view-info .info-community-list p {
+  color: #647367;
+  font-size: 12px;
+  line-height: 1.78;
+  margin: 7px 0 0;
+}
+#view-info .info-goal-note {
+  flex-basis: 100%;
+  border-left: 3px solid #a9c3ac;
+  padding: 4px 9px;
+  margin: 0 0 4px;
+  color: #52705a !important;
+}
+#view-info .info-faq summary:focus-visible,
+#view-info .info-store-actions a:focus-visible {
+  outline: 3px solid #d9ac61;
+  outline-offset: 3px;
+}
+@media(max-width:840px) {
+  #view-info .info-buy-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  #view-info .info-buy-card {
+    padding: 14px;
+  }
+}

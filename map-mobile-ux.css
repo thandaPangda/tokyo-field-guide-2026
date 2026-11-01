@@ -335,32 +335,173 @@
   #view-map .map-aside { transition: none !important; }
 }
 
-
 /*
- * Sento markers: the normal bath icon is already provided by markerSVG.sento.
- * A mixed-location cluster receives a small bathhouse badge, so sentos
- * remain discoverable without sacrificing the existing cluster count.
+ * Category-aware cluster marker v2.
+ * Keep glyphs within the collision box; no floating badges are attached.
+ * Fix the previous --pb/--pc conflict, which produced white-on-white baths.
  */
-#view-map .pin.pin-symbol.pin-cluster-sento {
+#view-map .pin.pin-symbol.pin-sento {
+  --pb: #367c93;
+  --pc: #ffffff;
+  background: var(--pb) !important;
+  color: var(--pc) !important;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 12px rgba(23, 74, 89, .32);
+}
+#view-map .pin.pin-symbol.pin-sento svg {
+  stroke: currentColor;
+  stroke-width: 2;
+}
+#view-map .pin.pin-symbol.pin-sento.clock-closed {
+  opacity: .52;
+  filter: grayscale(.55);
+}
+#view-map .pin.pin-symbol.pin-sento.clock-unknown {
+  opacity: .76;
+}
+#view-map .pin.pin-symbol.pin-cluster {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 16px 16px 16px 5px;
+  padding: 6px 4px 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  justify-content: center;
+  align-items: center;
   overflow: visible;
 }
-#view-map .pin.pin-symbol.pin-cluster .cluster-sento-indicator {
+#view-map .pin.pin-symbol.pin-cluster .cluster-folder-cue {
   position: absolute;
-  right: -8px;
-  bottom: -7px;
-  width: 21px;
-  height: 21px;
-  display: grid;
-  place-items: center;
-  background: #367c93;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 7px rgba(27, 62, 74, .25);
+  top: 4px;
+  left: 4px;
+  width: 11px;
+  height: 11px;
+  opacity: .43;
+  pointer-events: none;
+  line-height: 0;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-folder-cue svg {
+  width: 11px;
+  height: 11px;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-types {
+  display: inline-flex;
+  width: 100%;
+  height: 20px;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
   pointer-events: none;
 }
-#view-map .pin.pin-symbol.pin-cluster .cluster-sento-indicator svg {
+#view-map .pin.pin-symbol.pin-cluster .cluster-types svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  opacity: 1;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-number {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+#view-map .pin.pin-symbol.pin-cluster.clock-closed {
+  opacity: .48;
+}
+#view-map .pin.pin-symbol.pin-cluster.clock-unknown {
+  opacity: .72;
+}
+#view-map .pin.pin-symbol.pin-cluster:focus-visible {
+  outline: 3px solid #e5b75c;
+  outline-offset: 3px;
+}
+#view-map .map-category-summary {
+  border-radius: 10px;
+  background: #f1f5f0;
+  padding: 10px 11px;
+  margin: 8px 0;
+}
+#view-map .map-category-title {
+  display: block;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #5b6e60;
+  margin-bottom: 8px;
+}
+#view-map .map-category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+#view-map .map-category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #ffffff;
+  color: #375745;
+  border: 1px solid #dce6dc;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 690;
+  line-height: 1.35;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+#view-map .map-category-chip svg {
   width: 13px;
   height: 13px;
-  stroke: currentColor;
+  stroke-width: 2;
+  flex: 0 0 13px;
+}
+#view-map .map-mobile-categories {
+  display: none;
+}
+@media (max-width: 800px) {
+  #view-map .map-mobile-categories {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+  #view-map .map-mobile-category-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    border: 1px solid #dae6dc;
+    background: #f0f5f0;
+    color: #375745;
+    font-weight: 720;
+    font-size: 10px;
+    line-height: 1.5;
+    padding: 6px 8px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  #view-map .map-mobile-category-chip svg {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    stroke: currentColor;
+  }
+  #view-map .map-mobile-card .map-mobile-actions {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #view-map .pin.pin-symbol {
+    transition: none;
+  }
 }

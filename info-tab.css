@@ -241,3 +241,31 @@
     padding: 14px;
   }
 }
+
+/* TOKYO SCOUT 2026.11.02 · resilient mobile information layout */
+#view-info .info-resale-page .info-section{scroll-margin-top:110px}
+#view-info .info-resale-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+#view-info .info-resale-heading a{font-size:12px;color:#95512d;font-weight:750;text-decoration:underline}
+#view-info .info-resale-search{width:min(100%,540px);min-height:42px;border:1px solid #d8e3d7;background:white;color:#24372a;border-radius:9px;padding:9px 12px;font-size:13px}
+#view-info .info-resale-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#view-info .info-resale-product{background:white;padding:16px;border:1px solid #e2e5dc;border-radius:13px;min-width:0;display:flex;flex-direction:column;gap:7px}
+#view-info .info-resale-product h3{font-size:14px;line-height:1.5;margin:0;word-break:keep-all}
+#view-info .info-resale-product p{font-size:12px;color:#5b6d61;line-height:1.75;margin:0}
+#view-info .info-resale-product .info-resale-model{font-size:11px;color:#748075}
+#view-info .info-resale-product .info-resale-risk{background:#faf5ec;color:#7b6348;padding:8px 10px;border-radius:8px;flex:1}
+#view-info .info-resale-product .info-store-actions{align-items:center}
+#view-info .info-resale-action{font-size:10px;font-weight:780;align-self:flex-start;background:#f2ede7;color:#855637;padding:5px 8px;border-radius:7px}
+#view-info .info-resale-calc{padding:18px;border:1px solid #d8e2d4;border-radius:15px;background:#fff}
+#view-info .info-resale-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:13px 0}
+#view-info .info-resale-inputs label{font-size:11px;color:#647368;display:grid;gap:5px;font-weight:700}
+#view-info .info-resale-inputs input{width:100%;min-width:0;border:1px solid #d9e2da;border-radius:8px;padding:10px;color:#31483a;font-size:13px}
+#view-info .info-resale-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:17px}
+#view-info .info-resale-results>div{border-radius:11px;background:#f0f5ee;padding:15px;display:grid;gap:9px}
+#view-info .info-resale-results small{font-size:11px;color:#63746a}
+#view-info .info-resale-results strong{font-size:17px;color:#355443;overflow-wrap:anywhere}
+@media(max-width:800px){
+  #view-info .info-resale-products{grid-template-columns:1fr}
+  #view-info .info-resale-inputs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #view-info .info-resale-results{grid-template-columns:1fr}
+  #view-info .info-resale-calc{padding:14px}
+}

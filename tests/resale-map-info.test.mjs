@@ -43,6 +43,7 @@ test('map uses distinct resale icon, cluster classification and address-only geo
  assert.match(html,/lat:null,lon:null,coordinate_status/);
  assert.match(html,/const GEO_CONFIG=\{endpoint:'https:\/\/msearch\.gsi\.go\.jp\/address-search/);
  assert.match(html,/geocodeStatus='address-approx'/);
+ assert.match(html,/STORE_HOURS\.RS_R07=\{weekday:\[12,20\],weekend:\[12,20\],wednesday:null/);
  assert.match(mapCss,/#view-map \.pin\.pin-symbol\.pin-resale/);
 });
 test('preserves original embedded trip data and their IDs',()=>{

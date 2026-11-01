@@ -1789,6 +1789,7 @@ for(const p of PLACES.filter(x=>x.sentoId)){
  p.smoking={status:'unknown',label:'흡연 미확인',note:'욕장 내 실내 흡연 여부를 시설별 공식 안내에서 독립적으로 확인하지 못했습니다. 일반적인 금연 원칙을 해당 시설의 확정 정보로 대체하지 않았습니다.',evidenceUrl:'',basis:'시설별 공지 미확보',researchedAt:'2026-10-29',currentSiteConfirmation:false};
  p.tags=[...(p.tags||[]),'흡연 미확인'];
 }
+STORE_HOURS.RS_R07={weekday:[12,20],weekend:[12,20],wednesday:null,source:'https://www.kind.co.jp/koenji/',status:'published',reason:'KINDAL 코엔지 공식 수요일 정기휴무; 2026-11-11(수)에는 방문 후보에서 제외'};
 STORE_HOURS.SMK_KAMIYA_SHINJUKU={weekday:[17,24],weekend:[17,24],wednesday:[17,24],thursday:[17,24],friday:[17,24],saturday:[17,24],sunday:null,source:'https://tabelog.com/tokyo/A1304/A130401/13010856/',status:'listed',reason:'일요일·공휴일 휴무 관련 점포 정보. 휴일과 특별 영업 여부 재확인 필요.'};
 window.__TOKYO_SMOKING_AUDIT__={statusDefinitions:SMOKING_FACETS,places:PLACES,venues:VENUES,matching:auditedSmoking,filter:()=>[...browseState.smoking],count:{places:PLACES.length,events:EVENTS.length,arts:ARTS.length,venues:Object.keys(VENUES).length}};
 

@@ -22,6 +22,10 @@
 - 직접 진입 경로: `#info`, `#info/pokemon`, `#info/taxfree`. 정보 탭은 여행 일정 자체를 자동으로 변경하지 않습니다.
 - `info-tab.js`, `info-tab.css`는 정보 화면을 담당하며, 스크립트 실행이 불가능할 때는 축약된 기본 안내를 표시합니다.
 
+## 검증
+
+- Node.js가 있다면 `node --test tests/info-tab.smoke.test.mjs`로 정보 탭의 모의 DOM 회귀 검사를 실행할 수 있습니다. 실제 모바일 브라우저 조작은 별도 확인이 필요합니다.
+
 ## 버전별 패치 노트 및 검증 이력
 
 - [CHANGELOG.md](CHANGELOG.md): 처음 게시한 v1.0.0과 미출시 변경안을 구분한 버전별 패치 노트. 이후 모든 수정 사항은 이 파일에 누적 기록합니다.

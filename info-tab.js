@@ -92,21 +92,49 @@
       [['pack','정가 팩·공식 상품'],['single','싱글·중고 카드'],['vintage','구형 팩·오리파 탐색']].map(o=>'<button type="button" class="info-filter" data-info-goal="'+o[0]+'" aria-pressed="'+(state.goal===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">지역 선택</span><div class="info-choices" role="group" aria-label="지역 필터">'+regions.map(o=>'<button type="button" class="info-filter" data-info-region="'+o[0]+'" aria-pressed="'+(state.region===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">판매처 구분</span><div class="info-choices" role="group" aria-label="판매처 유형 필터">'+kinds.map(o=>'<button type="button" class="info-filter" data-info-kind="'+o[0]+'" aria-pressed="'+(state.kind===o[0])+'">'+o[1]+'</button>').join('')+'</div></div>'+
-      '<p class="info-results" aria-live="polite">조건에 맞는 확인 후보 '+filtered.length+'곳 · 카드 재고/편의점 취급 여부를 확인한 결과가 아닙니다.</p>'+
+      '<p class="info-note info-goal-note">'+(state.goal==='pack'?'정가 팩은 공식 매장·취급 편의점을 참고하세요. 원하는 팩의 재고·수량 제한은 매장·상품마다 달라집니다.':state.goal==='single'?'싱글은 전문점에서 같은 카드의 버전·상태·가격을 비교하세요.':'구형 팩·오리파는 취급 여부가 불확실합니다. 아래 전문점은 탐색 후보이며 해당 상품 판매를 확인한 목록이 아닙니다.')+'</p>'+      '<p class="info-results" aria-live="polite">조건에 맞는 확인 후보 '+filtered.length+'곳 · 카드 재고/편의점 취급 여부를 확인한 결과가 아닙니다.</p>'+
       '<div class="info-list">'+(filtered.length?filtered.map(storeCard).join(''):'<p class="info-empty">선택한 조건의 점포 데이터가 없습니다. 지역이나 판매처 유형을 바꿔보세요.</p>')+'</div>';
+  }
+
+
+  function pokemonCommunityGuide() {
+    return '<section class="info-section" id="info-buying-decisions"><h2>구매 목적별로 달라지는 탐색 방법</h2>'+
+      '<div class="info-buy-grid">'+
+      '<article class="info-buy-card"><span class="info-buy-index">01 · 새 팩</span><h3>정가 낱개팩</h3><p>포켓몬센터·취급 편의점을 관광 중 확인합니다. 현재 재고와 구매 제한은 상품·매장·당일 상황에 따라 달라집니다.</p><span class="info-source-chip">공식 정책 + 방문 경험</span></article>'+
+      '<article class="info-buy-card"><span class="info-buy-index">02 · 목표 카드</span><h3>싱글·구형 카드</h3><p>아키하바라·이케부쿠로·나카노의 전문점에서 특정 카드의 세트 번호·상태·가격을 비교합니다. 예전 카드가 목적이라면 포켓몬센터보다 이쪽이 적합합니다.</p><span class="info-source-chip">매장 공식 취급 + 방문 경험</span></article>'+
+      '<article class="info-buy-card"><span class="info-buy-index">03 · 오래된 상품</span><h3>빈티지 팩·박스·오리파</h3><p>중고 전문점에서 재고와 상태를 직접 확인합니다. 오리파/미스터리 큐브는 점포 자체 구성의 랜덤 상품으로, 옛날 공식 팩이나 밀봉 박스와는 다릅니다.</p><span class="info-source-chip">방문 경험 · 특정 상품 미확인</span></article>'+
+      '</div>'+
+      '<div class="info-notice info-warning"><strong>포켓몬센터는 오래된 팩 전문점이 아닙니다</strong>Reddit 이용자들은 현행 확장팩은 포켓몬센터를, 오래된 카드·팩은 전문점과 중고점을 구분해 찾는 편이라고 설명했습니다. 다만 특정 빈티지 팩이나 미스터리 큐브의 취급 여부는 확인되지 않았습니다.</div></section>'+
+      '<section class="info-section" id="info-community"><h2>여행자 후기를 실제 구매 판단에 적용하기</h2>'+
+      '<p>제공된 두 Reddit 토론에는 정반대 경험이 함께 있습니다. 어떤 여행자는 여러 포켓몬센터에서 팩을 구매했지만, 다른 여행자는 같은 지역의 여러 점포를 방문해도 모두 품절이었다고 보고했습니다. 방문 시각·상품명·재입고 시점의 차이가 크므로 후기의 성공 사례를 구매 보장으로 해석하지 않습니다.</p>'+
+      '<div class="info-community-list">'+
+      '<article><strong>수량 제한: 2·5·10·20팩 등 서로 다른 경험</strong><p>후기 속 제한은 사람당, 상품(확장팩)당, 해당 날짜의 판매 조건에 따라 달랐습니다. 일부는 박스 구매가 어려웠다고 했고, 다른 이용자는 복수 세트를 구매했다고 했습니다. 포켓몬센터 공식 FAQ도 상품에 따라 구매 제한이 다를 수 있다고 안내합니다.</p></article>'+
+      '<article><strong>개점 직후가 품절을 피하는 확정 방법은 아님</strong><p>오전 개점 시 품절이었다가 오후에 재입고됐다는 후기와, 여러 날 전혀 재고를 찾지 못했다는 후기가 동시에 존재합니다. 개점 직후 방문은 편의상 선택할 수 있지만 공식 입고 시간은 아닙니다.</p></article>'+
+      '<article><strong>7-Eleven·돈키호테·BOOKOFF의 차이</strong><p>7-Eleven 계산대 부근에서 소량 팩을 구매했다는 이용자가 있지만 전체 점포가 취급하는 것은 아닙니다. 돈키호테도 지점별 차이가 있고, BOOKOFF는 공식적으로 포켓몬 카드를 취급하되 지점마다 상품이 다르며 재고 검색을 제공하지 않습니다.</p></article>'+
+      '<article><strong>박스의 슈링크(비닐) 포장 확인</strong><p>일부 포켓몬센터에서 박스를 판매하며 외부 수축 포장을 제거했다는 후기가 있습니다. 모든 매장의 공통 정책으로 검증되지는 않았습니다. 밀봉 수집 목적이라면 박스가 슈링크 포함인지, 슈링크 제거·박스 개봉 여부를 결제 전에 확인해야 합니다.</p></article>'+
+      '<article><strong>지역별 ‘무조건 더 싸다’는 결론은 피하기</strong><p>도쿄, 오사카, 나고야, 지방 점포 중 어디가 싸다는 주장은 후기마다 충돌합니다. 아키하바라·이케부쿠로와 오사카 니혼바시는 전문점 밀집 지역이어서 여러 매장을 비교하기 편하다는 의미이지 최저가 보장은 아닙니다.</p></article>'+
+      '</div><p class="info-note">근거 수준: 개인 경험담(사용자 제공 Reddit 대화 두 건). 게시물에 표시된 “9개월 전/6개월 전”은 조사자가 실제 방문일을 확인한 날짜가 아닙니다. 특정 가격·팩 수·재고는 2026년 11월 현재의 현장 정보로 사용하지 않았습니다.</p></section>'+
+      '<section class="info-section" id="info-specialist"><h2>전문점에서 실수하지 않는 구매 요령</h2>'+
+      '<div class="info-faq">'+
+      '<details open><summary>하레루야, 하레루야2, 하레루야3는 같은 곳인가요?</summary><p>같은 계열이지만 취급 카드가 다릅니다. 일반 하레루야는 매직: 더 개더링(MTG), <strong>하레루야2는 포켓몬 카드</strong>, 하레루야3는 듀얼마스터즈 전문점입니다. 포켓몬 카드가 목적이면 하레루야2를 확인하세요. '+external(sources.hareruyaList,'공식 매장 구분')+'</p></details>'+
+      '<details><summary>오리파(オリパ)·미스터리 큐브가 오래된 공식 팩인가요?</summary><p>아닙니다. 오리파는 점포 또는 판매자가 자체 구성하는 랜덤 상품입니다. 오래된 공식 미개봉 팩과 혼동하지 말고, 판매 조건·구성·확률 표시·반품 제한을 먼저 확인하세요. Reddit의 만다라케 미스터리 큐브와 스루가야 오리파 구매 경험은 현재 취급을 보증하지 않습니다.</p></details>'+
+      '<details><summary>싱글 카드는 무엇을 비교하나요?</summary><p>같은 포켓몬이어도 카드 번호·발매 세트·언어·등급·표면 흠집에 따라 상품과 가격이 다릅니다. 쇼케이스 가격을 비교하고, 가능하면 실물 상태 확인을 요청하세요. 희귀 카드의 가격이 저렴하다는 후기만으로 진품·상태를 보장하지 않습니다.</p></details>'+
+      '<details><summary>오래된 팩 또는 수축 포장 박스를 살 때는?</summary><p>원래 포장된 공식 팩인지, 박스 외부 슈링크가 보존됐는지, “シュリンクなし(슈링크 없음)” 조건인지 구분하세요. 실물 판매 정책은 점포별로 다르며, SNKRDUNK 거래 가이드에서도 슈링크 포함/미포함 상품을 서로 다른 상태로 처리합니다. '+external(sources.snkrDunk,'밀봉 상태 비교 기준')+'</p></details>'+
+      '<details><summary>해외 관광객도 일본 매장에 카드를 팔 수 있나요?</summary><p>매입에는 매장의 신원 확인·법령상 서류 요건이 적용될 수 있습니다. Reddit에서 관광객의 매입 제한 가능성이 언급됐으나, 모든 점포가 동일하게 운영한다는 근거는 없습니다. 구매와 매입은 다른 절차이므로 카드 판매를 계획한다면 해당 점포의 공식 기준을 먼저 확인하세요.</p></details>'+
+      '</div></section>';
   }
 
   function pokemon() {
     return '<div class="info-wrap">'+crumb('포켓몬 카드')+
       header('SHOPPING · POKÉMON TCG','도쿄에서 포켓몬 카드 구매하기','정가 팩을 찾는 경우와 싱글 카드를 구매하는 경우는 적합한 매장이 다릅니다. 카드 판매가 확인되지 않은 편의점은 구매 확정 장소로 안내하지 않습니다.')+
       '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
-      toc([['info-where','판매처 비교'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
+      toc([['info-where','판매처 비교'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
       '<section class="info-section" id="info-where"><h2>어디서 살까?</h2>'+
       '<table class="info-table"><thead><tr><th>판매처</th><th>적합한 목적</th><th>확인할 조건</th></tr></thead><tbody>'+
       '<tr><td>포켓몬센터</td><td>공식 정가 상품, 관련 굿즈</td><td>점포 영업시간, 상품별 재고·구매 제한</td></tr>'+
       '<tr><td>편의점</td><td>이동 중 낱개 팩 구매 시도</td><td>점포의 카드 취급 여부 자체가 미확인일 수 있음</td></tr>'+
       '<tr><td>카드 전문점</td><td>싱글·중고·구형 카드, 가격 비교</td><td>프리미엄 가격/매입·판매 조건 확인</td></tr>'+'<tr><td>포켓몬 카드 스탠드</td><td>이동 중 공식 카드 자판기 확인</td><td>공식 설치 위치는 확인되지만 재고는 확인 불가. 포켓몬 굿즈용 스탠드와 다름.</td></tr>'+'<tr><td>GEO·가전양판점</td><td>일부 카드 상품·추첨 판매</td><td>점포·상품별 회원/추첨 조건 확인 필요. 일반 관광객 구매를 보장하지 않음.</td></tr></tbody></table>'+
-      '<p class="info-note">위 표는 구매 목적별 구분이며 실시간 재고나 실제 구매 성공률 순위가 아닙니다.</p></section>'+
+      '<p class="info-note">위 표는 구매 목적별 구분이며 실시간 재고나 실제 구매 성공률 순위가 아닙니다.</p></section>'+pokemonCommunityGuide()+
       '<section class="info-section" id="info-convenience"><h2>편의점 구매법: 점포별 취급 여부가 우선</h2>'+
       '<table class="info-table"><thead><tr><th>체인</th><th>시간 안내의 의미</th><th>주의할 점</th></tr></thead><tbody>'+
       '<tr><td>세븐일레븐</td><td>오전 7시: 비공식 참고 경험</td><td>체인 공통 판매시간 아님. 취급·입고·구매 제한은 점포별로 다름.</td></tr>'+
@@ -125,7 +153,7 @@
         ['구매 수량 제한이 있나요?','購入数の制限はありますか。']
       ].map(o=>'<div class="info-phrase"><div><strong>'+esc(o[0])+'</strong><span lang="ja">'+esc(o[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(o[1])+'">복사</button></div>').join('')+'</div><div id="info-copy-status" class="info-copy-result" role="status" aria-live="polite"></div></section>'+
       '<section class="info-section" id="info-sources"><h2>정보의 근거</h2>'+
-      srcList([['포켓몬 카드 공식 취급점 검색과 미등재 안내',sources.pokemonMap],['로손 상품별 판매·문의 제한 공지 (2026-09-08)',sources.lawson],['11월 13일 스페셜 덱 세트 공식 정보',sources.product],['포켓몬 카드 스탠드 공식 설치 위치',sources.stand],['포켓몬센터 메가도쿄 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/'],['포켓몬센터 시부야 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/']])+
+      srcList([['포켓몬 카드 공식 취급점 검색과 미등재 안내',sources.pokemonMap],['로손 상품별 판매·문의 제한 공지 (2026-09-08)',sources.lawson],['11월 13일 스페셜 덱 세트 공식 정보',sources.product],['포켓몬 카드 스탠드 공식 설치 위치',sources.stand],['포켓몬센터 공식 상품 재고·구매 제한 FAQ',sources.centerFaq],['하레루야2 포켓몬 전문점 공식 목록',sources.hareruyaList],['BOOKOFF 포켓몬 카드 취급 정책',sources.bookoff],['스루가야 포켓몬 카드 취급 점포 목록',sources.surugaya],['SHIBUYA TSUTAYA 카드 라운지 판매 조건',sources.shibuyaLounge],['포켓몬센터 메가도쿄 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/'],['포켓몬센터 시부야 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/']])+
       '<p class="info-note">점포별 출처는 각 카드에서 확인할 수 있습니다. 기존 여행 사이트에 등록된 카드 전문점의 영업시간은 변경 가능하므로 현장 방문 전 다시 확인하세요.</p></section></div>';
   }
 

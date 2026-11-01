@@ -16,6 +16,13 @@
 저장소의 `Settings > Pages`에서 `Deploy from a branch`를 선택하고,
 `main` 브랜치의 `/(root)`를 지정해 게시할 수 있습니다.
 
+## 2026년 11월 면세 환급 현장 가이드
+
+- `#info/taxfree`는 나리타공항 제1터미널 피치 국제선 출국을 기준으로 세관 확인 순서, 녹색·적색 판정, VJW와 현장 단말기 대안, 영수증 거래별 짐 정리, 환급금 추적을 안내합니다.
+- VJW는 필수가 아니라 대안이며, 체크리스트는 현재 기기의 브라우저 로컬 저장소에만 저장됩니다.
+- [나리타공항·Visit Japan Web 공식 자료 대조 리서치](research/narita-tax-refund-vjw-ux-2026-11-01.md)
+- 검증 스크립트: `node --test tests/info-tab.smoke.test.mjs tests/info-taxfree-ux.smoke.test.mjs`.
+
 ## 정보 탭과 근거
 
 - [포켓몬 카드·면세 리서치 및 정책 분류](research/info-guides-pokemon-taxfree-2026-11-01.md): 2026-11-01 기준 공식 출처와 사용자 경험담의 차이를 기록합니다. 실제 편의점 판매 여부와 재고는 보장하지 않습니다.

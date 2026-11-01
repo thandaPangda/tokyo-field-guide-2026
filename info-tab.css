@@ -88,3 +88,66 @@
  .info-filter{padding:9px 10px}
 }
 @media(prefers-reduced-motion:reduce){.info-tile{transition:none}}
+
+
+/* v1.1.x: tax refund journey · verified 2026-11-01. Scoped to info page. */
+.info-tax-page .info-lead{max-width:780px}
+.info-tax-topline{background:#edf4ed;border-left:4px solid #507c58;border-radius:12px;padding:18px 21px;margin:2px 0 18px}
+.info-tax-eyebrow{display:block;font-size:10px;font-weight:780;letter-spacing:.12em;color:#5b8061;margin-bottom:6px}
+.info-tax-topline strong{display:block;font-size:17px;line-height:1.48;letter-spacing:-.03em;color:#2e5038}
+.info-tax-topline p{margin:8px 0 0;color:#536b58;font-size:12px;line-height:1.75}
+.info-tax-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 20px}
+.info-tax-overview>div{background:#fff;border:1px solid #e1e7de;border-radius:11px;padding:13px 11px;min-width:0}
+.info-tax-overview span{display:block;font-size:11px;font-weight:800;color:#7c9d81;margin-bottom:9px}
+.info-tax-overview strong{display:block;color:#395440;font-size:13px;line-height:1.45;margin-bottom:4px}
+.info-tax-overview small{display:block;font-size:11px;color:#718175;line-height:1.4}
+.info-tax-page .info-section{scroll-margin-top:110px}
+.info-tax-section-line{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.info-tax-section-line h2{margin-bottom:8px}
+.info-tax-progress{font-size:12px;font-weight:760;color:#476a50;white-space:nowrap}
+.info-tax-meter{height:5px;border-radius:999px;background:#dce7dc;overflow:hidden;margin:3px 0 13px}
+.info-tax-meter>span{display:block;height:100%;background:#53775b;border-radius:999px;transition:width .2s ease}
+.info-tax-tasks{display:grid;gap:8px}
+.info-tax-task{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border:1px solid #e0e7de;border-radius:11px;background:#fff;cursor:pointer}
+.info-tax-task input{width:18px;height:18px;flex:none;accent-color:#42694b;margin:1px 0 0}
+.info-tax-task span{font-size:12px;line-height:1.68;color:#3f5745}
+.info-tax-task:has(input:checked){background:#f2f7f1;border-color:#cadbcb}
+.info-tax-task input:focus-visible{outline:3px solid #e5b15b;outline-offset:3px}
+.info-tax-method-head{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.info-tax-options{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.info-tax-options .info-filter{flex:1;min-width:155px;text-align:center}
+.info-tax-method-panel{background:#fff;border:1px solid #dfe7dc;border-radius:14px;padding:17px 20px;line-height:1.8}
+.info-tax-method-head strong{font-size:15px;color:#314d38}
+.info-tax-method-steps{margin:13px 0 8px;padding-left:24px;color:#506855;font-size:13px;line-height:1.85}
+.info-tax-method-steps li{padding-left:4px;margin:0 0 9px}
+.info-tax-method-steps strong{color:#304e39}
+.info-tax-method-panel code{font-size:12px;background:#edf2ec;border-radius:5px;padding:2px 5px;white-space:normal;overflow-wrap:anywhere}
+.info-tax-method-panel .info-store-actions{margin-top:9px;padding-top:5px}
+.info-tax-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.info-tax-result{background:#fff;border:1px solid #dce7dc;border-top:3px solid #8bae94;padding:18px;border-radius:12px}
+.info-tax-result.red{border-color:#eae2d2;border-top-color:#b48e57}
+.info-tax-result-label{display:block;text-transform:uppercase;font-size:10px;letter-spacing:.1em;color:#547c5e;font-weight:810;margin-bottom:9px}
+.info-tax-result.red .info-tax-result-label{color:#876b3f}
+.info-tax-result strong{font-size:14px;color:#2f4836}
+.info-tax-result p{font-size:12px;color:#576d5b;line-height:1.76;margin:8px 0 0}
+.info-tax-followup{display:grid;gap:8px}
+.info-tax-followup>div{background:#fff;border:1px solid #e1e7dd;padding:15px 17px;border-radius:11px}
+.info-tax-followup strong{font-size:13px;color:#36533c}
+.info-tax-followup p{font-size:12px;color:#5d705f;line-height:1.8;margin:7px 0 0}
+.info-tax-page .info-notice{margin:10px 0}
+.info-tax-page .info-grid .info-notice{margin:0;align-self:stretch}
+.info-tax-page .info-faq details{scroll-margin-top:120px}
+.info-tax-page .info-faq summary{min-height:30px;line-height:1.7}
+@media(max-width:650px){
+ .info-tax-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .info-tax-overview>div{padding:12px 11px}
+ .info-tax-topline{padding:16px}
+ .info-tax-topline strong{font-size:15px}
+ .info-tax-method-panel{padding:15px}
+ .info-tax-result-grid{grid-template-columns:1fr}
+ .info-tax-section-line h2{font-size:18px}
+}
+@media(max-width:355px){
+ .info-tax-options .info-filter{min-width:130px}
+}
+@media(prefers-reduced-motion:reduce){.info-tax-meter>span{transition:none}}

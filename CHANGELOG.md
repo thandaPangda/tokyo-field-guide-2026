@@ -4,7 +4,7 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
-## [미출시] — v1.2.0 지도 센토·묶음 마커 아이콘 시스템 (2026-11-01 작성)
+## [미출시] — v1.2.0 지도 센토·묶음 마커 아이콘 시스템 (2026-11-01 작성, PR #7)
 
 **상태:** `fix/map-sento-and-cluster-category-glyphs-20261101` 브랜치에 구현. `main` 미병합·미배포이며 실제 공개 사이트 반영은 확인되지 않았습니다.
 
@@ -29,6 +29,7 @@
 - **미검증:** Android Chrome 실제 렌더링, 320px 기기 시각적 밀도·다중 터치, 전체 Node 테스트 CLI 실행. PR 검토/병합 전 실제 기기 확인이 필요하다.
 - 사용된 지도 타일/좌표/행사 데이터 자체는 변경하지 않았다.
 - 작업 브랜치: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/fix/map-sento-and-cluster-category-glyphs-20261101
+- 검토 PR: https://github.com/thandaPangda/tokyo-field-guide-2026/pull/7
 
 ## [미출시] — v1.1.x 면세 환급 UX 확장 (2026-11-01 작성)
 

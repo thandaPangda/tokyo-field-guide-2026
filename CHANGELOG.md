@@ -4,6 +4,32 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
+## [미출시] — v1.2.x 포켓몬 카드 구매 경험·전문점 가이드 보강 (2026-11-02 작성, PR #8)
+
+**상태:** `feat/pokemon-card-community-guide-20261102` 브랜치에 푸시했으며 `main` 미병합·미배포. 사용자가 제공한 두 Reddit 대화는 개별 경험담이며 현행 점포 재고 데이터가 아니다.
+
+### 추가·수정
+
+- `info-tab.js`: 정가 팩·싱글/중고·구형 팩/오리파로 구매 목적을 분리하고, 상단에 판매 형태별 결정 카드, 수량 제한/재입고/7-Eleven/박스 슈링크/도시별 가격 비교와 관련한 후기 경향, 전문점 구매 주의 FAQ를 추가했다. 특정 시각·수량·가격을 모든 상품의 공통 규정으로 제시하지 않는다.
+- `info-tab.js`: 공식 취급/주소/영업시간을 확인한 하레루야2 아키하바라 타워·아넥스·이케부쿠로, 스루가야 아키하바라 본관·이케부쿠로, SHIBUYA TSUTAYA 포켓몬 카드 라운지 6곳을 점포 필터에 포함했다. **구형 팩·오리파의 해당 지점 실시간 재고는 미확인**으로 표시했다. 기존 코엔지 편의점 네 곳의 취급 여부 미확인은 그대로 유지했다.
+- `info-tab.js`: 하레루야(MTG)·하레루야2(포켓몬)·하레루야3(듀얼마스터즈) 구분. Reddit 댓글의 하레루야3=유희왕이라는 주장은 공식 점포 자료와 달라 교정했다. BOOKOFF 공식 상품 취급은 점포마다 다르며 재고 검색이 없음을 안내했다.
+- `info-tab.js`: 오래된 공식 팩과 자체 구성 오리파·미스터리 큐브를 혼동하지 않도록 하고, 슈링크/카드 상태/세트 번호/구매약관 점검을 추가했다. SHIBUYA TSUTAYA 라운지 체험과 카드 상품 판매를 분리했다.
+- `info-tab.css`: 모바일 1열/데스크톱 3열 구매 결정 카드와 후기 근거 배지, 전문점 FAQ, 선택형 구매 목표 설명을 추가했다. 기존 날짜별 여행 일정과 지도 데이터는 수정하지 않았다.
+- `research/pokemon-reddit-community-buying-2026-11-02.md`: 두 토론의 상충 경험·공식 취급 정보·미확인 항목·원문 상대 날짜의 한계를 출처별로 구분해 정리했다.
+- `tests/info-pokemon-community.test.mjs`: 구매 목적 3종, 아키하바라 필터, 코엔지 편의점 취급 미확인 유지, 공식 전문점, 기존 면세 화면을 검증하는 Node 테스트를 추가했다.
+
+### 근거·검증
+
+- Pokémon Center 공식 구매제한/재고 FAQ: https://shop.pokemon.co.jp/ja/faqs/
+- Hareruya2 공식 지점 목록: https://www.hareruya2.com/en/pages/store_menu-en
+- BOOKOFF 공식 TCG 상품 안내: https://www.bookoff.co.jp/buy/tradingcard/
+- Surugaya 공식 점포/포켓몬 취급 목록: https://www.suruga-ya.com/en/shoplist
+- SHIBUYA TSUTAYA 포켓몬 라운지: https://shibuyatsutaya.tsite.jp/pokemoncardlounge/
+- 상세 조사: [Reddit 구매 경험 검증 문서](research/pokemon-reddit-community-buying-2026-11-02.md).
+- 정보 가이드 자바스크립트 구문과 모의 DOM 렌더링/코엔지·아키하바라 필터를 점검했다. 실제 사용자의 Android Chrome 시각/터치, 11월 현장 재고와 실물 가격은 아직 검증하지 않았다.
+- 작업 브랜치: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/pokemon-card-community-guide-20261102
+- 검토 PR: https://github.com/thandaPangda/tokyo-field-guide-2026/pull/8
+
 ## [미출시] — v1.2.0 지도 센토·묶음 마커 아이콘 시스템 (2026-11-01 작성, PR #7)
 
 **상태:** `fix/map-sento-and-cluster-category-glyphs-20261101` 브랜치에 구현. `main` 미병합·미배포이며 실제 공개 사이트 반영은 확인되지 않았습니다.

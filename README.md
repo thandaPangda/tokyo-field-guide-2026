@@ -23,6 +23,12 @@
 - [나리타공항·Visit Japan Web 공식 자료 대조 리서치](research/narita-tax-refund-vjw-ux-2026-11-01.md)
 - 검증 스크립트: `node --test tests/info-tab.smoke.test.mjs tests/info-taxfree-ux.smoke.test.mjs`.
 
+## 포켓몬 카드 구매 가이드와 경험담
+
+- `#info/pokemon`에서 정가 팩, 싱글/중고 카드, 구형 팩·오리파를 구별합니다. 포켓몬센터·편의점·하레루야2·스루가야·시부야 카드 라운지의 매장별 **확인 범위와 재고 미확인 상태**를 명시합니다.
+- [사용자 제공 Reddit 두 대화의 구매 경험 검증](research/pokemon-reddit-community-buying-2026-11-02.md). 개인 후기와 2026년 11월 공식 판매 정책은 다릅니다.
+- 검증 명령: `node --test tests/info-tab.smoke.test.mjs tests/info-pokemon-community.test.mjs`.
+
 ## 정보 탭과 근거
 
 - [포켓몬 카드·면세 리서치 및 정책 분류](research/info-guides-pokemon-taxfree-2026-11-01.md): 2026-11-01 기준 공식 출처와 사용자 경험담의 차이를 기록합니다. 실제 편의점 판매 여부와 재고는 보장하지 않습니다.

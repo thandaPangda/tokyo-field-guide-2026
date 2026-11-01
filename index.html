@@ -1724,6 +1724,8 @@ function drawClusterPins(force=false){
  if(!force&&GEO_CLUSTER.zoom===mapState.z&&GEO_CLUSTER.screenWidth===window.innerWidth)return;
  GEO_CLUSTER.zoom=mapState.z;GEO_CLUSTER.screenWidth=window.innerWidth;
  const prior=mapState.markers,newMarkers=new Map(),next=clusterPoints(mapState.z);
+ // Pinch/scroll zoom may dissolve a selected cluster; close its stale detail card.
+ if(mapState.selected&&!next.some(g=>g.key===mapState.selected))hidePop();
  const fragment=document.createDocumentFragment();
  const lines=document.createElementNS('http://www.w3.org/2000/svg','svg');
  lines.setAttribute('class','map-spider-lines');

@@ -505,3 +505,8 @@
     transition: none;
   }
 }
+
+/* Separate verified-address resale sourcing from regular shopping pins. */
+#view-map .pin.pin-symbol.pin-resale{--pb:#98532f;--pc:#fff;background:var(--pb)!important;color:var(--pc)!important;border:2px solid #fff;box-shadow:0 3px 12px rgba(100,51,26,.28)}
+#view-map .pin.pin-symbol.pin-resale svg{stroke:currentColor;stroke-width:2}
+#view-map .pin.pin-symbol.pin-resale.clock-unknown{opacity:.77}

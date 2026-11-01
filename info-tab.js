@@ -47,7 +47,7 @@
   ];
   const taxChecklistItems = [["purchase","면세 구매 기록과 영수증을 매장·거래별로 정리했습니다."],["goods","같은 거래에 포함된 모든 면세품을 가지고 있으며, 일본에서 소비하지 않았습니다."],["cabin","기내 수하물 총 7kg·2개와 국제선 액체류 제한을 확인했습니다."],["passport","여권과 예약번호, 환급수단 정보를 언제든 꺼낼 수 있습니다."],["airport","나리타 제1터미널 4층에서 보안검색 전에 세관 확인할 것을 기억합니다."],["deadline","피치항공 08:30편의 체크인 마감 07:40을 우선하겠습니다."]];
   const taxChecklistKey='tokyo-field-guide:tax-checklist:v1';
-  const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[]};
+  const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[],resaleArea:'전체',resaleKind:'전체',resaleSearch:'',resalePick:1};
   try { const saved=JSON.parse(window.localStorage?.getItem(taxChecklistKey)||'[]'); if(Array.isArray(saved))state.taxChecked=saved.filter(id=>taxChecklistItems.some(x=>x[0]===id)); } catch(_){ /* Browser storage may be unavailable. */ }
 
   const regions = [
@@ -67,7 +67,8 @@
     return '<div class="info-wrap">'+header('TOKYO FIELD GUIDE · ESSENTIALS','도쿄 여행 정보','쇼핑과 현지 이용 규칙을 실제 행동 중심으로 정리했습니다. 검증된 규정과 경험에 근거한 참고 팁을 구분합니다.')+
       '<div class="info-grid">'+
       '<a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 코엔지 주변 확인 후보, 권장 방문 시간대를 살펴봅니다.</p></a>'+
-      '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a></div>'+
+      '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a>'+ 
+      '<a class="info-tile" href="#info/resale"><span class="eyebrow">TOKYO SCOUT · RESELL</span><h2>리셀 소싱 · 33개 매장</h2><p>19개 상품의 과거 수요·예상 가격과 79개 매장 탐색 연결을 비교합니다. 재고와 실수익은 미확인입니다.</p></a></div>'+
       '<section class="info-section"><div class="info-notice"><strong>이 정보 탭이 다루는 범위</strong>실시간 재고를 예측하거나 동선을 자동 편성하지 않습니다. 현장에서 어디를 확인하고 어떤 규정을 지켜야 할지 판단하는 데 필요한 자료를 제공합니다.</div></section></div>';
   }
 
@@ -275,14 +276,94 @@
     </section>
   </div>`;
 }
+
+  // TOKYO SCOUT is an evidence-labeled historical sourcing record, not a stock feed.
+  const resaleData = () => window.TOKYO_RESALE || {stores:[],products:[],links:{},matchCount:0};
+  const resaleFmt = n => Number(n||0).toLocaleString('ko-KR');
+  function resaleStoreResults(){
+    const d=resaleData();
+    const areas=['전체',...new Set(d.stores.map(s=>s.area))];
+    const found=d.stores.filter(s=>(state.resaleArea==='전체'||s.area===state.resaleArea)&&
+      (state.resaleKind==='전체'||(state.resaleKind==='중고'?s.kind==='중고'||s.kind==='수집품 중고':s.kind!=='중고'&&s.kind!=='수집품 중고'))&&
+      (!state.resaleSearch||[s.name,s.area,s.address,s.note,(d.links[s.sourceId]||[]).map(id=>d.products.find(p=>p.id===id)?.title).join(' ')].join(' ').toLocaleLowerCase().includes(state.resaleSearch.toLocaleLowerCase())));
+    const btn=(label,attr,val,selected)=>'<button class="info-filter" type="button" '+attr+'="'+esc(val)+'" aria-pressed="'+selected+'">'+esc(label)+'</button>';
+    return '<div class="info-filters">'+
+      '<span class="info-filter-caption">지역 · 검색어 필터</span><div class="info-choices">'+
+      areas.map(area=>btn(area,'data-resale-area',area,state.resaleArea===area)).join('')+'</div>'+
+      '<div class="info-choices">'+[['전체','전체'],['신품','정식 매장/상품 취급'],['중고','중고 탐색']].map(([key,label])=>btn(label,'data-resale-kind',key,state.resaleKind===key)).join('')+'</div>'+
+      '<input class="info-resale-search" id="resale-store-search" type="search" placeholder="점포명, 지역, 브랜드 또는 후보 상품" value="'+esc(state.resaleSearch)+'" aria-label="리셀 점포 검색" />'+
+      '<div class="info-results" role="status">'+found.length+'개 매장 표시 · 전체 '+d.stores.length+'개 · 주소가 미확정인 경우는 출처 확인 필요</div></div>'+
+      '<div class="info-list" id="resale-store-cards">'+
+      (found.length?found.map(s=>{
+        const related=(d.links[s.sourceId]||[]).map(id=>d.products.find(p=>p.id===id)).filter(Boolean);
+        const crosschecked=s.verification==='official-address-crosschecked-2026-11-02';
+        const cautious=s.verification==='facility-or-address-needs-review';
+        return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(s.area)+' · '+esc(s.kind)+'</div><h3 class="info-store-title">'+esc(s.name)+'</h3></div><span class="info-status'+(crosschecked?' official':'')+'">'+(crosschecked?'공식 주소 재대조':cautious?'추가 위치 확인':'아카이브 주소')+'</span></div>'+
+          '<p class="info-store-address">'+esc(s.address)+'</p>'+
+          '<dl class="info-store-details"><dt>방문시간</dt><dd>'+esc(s.hours)+'</dd><dt>소싱 근거</dt><dd>'+esc(s.note)+'</dd><dt>후보 품목</dt><dd>'+esc(related.map(p=>p.title).join(' · ')||'구체적 SKU 연결 없음')+'</dd><dt>지도 정확도</dt><dd>점포 주소로 검색 · 지도 핀은 GSI 주소 구역 대표점일 수 있음</dd></dl>'+
+          '<div class="info-store-actions">'+external(s.url,'매장 출처')+external(mapsUrl(s),'Google 지도 검색')+
+          '<a href="#map/resale">리셀 지도</a></div></article>';
+      }).join(''):'<p class="info-empty">해당 조건의 후보 매장이 없습니다. 검색어 또는 필터를 바꿔 보세요.</p>')+'</div>';
+  }
+  function resaleProductCards(){
+    const d=resaleData();return '<div class="info-resale-products">'+d.products.map(p=>
+      '<article class="info-resale-product"><span class="info-resale-action">'+esc(p.action)+'</span>'+
+      '<h3>'+String(p.id).padStart(2,'0')+'. '+esc(p.title)+'</h3><p class="info-resale-model">품번 · '+esc(p.model)+'</p>'+
+      '<p><strong>당시 일본 기준가 ¥'+resaleFmt(p.yen)+'</strong> · 국내 예상 판매가 '+resaleFmt(p.sell)+'원</p>'+
+      '<p>KREAM 누적 체결 '+resaleFmt(p.trades)+'건 · 최근 30일 정확한 건수/최고 매수입찰 미확인</p>'+
+      '<p class="info-resale-risk">'+esc(p.risk)+'</p>'+
+      '<div class="info-store-actions">'+external(p.kream,'원본 가격/시세 확인')+'<button type="button" class="info-copy" data-resale-pick="'+p.id+'">이 품목으로 계산</button></div></article>').join('')+'</div>';
+  }
+  function resaleCalculator(){
+    const p=resaleData().products.find(x=>x.id===state.resalePick)||resaleData().products[0];
+    return '<div class="info-resale-calc" id="resale-calc" data-product="'+(p?.id||0)+'">'+
+      '<p class="info-note">선택된 품목 · '+esc(p?.title||'')+'. 아래 입력값은 예시/수정 가능 값입니다. 실제 판매가격이나 거래 성립을 보장하지 않습니다.</p>'+
+      '<div class="info-resale-inputs">'+
+      '<label>현장 구매가 (엔)<input id="rs-yen" type="number" min="0" value="'+(p?.yen||0)+'" /></label>'+
+      '<label>환율 (1엔당 원)<input id="rs-rate" type="number" min="0" step="0.1" value="8.5" /></label>'+
+      '<label>예상 국내 매도가 (원)<input id="rs-sell" type="number" min="0" value="'+(p?.sell||0)+'" /></label>'+
+      '<label>플랫폼 수수료 (%)<input id="rs-fee" type="number" min="0" max="100" step="0.5" value="8" /></label>'+
+      '<label>플랫폼 배송·포장비 (원)<input id="rs-extra" type="number" min="0" value="3500" /></label></div>'+
+      '<div class="info-resale-results" id="resale-calc-results" aria-live="polite"></div>'+
+      '<p class="info-note">당근 직거래는 기본 판매수수료/배송료 0원, 플랫폼은 위 수수료/배송비를 차감합니다. 두 금액 모두 세금·관세·신고비용·여행비·반품·환율 실제 적용 차이를 반영하기 전 가상 차액이며 확정 순이익이 아닙니다.</p></div>';
+  }
+  function updateResaleCalculator(){
+    const root=$('resale-calc-results');if(!root)return;
+    const val=id=>Math.max(0,Number($(id)?.value)||0);
+    const yen=val('rs-yen'),rate=val('rs-rate'),sell=val('rs-sell'),fee=Math.min(100,val('rs-fee')),extra=val('rs-extra');
+    const cost=yen*rate, direct=sell-cost,platform=sell*(1-fee/100)-cost-extra;
+    const fmt=n=>(n<0?'−':'')+resaleFmt(Math.round(Math.abs(n)))+'원';
+    root.innerHTML='<div><small>기준 환산 매입액</small><strong>'+fmt(cost)+'</strong></div>'+
+      '<div><small>직거래 예상 차액 (비용 전)</small><strong>'+fmt(direct)+'</strong></div>'+
+      '<div><small>플랫폼 예상 차액 (세금 전)</small><strong>'+fmt(platform)+'</strong></div>';
+  }
+  function resalePage(){
+    const d=resaleData();
+    return '<div class="info-wrap info-resale-page">'+crumb('리셀 소싱')+
+      header('TOKYO SCOUT · RESELL','도쿄 리셀 소싱 · 현장 검증 가이드','11월 11~14일 방문 후보를 원래 11~15일 여행 지도에 추가했습니다. 33개 매장은 확인할 곳이지 재고가 있는 곳을 뜻하지 않으며, 19개 상품의 숫자는 조사 시점 자료입니다.')+
+      '<div class="info-notice info-warning"><strong>데이터의 증거 수준</strong>국내 예상 매도가와 실제 구매 입찰을 구분하세요. KREAM 누적 체결은 최근 30일 거래량이 아니며, 일본 기준 정가와 2026년 11월 실구매 가능 가격도 다릅니다. 지도에 찍힌 좌표는 국토지리원(GSI) 주소 구역 참조 위치일 수 있어 매장 건물의 정확한 입구가 아닙니다.</div>'+
+      '<p class="info-meta">기준 2026.11.02 · '+d.stores.length+'개 탐색 매장 / '+d.products.length+'개 후보 SKU / '+d.matchCount+'개 상품–매장 연결 · 재고·매수 입찰 미확인</p>'+
+      toc([['resale-approach','소싱 전략'],['resale-stores','매장 찾기'],['resale-products','상품별 수요'],['resale-calc-section','현장 손익'],['resale-context','조사 맥락']])+
+      '<section class="info-section" id="resale-approach"><h2>현장에서 확인할 순서</h2><div class="info-steps">'+
+      [['정확한 품번/연식·색상 확인','구형 키링과 2026 재발매형, 사이즈·색상·한정판을 혼동하지 않습니다.'],['실제 엔화 결제가 확인','정가로 살 수 있다는 증거가 아니라면 과거 정가로 계산하지 않습니다.'],['판매 가능 가격 검증','KREAM 누적 거래와 최신 체결·매수 입찰, 당근 직거래/플랫폼 수수료를 분리합니다.'],['세금·통관 등 법적 비용 반영','재판매 목적 물품은 개인 여행자 휴대품 면세나 일본 면세환급과 동일하지 않습니다. 신고 의무를 확인해야 합니다.']].map(([a,b])=>'<div class="info-step"><div><h3>'+esc(a)+'</h3><p>'+esc(b)+'</p></div></div>').join('')+'</div>'+
+      '<p class="info-note">동선 제안은 시부야·하라주쿠·오모테산도·나카메구로 / 나카노·코엔지 / 이케부쿠로 캐릭터 팝업 / 도쿄역·긴자 등 지역별 묶음이며, 기존 날짜별 일정을 자동 변경하지 않았습니다.</p></section>'+
+      '<section class="info-section" id="resale-stores"><div class="info-resale-heading"><h2>매장 33곳 · 주소 확인 상태</h2><a href="#map/resale">지도에서 리셀만 보기</a></div><p class="info-note">공식 점포 주소를 재대조한 곳과 아카이브 기반만 확인된 곳을 구별합니다. RAGTAG 시부야(1-17-7)·신주쿠(3-32-10)는 일본어 공식 페이지를 기준으로 글로벌 영문 목록의 상충 표기를 교정했습니다. KINDAL 코엔지점은 수요일 휴무입니다.</p><div id="resale-store-results">'+resaleStoreResults()+'</div></section>'+
+      '<section class="info-section" id="resale-products"><h2>상품 19개 · 당시 판단과 품번</h2><p class="info-note">정량 거래값은 2026.10~11 아카이브의 과거 스냅샷입니다. 체결가·호가·발매가를 현재 실현 가능한 판매가로 해석하지 마세요.</p>'+resaleProductCards()+'</section>'+
+      '<section class="info-section" id="resale-calc-section"><h2>현장 구매가로 손익 비교</h2>'+resaleCalculator()+'</section>'+
+      '<section class="info-section" id="resale-context"><h2>왜 추천이 달라졌나</h2><p>초기에는 치이카와·여성향 상품의 온라인 화제성을 참고했으나, 번개장터 등록 물량에 비해 판매 완료가 부족하다는 관찰 이후 실거래 중심으로 기준을 바꿨습니다. 현재 조사 대상은 패션·카드·완구·중고 패션 등으로 확장됐습니다.</p><p>치이카와 ANA 우사기·공룡·도시락·생일요정·하얀 우사기는 같은 수요로 취급하지 않습니다. Threads 스크린샷의 58,500원 결제 취소 사례는 수요 확정이 아니라 가격 저항의 사례이며, ANA 우사기 과거 체결과 최근 30일 시장 전체 거래도 분리해야 합니다.</p><p>2026년 11월 11~14일 이벤트와 소싱 후보는 여러 계획안 중 하나입니다. 특정 매장 재고, 영업, 11월 13일 포켓몬 출시 상품, 치이카와 팝업의 정리권은 방문 전 공식 안내를 확인하세요.</p>'+
+      '<p>'+external('https://github.com/thandaPangda/tokyo-field-guide-2026/blob/main/README.md','프로젝트 기존 가이드')+' · <a href="./research/resale-scout-context-2026-11-02.md">리셀 조사 맥락·근거 문서</a></p></section></div>';
+  }
+
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
     const path=String(route||'info').replace(/^#/,'');
-    if(path==='info/taxfree')root.innerHTML=taxfree();
+    if(path==='info/resale')root.innerHTML=resalePage();
+    else if(path==='info/taxfree')root.innerHTML=taxfree();
     else if(path==='info/pokemon')root.innerHTML=pokemon();
     else root.innerHTML=hub();
-    document.title=(path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':'여행 정보')+' · TOKYO FIELD GUIDE';
+    if(path==='info/resale')updateResaleCalculator();
+    document.title=(path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':'여행 정보')+' · TOKYO FIELD GUIDE';
   }
   async function copyText(value) {
     try{
@@ -307,12 +388,19 @@
           root.querySelectorAll?.('[data-tax-method]').forEach(b=>b.setAttribute('aria-pressed',String(b.getAttribute('data-tax-method')===state.taxMethod)));
         }
         if(btn.hasAttribute('data-info-copy'))copyText(btn.getAttribute('data-info-copy'));
+        if(btn.hasAttribute('data-resale-area')){state.resaleArea=btn.getAttribute('data-resale-area');const panel=$('resale-store-results');if(panel)panel.innerHTML=resaleStoreResults();}
+        if(btn.hasAttribute('data-resale-kind')){state.resaleKind=btn.getAttribute('data-resale-kind');const panel=$('resale-store-results');if(panel)panel.innerHTML=resaleStoreResults();}
+        if(btn.hasAttribute('data-resale-pick')){state.resalePick=Number(btn.getAttribute('data-resale-pick'));const el=$('resale-calc');if(el){el.outerHTML=resaleCalculator();updateResaleCalculator();$('resale-calc')?.scrollIntoView({behavior:'smooth',block:'nearest'});}}
       }
       const jump=event.target.closest('a[data-info-jump]');
       if(jump && root.contains(jump)){
         event.preventDefault();
         const target=$(jump.getAttribute('data-info-jump'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}
       }
+    });
+    root.addEventListener('input',event=>{const t=event.target;
+      if(t?.id==='resale-store-search'){state.resaleSearch=t.value;const el=$('resale-store-results');if(el){const start=t.selectionStart,end=t.selectionEnd;el.innerHTML=resaleStoreResults();const next=$('resale-store-search');next?.focus();try{next?.setSelectionRange(start,end);}catch(_){}}}
+      if(['rs-yen','rs-rate','rs-sell','rs-fee','rs-extra'].includes(t?.id))updateResaleCalculator();
     });
     root.addEventListener('change',event=>{
       const input=event.target;

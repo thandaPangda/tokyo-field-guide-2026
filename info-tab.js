@@ -3,6 +3,11 @@
   const checkedOn = '2026.11.01';
   const sources = {
     customs: 'https://www.customs.go.jp/kaigairyoko/taxrefund.htm',
+    naritaTax: 'https://www.narita-airport.jp/en/service/exchange/taxrefund/',
+    ntaVjw: 'https://www.nta.go.jp/publication/pamph/shohi/menzei/201805/format/002/onlinetetsuzuki/guidekor.htm',
+    ntaFaq: 'https://www.nta.go.jp/publication/pamph/shohi/menzei/201805/format/002/onlinetetsuzuki/faqkor.htm',
+    peachNarita: 'https://www.flypeach.com/kr/lm/ai/airports/airportguide_international/nrt',
+    vjwHelp: 'https://services.digital.go.jp/ko/visit-japan-web/guide/',
     customsSteps: 'https://www.customs.go.jp/kaigairyoko/taxrefund/C-details.html',
     tourism: 'https://www.mlit.go.jp/kankocho/tax-free/page01_000001_00028.html',
     tourismFaq: 'https://www.mlit.go.jp/kankocho/tax-free/page01_000001_00027.html',
@@ -25,7 +30,11 @@
     {id:'P03',name:'만다라케 나카노 카드관',area:'nakano',region:'나카노',type:'cardshop',hours:'12:00–20:00 (기존 사이트 등록값)',visit:'정오 이후 방문 고려',status:'카드 전문점',address:'東京都中野区中野5-52-15 中野ブロードウェイ 2F',url:'https://www.mandarake.co.jp/dir/nkn/',note:'중고·구형 카드와 수집품 탐색용입니다. 실물 재고와 가격은 개별 상품별로 확인해야 합니다.'},
     {id:'pao-nakano',name:'류세이노 PAO 나카노',area:'nakano',region:'나카노',type:'cardshop',hours:'11:00–21:00 (기존 사이트 등록값)',visit:'개점 이후 나카노 방문 중',status:'카드 전문점',address:'東京都中野区新井1-9-4',url:'https://pao-toreka.com/shop/nakano.html',note:'싱글 카드·TCG 상품용 전문점입니다. 포켓몬센터의 정가 팩과는 구매 목적과 가격 체계가 다릅니다.'},
   ];
-  const state = {goal:'pack',region:'all',kind:'all'};
+  const taxChecklistItems = [["purchase","면세 구매 기록과 영수증을 매장·거래별로 정리했습니다."],["goods","같은 거래에 포함된 모든 면세품을 가지고 있으며, 일본에서 소비하지 않았습니다."],["cabin","기내 수하물 총 7kg·2개와 국제선 액체류 제한을 확인했습니다."],["passport","여권과 예약번호, 환급수단 정보를 언제든 꺼낼 수 있습니다."],["airport","나리타 제1터미널 4층에서 보안검색 전에 세관 확인할 것을 기억합니다."],["deadline","피치항공 08:30편의 체크인 마감 07:40을 우선하겠습니다."]];
+  const taxChecklistKey='tokyo-field-guide:tax-checklist:v1';
+  const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[]};
+  try { const saved=JSON.parse(window.localStorage?.getItem(taxChecklistKey)||'[]'); if(Array.isArray(saved))state.taxChecked=saved.filter(id=>taxChecklistItems.some(x=>x[0]===id)); } catch(_){ /* Browser storage may be unavailable. */ }
+
   const regions = [
     ['all','전체 지역'],['koenji','코엔지'],['ogikubo','오기쿠보'],['nakano','나카노'],['shibuya','시부야'],['ikebukuro','이케부쿠로'],['nihonbashi','니혼바시'],['skytree','스카이트리'],
   ];
@@ -105,34 +114,124 @@
       '<p class="info-note">점포별 출처는 각 카드에서 확인할 수 있습니다. 기존 여행 사이트에 등록된 카드 전문점의 영업시간은 변경 가능하므로 현장 방문 전 다시 확인하세요.</p></section></div>';
   }
 
-  function taxfree() {
-    return '<div class="info-wrap">'+crumb('일본 면세 환급')+
-      header('TRAVEL RULES · 2026.11.01','일본 면세제도: 출국할 때 환급받기','2026년 11월 1일 이후 구매부터 세금 포함 가격으로 결제한 뒤, 출국 시 세관 확인을 통해 소비세 상당액을 환급받는 방식으로 바뀌었습니다.')+
-      '<div class="info-notice info-warning"><strong>공항에서는 수하물을 맡기기 전에 면세 확인</strong>신규 면세 환급 절차는 국제선 출발 로비의 지정 단말기/세관에서 먼저 진행해야 합니다. 적색 결과가 나오면 물건을 직접 제시해야 하므로 위탁하기 전에 구매품 전부를 꺼낼 수 있어야 합니다.</div>'+
-      toc([['info-tax-steps','절차'],['info-tax-receipts','영수증과 포장'],['info-tax-faq','자주 묻는 질문'],['info-tax-sources','공식 출처']])+
-      '<section class="info-section" id="info-tax-steps"><h2>구매부터 환급까지</h2><div class="info-steps">'+
-      '<div class="info-step"><div><h3>면세점에서 여권을 제시하고 세금 포함 가격으로 결제</h3><p>같은 매장에서 같은 날 세전 5,000엔 이상 등의 요건이 필요합니다. 면세점에서 지정하는 환급 수단 등록 절차를 확인하세요.</p></div></div>'+
-      '<div class="info-step"><div><h3>면세 대상 전 상품을 소지한 채 출국 공항으로 이동</h3><p>구매일부터 90일 이내에 물건을 일본 밖으로 반출해야 합니다. 세관에서 실물 확인을 요구할 가능성에 대비하세요.</p></div></div>'+
-      '<div class="info-step"><div><h3>위탁 수하물 접수 전에 단말기/세관에서 확인</h3><p>여권 등을 제시합니다. 녹색 결과는 세관 확인 완료, 적색 결과는 지정 장소에서 구매품 실물 검사가 필요하다는 의미입니다.</p></div></div>'+
-      '<div class="info-step"><div><h3>세관 확인 후 매장 또는 환급 서비스가 환급</h3><p>환급 방법과 입금 시기는 판매점·환급 사업자마다 다릅니다. 적색 결과 자체가 환급 불가 판정은 아닙니다.</p></div></div>'+
-      '</div></section>'+
-      '<section class="info-section" id="info-tax-receipts"><h2>영수증별 정리는 실용적인 팁이지 법적 봉투 의무는 아닙니다</h2>'+
-      '<p>공식적으로 세관 확인은 한 번의 구매 거래(영수증 등) 단위로 이루어집니다. 한 거래에 포함된 면세 물품 중 하나라도 제시할 수 없다면, 그 거래의 나머지 물품까지 확인 및 환급이 불가능할 수 있습니다.</p>'+
-      '<div class="info-grid"><div class="info-notice"><strong>권장하는 정리법</strong>돈키호테·백화점 등에서 산 물건을 영수증과 대응되도록 구별해 보관하세요. 작은 쇼핑백이나 지퍼백을 활용하면 세관 검사가 필요할 때 찾기 쉽습니다.</div>'+
-      '<div class="info-notice"><strong>법적 규정과 다른 부분</strong>매장별로 반드시 별도 쇼핑백을 써야 하는 의무는 확인되지 않았습니다. 다른 상점의 물건을 한 가방에 넣었다는 이유만으로 환급이 거절되는 규정도 아닙니다.</div></div>'+
-      '<p>소비재(음식·화장품 등)에 적용되던 특수 밀봉 포장 요건은 폐지되었습니다. 하지만 해당 면세 대상 소비재를 일본 안에서 사용·소비하면 환급을 받지 못할 수 있습니다.</p></section>'+
-      '<section class="info-section" id="info-tax-faq"><h2>자주 묻는 질문</h2><div class="info-faq">'+
-      '<details><summary>녹색과 적색은 무엇을 뜻하나요?</summary><p>녹색은 세관 확인 절차의 완료를 의미합니다. 적색은 세관 지정 검사 구역에서 구매품을 확인해야 한다는 뜻이며, 즉시 환급 거절을 뜻하지는 않습니다.</p></details>'+
-      '<details><summary>가방을 먼저 위탁했다면 어떻게 되나요?</summary><p>공식 안내는 위탁 전 수속을 요구합니다. 위탁한 수하물을 절차 때문에 되찾을 수 없으므로, 면세 물품 확인을 마친 뒤 항공사에 맡기세요.</p></details>'+
-      '<details><summary>다른 매장에서 산 물건을 하나의 가방에 넣으면 안 되나요?</summary><p>그 자체가 금지된다는 공식 근거는 없습니다. 중요한 것은 각 구매 거래에 포함된 모든 면세 물품을 제시할 수 있는지입니다. 매장·영수증별로 정리하면 검사 시 편리합니다.</p></details>'+
-      '<details><summary>면세 물품 포장을 열어도 되나요?</summary><p>종전 소비재 전용 밀봉 규정은 폐지되었지만, 면세 대상 식품·화장품 등의 일본 내 소비는 환급 요건을 충족하지 못할 수 있습니다. 포장 개봉과 상품 사용·소비를 구분하세요.</p></details>'+
-      '<details><summary>Visit Japan Web에서도 처리할 수 있나요?</summary><p>하네다·나리타를 포함한 일부 주요 공항의 지정 구역에서는 전용 무선 LAN을 이용한 Visit Japan Web 수속도 가능합니다. 현장 단말기를 이용할 수도 있으므로 공항 안내를 확인하세요.</p></details>'+
-      '</div></section>'+
-      '<section class="info-section" id="info-tax-sources"><h2>공식 근거</h2>'+
-      srcList([['일본 세관 · 2026년 11월 면세 환급제도',sources.customs],['일본 세관 · 출국 확인과 환급 절차',sources.customsSteps],['일본 관광청 · 여행자 공식 안내',sources.tourism],['일본 관광청 · 여행자 FAQ',sources.tourismFaq]])+
-      '<p class="info-note">이 내용은 출국 일본 세관 절차에 관한 안내이며, 한국 입국 시 신고/과세 기준과 별개입니다. 실제 방문 공항의 최신 안내도 확인하세요.</p></section></div>';
+  function taxMethodPanel() {
+  const method = state.taxMethod === 'vjw' ? 'vjw' : 'kiosk';
+  if (method === 'vjw') {
+    return `<div class="info-tax-method-head"><strong>휴대전화로 처리: Visit Japan Web</strong><span class="info-status">선택 이용</span></div>
+      <ol class="info-tax-method-steps">
+        <li>여행 전에 Visit Japan Web에 로그인하고 이용자·여권·상륙 허가 정보를 필요한 범위에서 등록합니다.</li>
+        <li>나리타 <strong>제1터미널 4층, 보안검색 전</strong>에서 세관 전용 Wi-Fi <code>Customs_WiFi_For_TaxRefund</code>에 접속합니다. 비밀번호는 <code>jcustoms</code>입니다.</li>
+        <li>VJW의 <strong>환급 절차(Refund Procedure)</strong>를 열고, 구매 기록을 확인한 뒤 <strong>Confirm</strong>을 누릅니다. 출국 로비의 전용 Wi-Fi 연결 구역에서 진행해야 합니다.</li>
+        <li><strong>Completed</strong>이면 세관 확인을 마친 것입니다. <strong>Not Completed</strong>이면 세관 검사 장소로 이동해 실물을 제시합니다.</li>
+      </ol>
+      <p class="info-note">VJW 면세 구입용 QR을 매장에서 사용하지 않았더라도 전송된 구매 기록이 표시될 수 있습니다. 기록이 없으면 구매처의 전송 여부를 확인하고, 온라인 수속이 안 되면 현장 단말기를 이용하세요.</p>
+      <div class="info-store-actions">${external(sources.ntaVjw,'국세청 VJW 절차 한국어 안내')} ${external(sources.ntaFaq,'VJW 오류·구매기록 FAQ')}</div>`;
   }
+  return `<div class="info-tax-method-head"><strong>현장 단말기에서 처리: 여권 스캔</strong><span class="info-status official">VJW 가입 불필요</span></div>
+    <ol class="info-tax-method-steps">
+      <li>나리타 <strong>제1터미널 4층, 보안검색 전</strong>의 면세 확인 단말기(Tax Refund Kiosk)를 찾습니다.</li>
+      <li>여권을 단말기에 제시하고 세관 확인 결과를 확인합니다. 면세 구매 상품은 전부 직접 제시할 수 있도록 가지고 있어야 합니다.</li>
+      <li><strong>녹색(Green Result)</strong>이면 세관 확인을 마친 것입니다. <strong>적색(Red Result)</strong>이면 안내된 세관 검사 장소에서 해당 상품을 제시해야 합니다.</li>
+      <li>결과 확인이 끝나면 피치항공 체크인·보안검색을 진행합니다. 환급금 지급 여부는 거래 매장·환급 사업자 기준으로 따로 확인합니다.</li>
+    </ol>
+    <p class="info-note">현장 단말기는 휴대전화의 VJW 접속과 별개의 절차입니다. 온라인 Wi-Fi 오류가 나더라도 탑승 마감 전에 진행할 수 있는 대안입니다.</p>
+    <div class="info-store-actions">${external(sources.naritaTax,'나리타공항 공식 면세 확인 위치')} ${external(sources.customsSteps,'세관 공식 절차')}</div>`;
+}
 
+  function taxfree() {
+  const completed=state.taxChecked.length;
+  const items=taxChecklistItems.map(([id,label])=>`<label class="info-tax-task"><input type="checkbox" data-tax-check="${esc(id)}" ${state.taxChecked.includes(id)?'checked':''}><span>${esc(label)}</span></label>`).join('');
+  return `<div class="info-wrap info-tax-page">
+    ${crumb('일본 면세 환급')}
+    ${header('TAX REFUND · 2026 NOVEMBER','일본 면세 환급 · 공항에서 막히지 않기','11월 1일 이후 면세점에서 구입한 물건은 소비세 포함 가격으로 결제하고, 출국 때 세관 반출 확인을 받은 뒤 환급받습니다. 나리타 제1터미널 피치항공 출국을 기준으로 실제 행동 순서를 정리했습니다.')}
+    <div class="info-tax-topline">
+      <div><span class="info-tax-eyebrow">최우선 규칙</span><strong>면세품을 전부 지닌 채, 수하물 위탁·보안검색 전에 세관 확인</strong><p>실물 검사가 나오면 상품을 바로 꺼낼 수 있어야 합니다. 빨간 결과만으로 환급이 거절된 것은 아닙니다.</p></div>
+    </div>
+    <div class="info-tax-overview" aria-label="면세 환급의 네 단계">
+      <div><span>01</span><strong>일본 면세점</strong><small>세금 포함 결제</small></div>
+      <div><span>02</span><strong>짐 정리</strong><small>거래별 상품 확인</small></div>
+      <div><span>03</span><strong>출국 전 세관</strong><small>녹색/적색 판정</small></div>
+      <div><span>04</span><strong>환급 수령</strong><small>매장별 방식 확인</small></div>
+    </div>
+    ${toc([['info-tax-preflight','출국 전 점검'],['info-tax-steps','현장 순서'],['info-tax-methods','단말기·VJW'],['info-tax-results','판정 결과'],['info-tax-receipts','영수증·포장'],['info-tax-refund','환급 추적'],['info-tax-faq','FAQ'],['info-tax-sources','공식 근거']])}
+    <section class="info-section info-tax-checklist" id="info-tax-preflight">
+      <div class="info-tax-section-line"><h2>출국 전 6가지 점검</h2><span class="info-tax-progress" id="tax-check-progress" aria-live="polite">${completed}/${taxChecklistItems.length} 완료</span></div>
+      <div class="info-tax-meter" aria-hidden="true"><span id="tax-check-meter" style="width:${Math.round(completed/taxChecklistItems.length*100)}%"></span></div>
+      <div class="info-tax-tasks">${items}</div>
+      <p class="info-note">이 기기의 브라우저에만 체크 상태를 보관합니다. 앱 예약·세관 시스템과 연동되는 것이 아닙니다.</p>
+    </section>
+    <section class="info-section" id="info-tax-steps">
+      <h2>나리타공항에서 무엇을 먼저 해야 하나?</h2>
+      <div class="info-notice info-warning"><strong>피치항공 · 나리타 제1터미널 북쪽 윙 4층</strong>
+      11월 15일 08:30 출발 기준 체크인 가능 시각은 <strong>06:30~07:40</strong>입니다. 면세 확인 구역은 <strong>제1터미널 중앙빌딩 4층, 보안검색 전(05:30~23:00)</strong>입니다. 공항에 도착하면 세관 확인 위치와 항공사 체크인 위치를 구분하고, 항공편 마감 시간을 우선하세요.</div>
+      <div class="info-steps">
+        <div class="info-step"><div><h3>세금 포함 가격으로 결제</h3><p>같은 면세점·같은 날 세전 합계 5,000엔 이상 등 요건을 충족하고, 여권·환급 방식 안내를 확인합니다. 상품은 구매일부터 90일 이내 반출 확인 대상입니다.</p></div></div>
+        <div class="info-step"><div><h3>거래(영수증)별로 상품을 찾을 수 있게 준비</h3><p>짐을 매장별 또는 영수증별 작은 봉투에 정리하는 것은 실용적인 선택입니다. 하지만 한 쇼핑백에 다른 매장 물건을 섞었다는 이유만으로 면세가 거절되는 규정은 아닙니다.</p></div></div>
+        <div class="info-step"><div><h3>4층 출국 로비에서 세관 확인</h3><p>단말기 여권 스캔 또는 전용 Wi-Fi에서 VJW를 이용합니다. <strong>적색 결과는 지정 장소에서 구매품 실물 검사가 필요</strong>하다는 뜻입니다. 위탁 수하물이 있다면 그보다 먼저 처리해야 합니다.</p></div></div>
+        <div class="info-step"><div><h3>완료 후 항공 체크인·보안검색</h3><p>세관 확인과 체크인은 별개입니다. 체크인 수속을 놓치지 않도록 하고, 세관 확인 후 물품을 일본 밖으로 가져가야 합니다.</p></div></div>
+        <div class="info-step"><div><h3>환급은 매장·환급 사업자 방식으로 수령</h3><p>세관 확인 <strong>Completed</strong>가 곧 계좌·카드 환급 완료는 아닙니다. 구매 당시 지정된 환급 방법과 업체 안내를 확인하세요.</p></div></div>
+      </div>
+    </section>
+    <section class="info-section" id="info-tax-methods">
+      <h2>세관 확인 방법을 선택하세요</h2>
+      <p>아래 두 경로는 대체 수단입니다. VJW가 반드시 필요한 것은 아니며, 휴대전화 절차를 사용하려면 공항의 지정 전용 Wi-Fi 구역에 있어야 합니다.</p>
+      <div class="info-tax-options" role="group" aria-label="면세 확인 방법">
+        <button type="button" class="info-filter" data-tax-method="kiosk" aria-pressed="${state.taxMethod==='kiosk'}" aria-controls="info-tax-method-panel">현장 단말기 · 여권</button>
+        <button type="button" class="info-filter" data-tax-method="vjw" aria-pressed="${state.taxMethod==='vjw'}" aria-controls="info-tax-method-panel">휴대전화 · VJW</button>
+      </div>
+      <div class="info-tax-method-panel" id="info-tax-method-panel">${taxMethodPanel()}</div>
+    </section>
+    <section class="info-section" id="info-tax-results">
+      <h2>녹색·적색 결과를 어떻게 처리하나요?</h2>
+      <div class="info-tax-result-grid">
+        <div class="info-tax-result green"><span class="info-tax-result-label">GREEN · COMPLETED</span><strong>세관 반출 확인 완료</strong><p>상품 검사를 요구받지 않은 상태입니다. 다른 필요한 환급 신청이 있다면 매장 안내에 따라 진행하고 항공편 수속으로 이동합니다.</p></div>
+        <div class="info-tax-result red"><span class="info-tax-result-label">RED · NOT COMPLETED</span><strong>세관 창구에서 실물 확인</strong><p>환급 거절이 확정된 것이 아닙니다. 보관한 면세품을 가지고 직원에게 요청된 물품을 제시해 확인을 마쳐야 합니다. 포기하면 해당 거래는 환급받을 수 없습니다.</p></div>
+      </div>
+      <p class="info-note">VJW에서 결과 화면을 닫았다면 History(절차 이력)에서 구매 기록별 결과를 확인할 수 있습니다. 오류나 표시 지연은 별개 문제이며 'Completed'와 실제 카드 환급 입금을 혼동하지 마세요.</p>
+    </section>
+    <section class="info-section" id="info-tax-receipts">
+      <h2>영수증별 정리는 실용적인 팁이지 법적 봉투 의무는 아닙니다</h2>
+      <p><strong>공식 검사 단위는 한 번의 구매 거래(영수증 등)</strong>입니다. 같은 거래에 들어 있는 면세품을 한 개라도 제시하지 못하면 그 거래의 다른 면세품도 환급 대상에서 제외될 수 있습니다. 서로 다른 거래는 별도로 판단하므로, 어디서 무엇을 샀는지 대응관계를 알 수 있게 정리하면 도움이 됩니다.</p>
+      <div class="info-grid">
+        <div class="info-notice"><strong>권장하는 짐 정리 방법</strong>돈키호테에서 산 물품과 영수증을 한 묶음, 백화점 구매품을 다른 묶음으로 정리합니다. 공항에서 적색 결과가 나왔을 때 직원 요청에 따라 물건을 빠르게 꺼낼 수 있습니다.</div>
+        <div class="info-notice"><strong>잘못 알려지기 쉬운 부분</strong>매장별로 별도 쇼핑백을 반드시 사용해야 하는 의무는 아닙니다. 실물 영수증이 모든 상황의 법정 필수 서류라는 단정도 피해야 합니다. 다만 구매 내역을 보관하면 오류·환급 문의에 유용합니다.</div>
+      </div>
+      <div class="info-notice info-warning"><strong>소비재 포장 폐지 ≠ 일본 내 소비 가능</strong>식품·음료·화장품 등의 특수 밀봉 포장 의무는 폐지됐지만, 면세 대상 소비재를 일본에서 사용·소비했다면 그대로 환급 신청하면 안 됩니다. 이 경우 단말기에서 임의로 완료 처리하지 말고 세관 직원에게 소비 사실을 알리세요.</div>
+      <p class="info-note">위탁 수하물이 없는 피치항공 승객은 특히 주의하세요. 시내에서 산 100ml 초과 액체·젤류는 보안검색을 통과하지 못할 수 있습니다. 반출할 수 없는 상품을 면세로 구매하지 않도록 기내 수하물 기준을 먼저 확인해야 합니다.</p>
+    </section>
+    <section class="info-section" id="info-tax-refund">
+      <h2>세관 확인 완료 후 환급이 안 들어왔다면?</h2>
+      <div class="info-tax-followup">
+        <div><strong>01 · 세관 확인 상태를 점검</strong><p>VJW의 History(절차 이력)에서 해당 거래가 Completed인지 확인합니다. 전산 구매 기록은 기본적으로 영수증 등 거래 단위로 나타납니다.</p></div>
+        <div><strong>02 · 구매 매장의 환급 약관을 확인</strong><p>현금 환급과 신용카드·전자결제·계좌 환급은 사업자별로 방법·시기가 다릅니다. 모든 매장이 공항 현금 환급을 지원하지는 않습니다.</p></div>
+        <div><strong>03 · 입금 지연은 구매처 또는 지정 환급사에 문의</strong><p>세관의 세금 반출 확인이 끝났다는 것은 환급 승인 정보에 관한 것이며 즉시 입금 보장은 아닙니다. 문의를 위해 구매일·거래 기록·결제 정보를 보관하세요.</p></div>
+      </div>
+      <p class="info-note">나리타 T1에서는 세관 확인 구역(중앙빌딩 4층, 05:30~23:00)과 환급금 현금 지급기(중앙빌딩 4층 보안검색 전, 06:00~24:00)가 별도로 안내됩니다. 보안검색 후 북쪽 윙 3층에도 환급 사업자 기기가 있지만, 이용 가능 여부는 매장이 지정한 환급 방식에 달려 있습니다.</p>
+    </section>
+    <section class="info-section info-faq" id="info-tax-faq">
+      <h2>현장에서 자주 헷갈리는 상황</h2>
+      <details><summary>Visit Japan Web에 등록하지 않으면 면세 환급을 못 받나요?</summary><p>아닙니다. 공항에 설치된 면세 절차 단말기에서 여권을 스캔하는 방법도 있습니다. VJW는 지정 전용 Wi-Fi를 사용하는 대안입니다.</p></details>
+      <details><summary>세관 확인 단말기와 실제 환급금 받는 기기는 같은 기계인가요?</summary><p>아닙니다. 반출 확인 후 매장이나 지정 환급 사업자가 환급하며, 공항 현금 환급 기기는 별도입니다. 이용 가능한 환급 방법은 구매 매장에서 지정합니다.</p></details>
+      <details><summary>VJW에 구매 내역이 없거나 오류가 나면요?</summary><p>매장 전송 지연 여부를 살피고 화면을 새로 고치세요. 면세 구매용 QR을 제시하지 않았어도 거래가 표시될 수 있습니다. 온라인으로 진행이 어려우면 현장 단말기를 이용하고, 거래 정보 자체가 누락된 경우 구매 매장에 문의합니다.</p></details>
+      <details><summary>빨간불이면 짐을 전부 검사하나요?</summary><p>적색은 세관 실물 확인이 필요하다는 의미입니다. 요청 범위는 현장 세관 직원이 안내하므로 모든 짐의 전수검사라고 단정할 수 없습니다. 해당 물품을 제시해야 거래별 확인이 가능합니다.</p></details>
+      <details><summary>위탁 수하물이 없다면 세관 확인을 건너뛰어도 되나요?</summary><p>아닙니다. 환급을 원한다면 반출 확인은 필요합니다. 위탁 수하물이 없더라도 면세품을 소지한 상태에서 보안검색 전에 세관 확인을 완료해야 합니다.</p></details>
+      <details><summary>영수증 중 상품 하나를 일본에서 사용했어요.</summary><p>한 번의 구매 거래에 포함된 상품이 누락되거나 소비되면 거래 전체가 환급 대상에서 제외될 수 있습니다. 소비재를 소비했다면 단말기 확인을 진행하지 말고 먼저 세관 직원에게 신고하세요.</p></details>
+    </section>
+    <section class="info-section" id="info-tax-sources">
+      <h2>확인된 공식 근거</h2>
+      ${srcList([
+        ['일본 세관 · 2026.11.01 면세 환급제도',sources.customs],
+        ['일본 관광청 · 영수증 거래 단위/포장/검사',sources.tourismFaq],
+        ['나리타공항 · T1 세관·현금환급·전용 Wi-Fi',sources.naritaTax],
+        ['국세청 · VJW 온라인 확인 방법(한국어)',sources.ntaVjw],
+        ['국세청 · VJW 구매기록/오류/이력 FAQ(한국어)',sources.ntaFaq],
+        ['피치항공 · 나리타 국제선 수속 장소·시각',sources.peachNarita],
+        ['일본 디지털청 · Visit Japan Web 이용 안내',sources.vjwHelp]
+      ])}
+      <p class="info-note">조사 기준 2026.11.01. 제공된 SNS 글은 현장 정리법의 참고 자료이며, 절차·권리·의무는 위 공식 자료를 우선합니다. 환급 가능 여부와 실제 처리 시기는 구매 업체·현장 세관에 따라 달라질 수 있습니다.</p>
+    </section>
+  </div>`;
+}
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
@@ -159,6 +258,11 @@
         if(btn.hasAttribute('data-info-goal')){state.goal=btn.getAttribute('data-info-goal');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}
         if(btn.hasAttribute('data-info-region')){state.region=btn.getAttribute('data-info-region');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}
         if(btn.hasAttribute('data-info-kind')){state.kind=btn.getAttribute('data-info-kind');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}
+        if(btn.hasAttribute('data-tax-method')){
+          state.taxMethod=btn.getAttribute('data-tax-method')==='vjw'?'vjw':'kiosk';
+          const panel=$('info-tax-method-panel');if(panel)panel.innerHTML=taxMethodPanel();
+          root.querySelectorAll?.('[data-tax-method]').forEach(b=>b.setAttribute('aria-pressed',String(b.getAttribute('data-tax-method')===state.taxMethod)));
+        }
         if(btn.hasAttribute('data-info-copy'))copyText(btn.getAttribute('data-info-copy'));
       }
       const jump=event.target.closest('a[data-info-jump]');
@@ -166,6 +270,17 @@
         event.preventDefault();
         const target=$(jump.getAttribute('data-info-jump'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}
       }
+    });
+    root.addEventListener('change',event=>{
+      const input=event.target;
+      if(!input||!input.hasAttribute||!input.hasAttribute('data-tax-check'))return;
+      const id=input.getAttribute('data-tax-check');
+      if(!taxChecklistItems.some(x=>x[0]===id))return;
+      if(input.checked){if(!state.taxChecked.includes(id))state.taxChecked.push(id);}
+      else state.taxChecked=state.taxChecked.filter(x=>x!==id);
+      try{window.localStorage?.setItem(taxChecklistKey,JSON.stringify(state.taxChecked));}catch(_){}
+      const progress=$('tax-check-progress');if(progress)progress.textContent=state.taxChecked.length+'/'+taxChecklistItems.length+' 완료';
+      const meter=$('tax-check-meter');if(meter)meter.style.width=Math.round(state.taxChecked.length/taxChecklistItems.length*100)+'%';
     });
   }
   window.renderInfoTab=renderInfoTab;

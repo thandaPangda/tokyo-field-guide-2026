@@ -128,14 +128,19 @@ test('selecting a pin opens a compact card, and list action expands the sheet', 
   assert.equal(app.card.classList.contains('is-open'), false);
 });
 
-test('cluster selection zooms first, without creating a blocking popup', () => {
+test('cluster first tap shows the compact summary and explicit zoom stays optional', () => {
   const app = fixture();
   app.context.openGroup({
     isCluster: true, siteCount: 4, lat: 35.6, lon: 139.7,
     items: [{ name: '근처', id: 'a' }],
   });
-  assert.equal(app.calls.opens, 0);
-  assert.equal(app.calls.views.length, 1);
+  assert.equal(app.calls.opens, 1);
+  assert.equal(app.calls.views.length, 0);
+  assert.equal(app.card.classList.contains('is-open'), true);
+  const buttons = app.card.children[1].children;
+  const zoom = buttons.find(el => el.textContent === '지도 확대');
+  assert.ok(zoom);
+  zoom.fire('click');
   assert.equal(app.calls.views[0][2], 15);
   assert.equal(app.card.classList.contains('is-open'), false);
 });

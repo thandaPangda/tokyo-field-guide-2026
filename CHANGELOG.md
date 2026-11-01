@@ -4,7 +4,7 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
-## [미출시] — v1.2.x 포켓몬 카드 구매 경험·전문점 가이드 보강 (2026-11-02 작성)
+## [미출시] — v1.2.x 포켓몬 카드 구매 경험·전문점 가이드 보강 (2026-11-02 작성, PR #8)
 
 **상태:** `feat/pokemon-card-community-guide-20261102` 브랜치에 푸시했으며 `main` 미병합·미배포. 사용자가 제공한 두 Reddit 대화는 개별 경험담이며 현행 점포 재고 데이터가 아니다.
 
@@ -28,6 +28,7 @@
 - 상세 조사: [Reddit 구매 경험 검증 문서](research/pokemon-reddit-community-buying-2026-11-02.md).
 - 정보 가이드 자바스크립트 구문과 모의 DOM 렌더링/코엔지·아키하바라 필터를 점검했다. 실제 사용자의 Android Chrome 시각/터치, 11월 현장 재고와 실물 가격은 아직 검증하지 않았다.
 - 작업 브랜치: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/pokemon-card-community-guide-20261102
+- 검토 PR: https://github.com/thandaPangda/tokyo-field-guide-2026/pull/8
 
 ## [미출시] — v1.2.0 지도 센토·묶음 마커 아이콘 시스템 (2026-11-01 작성, PR #7)
 

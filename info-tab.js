@@ -90,7 +90,7 @@
       '<p class="info-note">공식 포켓몬 카드 취급점 지도는 모든 취급점을 보여주지 않고, 표시된 곳도 품절일 수 있다고 안내합니다. 지도 미등재=비취급이라고 판정하지 않습니다.</p></section>'+
       '<section class="info-section" id="info-stores"><h2>도쿄에서 접근 가능한 점포</h2><p>코엔지 숙박을 고려해 역 주변 편의점을 확인 후보로 포함했습니다. 상품 재고가 확인된 곳을 의미하지 않으며, 별도의 날짜별 방문 일정을 만들지 않습니다.</p>'+
       '<div id="info-store-results">'+storeResults()+'</div></section>'+
-      '<section class="info-section"><h2>여행 기간 주목할 공식 상품</h2><div class="info-notice"><strong>11월 13일 출시 · 스페셜 덱 세트 MEGA</strong>메가오더일·메가망나뇽·메가팬텀의 구축 덱 세트이며 희망소비자가격은 5,500엔(세금 포함)입니다. 일반 확장팩이 아니며, 출시일이 즉시 구매 가능함을 보장하지 않습니다. '+external(sources.product,'상품 공식 정보')+'</div></section>'+
+      '<section class="info-section"><h2>여행 기간 주목할 공식 상품</h2><div class="info-notice"><strong>11월 13일 출시 · 스페셜 덱 세트 MEGA</strong>메가장크로다일·메가망나뇽·메가팬텀의 구축 덱 세트이며 희망소비자가격은 5,500엔(세금 포함)입니다. 일반 확장팩이 아니며, 출시일이 즉시 구매 가능함을 보장하지 않습니다. '+external(sources.product,'상품 공식 정보')+'</div></section>'+
       '<section class="info-section" id="info-phrases"><h2>매장에서 사용할 일본어</h2><p>판매 중인 상품에 관해 짧게 확인할 때 사용하세요. 금지된 개별 납품/재고 문의나 장시간 대기를 권하는 표현은 포함하지 않았습니다.</p>'+
       '<div class="info-phrases">'+[
         ['포켓몬 카드를 취급하나요?','ポケモンカードは取り扱っていますか。'],

@@ -38,7 +38,7 @@ test('one map location is not double counted for repeated events', () => {
     [['sento', 2], ['coffee', 2], ['event', 1], ['shop', 1]]);
 });
 
-test('clusters use at most two pictograms; location count remains independent', () => {
+test('compact clusters show only one folder and preserve category details on selection', () => {
   const a = api();
   const summary = a.summarizeNodes([
     { items: [{ kind: 'event' }] },
@@ -48,9 +48,10 @@ test('clusters use at most two pictograms; location count remains independent', 
   const group = { siteCount: 3, items: [1, 2, 3, 4], categorySummary: summary };
   const markup = a.clusterMarkup(group, svgPaths,
     '<svg class="folder" aria-hidden="true"></svg>');
-  assert.equal((markup.match(/<svg/g) || []).length, 3); // folder + at most 2
+  assert.equal((markup.match(/<svg/g) || []).length, 1); // compact folder only
   assert.match(markup, /cluster-number">3</);
-  assert.match(markup, /cluster-types/);
+  assert.match(markup, /cluster-glyph/);
+  assert.doesNotMatch(markup, /cluster-types/);
   assert.doesNotMatch(markup, /cluster-sento-indicator/);
   const detail = a.compositionMarkup(group, svgPaths);
   assert.match(detail, /공연 1곳/);
@@ -86,8 +87,9 @@ test('sento contrast and selected marker geometry do not depend on old badge', (
   assert.match(mapCss, /--pb:\s*#367c93/);
   assert.match(mapCss, /--pc:\s*#ffffff/);
   assert.match(mapCss, /background:\s*var\(--pb\)\s*!important/);
-  assert.match(mapCss, /\.cluster-types svg/);
-  assert.match(mapCss, /width:\s*50px/);
+  assert.match(mapCss, /\.cluster-glyph svg/);
+  assert.match(mapCss, /pin-cluster\s*\{[^}]*width:\s*36px\s*!important/s);
+  assert.match(mapCss, /map-spider-anchor/);
   assert.doesNotMatch(mapCss, /cluster-sento-indicator/);
 });
 

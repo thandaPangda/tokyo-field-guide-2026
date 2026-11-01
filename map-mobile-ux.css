@@ -510,3 +510,64 @@
 #view-map .pin.pin-symbol.pin-resale{--pb:#98532f;--pc:#fff;background:var(--pb)!important;color:var(--pc)!important;border:2px solid #fff;box-shadow:0 3px 12px rgba(100,51,26,.28)}
 #view-map .pin.pin-symbol.pin-resale svg{stroke:currentColor;stroke-width:2}
 #view-map .pin.pin-symbol.pin-resale.clock-unknown{opacity:.77}
+
+/* Compact map clusters and true-coordinate high-zoom spiderfy (2026-11-02). */
+#view-map .pin.pin-symbol.pin-cluster {
+  width: 36px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  border-radius: 12px 12px 12px 4px !important;
+  box-sizing: border-box;
+  padding: 2px 0 1px !important;
+  gap: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-glyph {
+  display: block;
+  height: 12px;
+  width: 12px;
+  line-height: 0;
+  flex: 0 0 12px;
+  pointer-events: none;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-glyph svg {
+  display: block;
+  height: 12px;
+  width: 12px;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  opacity: .92;
+}
+#view-map .pin.pin-symbol.pin-cluster .cluster-number {
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: 840;
+  flex: 0 0 13px;
+}
+#view-map #pins .map-spider-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+#view-map #pins .map-spider-link {
+  stroke: #547364;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: .8;
+  vector-effect: non-scaling-stroke;
+}
+#view-map #pins .map-spider-anchor {
+  fill: #345944;
+  stroke: white;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+#view-map .pin.pin-symbol.pin-spider { z-index: 5; }
+#view-map .pin.pin-symbol.pin-spider.selected { z-index: 10; }

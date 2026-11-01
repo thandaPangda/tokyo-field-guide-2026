@@ -45,12 +45,10 @@
       paths + '</svg>';
   }
   function clusterMarkup(group, markerSVG, folderGlyph) {
-    const top = group.categorySummary?.top || [];
-    const thumbnails = top.length ? top.map(x => icon(x.kind, markerSVG)).join('') :
-      icon('other', markerSVG);
-    return '<span class="cluster-folder-cue" aria-hidden="true">' +
-      folderGlyph + '</span><span class="cluster-types" aria-hidden="true">' +
-      thumbnails + '</span><span class="cluster-number">' +
+    // Single compact folder/count glyph. Category composition remains in the
+    // tap detail, where labels can be read without obscuring nearby positions.
+    return '<span class="cluster-glyph" aria-hidden="true">' +
+      folderGlyph + '</span><span class="cluster-number">' +
       Number(group.siteCount) + '</span>';
   }
   function compositionMarkup(group, markerSVG) {

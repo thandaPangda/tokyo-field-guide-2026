@@ -6,12 +6,12 @@
   'use strict';
   const LABELS = Object.freeze({
     event: '공연', bar: '바·클럽', art: '전시', sento: '센토',
-    coffee: '카페', food: '음식', shop: '쇼핑', card: '포켓몬',
+    coffee: '카페', food: '음식', shop: '쇼핑', resale: '리셀', card: '포켓몬',
     record: '레코드숍', book: '서점', park: '공원', other: '기타'
   });
   const PRIORITY = Object.freeze([
     'event', 'sento', 'art', 'bar', 'record', 'book',
-    'coffee', 'food', 'card', 'shop', 'park', 'other'
+    'coffee', 'food', 'card', 'resale', 'shop', 'park', 'other'
   ]);
   const rank = kind => {
     const position = PRIORITY.indexOf(kind);

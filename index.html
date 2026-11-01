@@ -1646,7 +1646,7 @@ const GEO_CLUSTER={screenWidth:0,zoom:0,version:0,geoGroups:[]};
 function rebuildMapGeoGroups(){const groups=new Map();for(const item of mapState.items){if(!validGeo(item))continue;
  const key=item.groupKey;if(!groups.has(key))groups.set(key,{key,lat:item.lat,lon:item.lon,items:[],geoKey:key});groups.get(key).items.push(item);}
  GEO_CLUSTER.geoGroups=[...groups.values()];GEO_CLUSTER.version++;GEO_CLUSTER.zoom=0;}
-function clusterPoints(z){const r=window.innerWidth<=800?53:46;const clusters=[];
+function clusterPoints(z){const r=window.innerWidth<=800?62:58; // 50px category clusters + selected outline need spaceconst clusters=[];
  // Deterministic processing order prevents marker flicker when dragging.
  const ordered=[...GEO_CLUSTER.geoGroups].sort((a,b)=>a.key.localeCompare(b.key));
  for(const g of ordered){const p=mercator(g.lat,g.lon,z);let best=null,bestDistance=Infinity;

@@ -69,7 +69,7 @@ test('info has dedicated route, full source caveats and functioning controls',()
  assert.match(css,/@media\(max-width:800px\)/);
 });
 test('JavaScript parses without external build steps',()=>{
- const code=html.slice(html.indexOf("<script>\n'use strict';\nconst SOURCE=")+8,html.lastIndexOf('</script>'));
+ const start=html.indexOf("<script>\n'use strict';\nconst SOURCE=")+8;\n const code=html.slice(start,html.indexOf('</script>',start));
  assert.doesNotThrow(()=>new vm.Script(code));
  assert.doesNotThrow(()=>new vm.Script(info));
  assert.doesNotThrow(()=>new vm.Script(dataJs));

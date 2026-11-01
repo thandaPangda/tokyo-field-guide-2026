@@ -38,7 +38,7 @@ test('one map location is not double counted for repeated events', () => {
     [['sento', 2], ['coffee', 2], ['event', 1], ['shop', 1]]);
 });
 
-test('clusters use at most two pictograms; location count remains independent', () => {
+test('compact clusters show only one folder and preserve category details on selection', () => {
   const a = api();
   const summary = a.summarizeNodes([
     { items: [{ kind: 'event' }] },

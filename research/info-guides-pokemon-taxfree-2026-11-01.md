@@ -17,7 +17,7 @@
 1. 포켓몬 카드 공식 취급점 검색은 모든 취급점이 표시되지 않으며, 검색되는 매장도 품절일 수 있다고 명시한다. 비등재=비취급으로 추론하지 않는다. https://map.pokemon-card.com/
 2. 로손의 2026-09-16 출시 30th CELEBRATION 공지는 해당 상품에 한해 오전 7시 판매 시작/1회 5팩 제한을 안내했다. 매장별 차이가 있으며 개별 재고/납품 시간 문의, 조기 대기 등을 제한한다. 이 규칙을 다른 날짜/상품/체인에 확장 적용하지 않는다. https://www.lawson.co.jp/lab/entertainment/art/20260908_toypokemon.html
 3. 세븐일레븐 07:00, 패밀리마트 10:00은 사용자가 제공한 현장 경험/제3자 글의 참고 수치이며 보편적인 공식 체인 규칙으로 입증되지 않았다. 웹 화면에는 확정 방문 시각처럼 표시하지 않는다.
-4. 2026-11-13 출시 스페셜 덱 세트 MEGA (메가오더일·메가망나뇽·메가팬텀)는 정가 5,500엔의 구축 덱 세트이지 확장팩이 아니다. 출시가 현장 구매를 보장하지 않는다. https://www.pokemon-card.com/products/mega/mg.html
+4. 2026-11-13 출시 스페셜 덱 세트 MEGA (메가장크로다일·메가망나뇽·메가팬텀)는 정가 5,500엔의 구축 덱 세트이지 확장팩이 아니다. 출시가 현장 구매를 보장하지 않는다. https://www.pokemon-card.com/products/mega/mg.html
 5. 공식 포켓몬센터의 통상 영업시간: 메가도쿄 10:00–20:00, 시부야 10:00–21:00, 도쿄 DX 10:30–21:00, 스카이트리타운 10:00–21:00. 개점 직후는 선택 가능한 방문 전략이지 '카드 입고시간'이 아니다.
    - https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/
    - https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/

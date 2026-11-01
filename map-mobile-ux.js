@@ -95,6 +95,33 @@
     close.addEventListener('click', function () { hidePop(); });
     heading.append(info, close);
 
+    // Every category in the group remains available in the detail surface,
+    // while the map marker itself shows no more than two representative icons.
+    var categories = null;
+    var composition = group.categorySummary?.categories || [];
+    if (many && composition.length) {
+      categories = document.createElement('div');
+      categories.className = 'map-mobile-categories';
+      categories.setAttribute('aria-label', '묶음에 포함된 장소 유형. 한 위치가 여러 유형에 포함될 수 있습니다.');
+      composition.forEach(function (part) {
+        var chip = document.createElement('span');
+        chip.className = 'map-mobile-category-chip';
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '1.9');
+        svg.setAttribute('stroke-linecap', 'round');
+        svg.setAttribute('stroke-linejoin', 'round');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.innerHTML = markerSVG[part.kind] || markerSVG.other;
+        var text = document.createElement('span');
+        text.textContent = part.label + ' ' + part.count + '곳';
+        chip.append(svg, text);
+        categories.appendChild(chip);
+      });
+    }
+
     var actions = document.createElement('div');
     actions.className = 'map-mobile-actions';
 
@@ -125,6 +152,18 @@
     });
     actions.appendChild(listButton);
 
+    if (group.isCluster && mapState.z < 18) {
+      var zoomButton = document.createElement('button');
+      zoomButton.type = 'button';
+      zoomButton.textContent = '지도 확대';
+      zoomButton.setAttribute('aria-label', '이 묶음의 장소를 구분해서 보기 위해 지도 확대');
+      zoomButton.addEventListener('click', function () {
+        hidePop();
+        setView(group.lat, group.lon, Math.min(18, mapState.z + 2));
+      });
+      actions.appendChild(zoomButton);
+    }
+
     if (!many && typeof bookmarkButton === 'function') {
       var wrap = document.createElement('span');
       wrap.innerHTML = bookmarkButton(first.kind, first.id);
@@ -132,7 +171,9 @@
       if (saved) actions.appendChild(saved);
     }
 
-    card.append(heading, actions);
+    card.appendChild(heading);
+    if (categories) card.appendChild(categories);
+    card.appendChild(actions);
     card.classList.add('is-open');
     setSheet('peek');
   }
@@ -189,12 +230,8 @@
   var originalOpen = openGroup;
   openGroup = function (group) {
     if (!group) return;
-    if (isMobile() && group.isCluster && mapState.z < 18) {
-      hidePop();
-      setSheet('peek');
-      setView(group.lat, group.lon, Math.min(18, mapState.z + 2));
-      return;
-    }
+    // First tap opens the composition summary, not an unsolicited zoom.
+    // A separate visible "지도 확대" action is available in the summary.
     var result = originalOpen.apply(this, arguments);
     if (isMobile()) showCard(group);
     return result;

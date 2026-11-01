@@ -1,6 +1,6 @@
 (function infoTabModule() {
   'use strict';
-  const checkedOn = '2026.11.01';
+  const checkedOn = '2026.11.02';
   const sources = {
     customs: 'https://www.customs.go.jp/kaigairyoko/taxrefund.htm',
     naritaTax: 'https://www.narita-airport.jp/en/service/exchange/taxrefund/',
@@ -15,6 +15,15 @@
     lawson: 'https://www.lawson.co.jp/lab/entertainment/art/20260908_toypokemon.html',
     product: 'https://www.pokemon-card.com/products/mega/mg.html',
     stand: 'https://shop.pokemon.co.jp/ja/services/pokemonstand/',
+    centerFaq: 'https://shop.pokemon.co.jp/ja/faqs/',
+    hareruyaTower: 'https://www.hareruya2.com/en/pages/store_tower-en',
+    hareruyaAnnex: 'https://www.hareruya2.com/pages/store_annex',
+    hareruyaList: 'https://www.hareruya2.com/en/pages/store_menu-en',
+    mtgHareruya: 'https://www.hareruyamtg.com/en/shoppage/akihabara',
+    bookoff: 'https://www.bookoff.co.jp/buy/tradingcard/',
+    surugaya: 'https://www.suruga-ya.com/en/shoplist',
+    shibuyaLounge: 'https://shibuyatsutaya.tsite.jp/pokemoncardlounge/',
+    snkrDunk: 'https://help.snkrdunk-guide.com/ja/articles/Trading-card-Guidelines-262e2ce3',
   };
   const stores = [
     {id:'P01',name:'포켓몬센터 시부야',area:'shibuya',region:'시부야',type:'center',hours:'10:00–21:00',visit:'개점 직후 또는 시부야 관광 중',status:'공식 점포',address:'東京都渋谷区宇田川町15-1 渋谷PARCO 6F',url:'https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/',note:'공식 상품 취급점입니다. 특정 카드팩의 현장 재고와 구매 제한은 별도 확인이 필요합니다.'},
@@ -27,6 +36,12 @@
     {id:'koenji-lawson-station',name:'로손 고엔지역 앞점',area:'koenji',region:'코엔지',type:'convenience',hours:'24시간',visit:'역 앞 이동 동선에서 확인',status:'카드 취급 미확인',address:'東京都杉並区高円寺北2-4-4',url:'https://www.kouenji.or.jp/shop/convenience-store/lawson.html',note:'점포 소재지와 영업은 확인되었습니다. 특정 상품의 로손 공식 판매 시각이 이 점포 재고를 보장하지 않습니다.'},
     {id:'pcstand-ogikubo',name:'포켓몬 카드 스탠드 · 오기쿠보역',area:'ogikubo',region:'오기쿠보',type:'vending',hours:'역/시설 운영시간에 따름',visit:'오기쿠보역 이용 중 현장 확인',status:'공식 설치 위치',address:'東京都杉並区荻窪 東京メトロ荻窪駅',url:'https://shop.pokemon.co.jp/ja/services/pokemonstand/',note:'포켓몬 카드 전용 자판기입니다. 재고·판매 품목·기기 운영 상태는 미확인입니다.'},
     {id:'pcstand-ikebukuro',name:'포켓몬 카드 스탠드 · 이케부쿠로역',area:'ikebukuro',region:'이케부쿠로',type:'vending',hours:'역/시설 운영시간에 따름',visit:'도부 이케부쿠로역 B1F 통행 중',status:'공식 설치 위치',address:'東京都豊島区西池袋 東武池袋駅 B1F オレンジロード',url:'https://shop.pokemon.co.jp/ja/services/pokemonstand/',note:'포켓몬 카드 전용 자판기입니다. 시설과 실제 재고는 변동될 수 있습니다.'},
+    {id:'tcg-hareruya2-tower',name:'하레루야2 아키하바라 타워',area:'akihabara',region:'아키하바라',type:'cardshop',hours:'10:00–22:00',visit:'싱글·구형 카드 비교에 적합 · 재고 보장 아님',status:'공식 포켓몬 전문점',address:'東京都千代田区外神田1-2-13 石丸3号館ビル B1–6F',url:'https://www.hareruya2.com/en/pages/store_tower-en',note:'포켓몬 전문점. 스탠더드·구형(旧裏) 싱글과 관련 상품을 취급합니다. 오래된 팩·미개봉 박스의 실물 재고와 가격은 미확인입니다.'},
+    {id:'tcg-hareruya2-annex',name:'하레루야2 아키하바라 아넥스',area:'akihabara',region:'아키하바라',type:'cardshop',hours:'10:00–23:00',visit:'타워점 인근 · 싱글 카드 가격 비교',status:'공식 포켓몬 전문점',address:'東京都千代田区外神田1-2-5 ミカサビル B1F・1F',url:'https://www.hareruya2.com/pages/store_annex',note:'포켓몬 카드 판매·매입 전문 지점입니다. 구형 카드와 특가 싱글의 취급을 공식 안내하지만 특정 상품 재고는 미확인입니다.'},
+    {id:'tcg-hareruya2-ikebukuro',name:'하레루야2 이케부쿠로',area:'ikebukuro',region:'이케부쿠로',type:'cardshop',hours:'10:00–22:00',visit:'이케부쿠로 관광 중 싱글·구형 카드 비교',status:'공식 포켓몬 전문점',address:'東京都豊島区東池袋1-41-6 菊邑91ビル8F',url:'https://www.hareruya2.com/en/pages/store_menu-en',note:'포켓몬 카드 전문 지점. 구형 카드·싱글 선택지 확인용이며 정가 팩 판매나 재고를 보장하지 않습니다.'},
+    {id:'tcg-surugaya-akiba',name:'스루가야 아키하바라 본관',area:'akihabara',region:'아키하바라',type:'cardshop',hours:'평일 11:00–21:00 · 주말 10:00–21:00',visit:'구형·현행 포켓몬 카드, 중고품 탐색',status:'공식 취급 안내',address:'東京都千代田区外神田3-11-3',url:'https://www.suruga-ya.com/en/shoplist',note:'공식 취급 목록에 클래식·현행 포켓몬 카드가 기재되어 있습니다. 오리파·미스터리 큐브의 상시 판매는 확인되지 않았습니다.'},
+    {id:'tcg-surugaya-ikebukuro',name:'스루가야 이케부쿠로 캐릭터굿즈점',area:'ikebukuro',region:'이케부쿠로',type:'cardshop',hours:'11:00–20:00',visit:'이케부쿠로 관광 중 중고 카드 취급 확인',status:'공식 취급 안내',address:'東京都豊島区東池袋1-15-13 近代BLD 1F',url:'https://www.suruga-ya.com/en/shoplist',note:'공식 점포 목록에 포켓몬 카드 취급이 기재되어 있습니다. 빈티지 재고·가격은 미확인입니다.'},
+    {id:'tcg-shibuya-lounge',name:'SHIBUYA TSUTAYA 포켓몬 카드 라운지',area:'shibuya',region:'시부야',type:'cardshop',hours:'10:00–22:30',visit:'시부야 스크램블 교차로 방문 중 · 대전 체험/판매 공지 확인',status:'공식 카드 라운지',address:'東京都渋谷区宇田川町21-6 QFRONT 5F',url:'https://shibuyatsutaya.tsite.jp/pokemoncardlounge/',note:'공식 카드 대전 라운지이며 상품 예약·재판매 정보를 안내합니다. 체험 요금과 상품 구매는 별도이며 매장 재고 문의는 받지 않는다고 공지합니다.'},
     {id:'P03',name:'만다라케 나카노 카드관',area:'nakano',region:'나카노',type:'cardshop',hours:'12:00–20:00 (기존 사이트 등록값)',visit:'정오 이후 방문 고려',status:'카드 전문점',address:'東京都中野区中野5-52-15 中野ブロードウェイ 2F',url:'https://www.mandarake.co.jp/dir/nkn/',note:'중고·구형 카드와 수집품 탐색용입니다. 실물 재고와 가격은 개별 상품별로 확인해야 합니다.'},
     {id:'pao-nakano',name:'류세이노 PAO 나카노',area:'nakano',region:'나카노',type:'cardshop',hours:'11:00–21:00 (기존 사이트 등록값)',visit:'개점 이후 나카노 방문 중',status:'카드 전문점',address:'東京都中野区新井1-9-4',url:'https://pao-toreka.com/shop/nakano.html',note:'싱글 카드·TCG 상품용 전문점입니다. 포켓몬센터의 정가 팩과는 구매 목적과 가격 체계가 다릅니다.'},
   ];
@@ -36,7 +51,7 @@
   try { const saved=JSON.parse(window.localStorage?.getItem(taxChecklistKey)||'[]'); if(Array.isArray(saved))state.taxChecked=saved.filter(id=>taxChecklistItems.some(x=>x[0]===id)); } catch(_){ /* Browser storage may be unavailable. */ }
 
   const regions = [
-    ['all','전체 지역'],['koenji','코엔지'],['ogikubo','오기쿠보'],['nakano','나카노'],['shibuya','시부야'],['ikebukuro','이케부쿠로'],['nihonbashi','니혼바시'],['skytree','스카이트리'],
+    ['all','전체 지역'],['koenji','코엔지'],['ogikubo','오기쿠보'],['nakano','나카노'],['akihabara','아키하바라'],['shibuya','시부야'],['ikebukuro','이케부쿠로'],['nihonbashi','니혼바시'],['skytree','스카이트리'],
   ];
   const kinds = [['all','모든 판매처'],['center','포켓몬센터'],['convenience','편의점'],['vending','카드 자판기'],['cardshop','카드 전문점']];
   const $ = id => document.getElementById(id);
@@ -74,7 +89,7 @@
     const rank=s=>state.goal==='pack' ? ({center:0,convenience:1,vending:2,cardshop:3}[s.type]) : ({cardshop:0,center:1,vending:2,convenience:3}[s.type]);
     filtered.sort((a,b)=>rank(a)-rank(b));
     return '<div class="info-filters"><span class="info-filter-caption">구매 목적</span><div class="info-choices" role="group" aria-label="구매 목적">'+
-      [['pack','정가 팩·공식 상품'],['single','싱글·중고 카드']].map(o=>'<button type="button" class="info-filter" data-info-goal="'+o[0]+'" aria-pressed="'+(state.goal===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
+      [['pack','정가 팩·공식 상품'],['single','싱글·중고 카드'],['vintage','구형 팩·오리파 탐색']].map(o=>'<button type="button" class="info-filter" data-info-goal="'+o[0]+'" aria-pressed="'+(state.goal===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">지역 선택</span><div class="info-choices" role="group" aria-label="지역 필터">'+regions.map(o=>'<button type="button" class="info-filter" data-info-region="'+o[0]+'" aria-pressed="'+(state.region===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">판매처 구분</span><div class="info-choices" role="group" aria-label="판매처 유형 필터">'+kinds.map(o=>'<button type="button" class="info-filter" data-info-kind="'+o[0]+'" aria-pressed="'+(state.kind===o[0])+'">'+o[1]+'</button>').join('')+'</div></div>'+
       '<p class="info-results" aria-live="polite">조건에 맞는 확인 후보 '+filtered.length+'곳 · 카드 재고/편의점 취급 여부를 확인한 결과가 아닙니다.</p>'+

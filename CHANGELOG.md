@@ -4,6 +4,25 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
+## [미출시] — v1.3.0 도쿄 리셀 소싱 통합 (2026-11-02 작성)
+
+**상태:** `feat/resale-scout-map-info-20261102` 브랜치에 푸시됨. `main` 미병합 및 웹사이트 게시 미확인. 원래의 여행 일정은 변경하지 않으며, 사용자 승인 없이 PR을 병합하지 않는다.
+
+### 추가 / 변경
+
+- `resale-data.js`: 사용자 제공 TOKYO SCOUT 아카이브의 33개 점포, 19개 후보 SKU, 79건 상품–점포 탐색 연결을 분리 관리한다. 기존 `site-data` 본문과 원래 장소 ID는 보존한다. 원본의 이미지·시트·메타데이터 전체는 업로드하지 않았으며 별도 조사 맥락 문서에 증거 수준을 기록한다. **후보 매장에 재고가 있다는 뜻이 아니다.**
+- `index.html`, `map-marker-system.js`, `map-mobile-ux.css`: 리셀 카테고리 필터 및 갈색 쇼핑백·엔화 마커, 분류 묶음, `#map/resale` 직접 진입 추가. 신규 33곳의 좌표는 기본 null 상태이며, 일본 GSI 주소 검색에서 도쿄의 구/블록을 통과하는 결과가 나왔을 때만 '주소 구역의 대략 위치'로 표시한다. 건물 입구의 정확한 좌표라고 주장하지 않는다.
+- `info-tab.js`, `info-tab.css`: `#info/resale` 정보 탭 카드와 33곳의 지역·매장 유형·상품 검색, 19개 SKU의 과거 시세·품번·취급 불확실성, 사용자가 구매가·가정 환율·수수료·배송비를 수정하는 시나리오 계산기를 추가한다. 계산기 수치는 관세·세금·반품·배송의 일부 비용과 가격 미체결 위험을 모두 확정 반영한 실현 수익이 아니다.
+- `research/resale-scout-context-2026-11-02.md`: 2026-10-29 원천 시세 스냅샷과 2026-11-02 조사 기록을 구분한다. 치이카와 품목별 가격·수요 및 Threads 취소 사례, KREAM 누적/약 6주 거래 증감, RAGTAG 상충 주소, KINDAL 코엔지 휴무 등을 유지한다.
+- `README.md`, `tests/resale-map-info.test.mjs`: 신규 경로, 제한 및 회귀 점검 항목 문서화.
+
+### 근거·검증 및 한계
+
+- 매장 숫자 33은 고유 점포 및 일부 복합 상점가 후보 기준, 제품 숫자 19는 고유 SKU 엔트리 기준, 79는 동일 매장에 여러 SKU가 중복 연결되는 후보 관계 수 기준이다. 원자료: 사용자 제공 `TOKYO_SCOUT_COMPLETE_ARCHIVE_2026-11-02(1).zip` 중 `stores_33.csv`, `products_19.csv`, `product_store_matches_79.csv`, `app_source_data_2026-10-29.json`.
+- 점포 공식 정보: [RAGTAG 시부야](https://www.ragtag.jp/real-store/0000000003), [RAGTAG 신주쿠](https://www.ragtag.jp/real-store/0000000007), [KAPITAL](https://www.kapital.jp/shop/), [HUMAN MADE](https://www.humanmade.jp/en/dealers.html), [KINDAL 코엔지](https://www.kind.co.jp/koenji/). 재검증한 것은 점포 주소/안내 범위이며 2026-11-11~15 현지 구매 가능성과 실재고가 아니다.
+- 기본 JS 구문 확인, 데이터 모듈의 개수 33/19/79 및 지도 연결 스크립트 구문 검사 완료. Node 회귀 테스트 파일을 추가했으나 GitHub Actions 또는 실제 모바일 Chrome에서의 끝단 테스트, GSI의 33개 주소 지오코딩 성공률은 아직 검증되지 않았다. 본 기록은 병합/게시를 뜻하지 않는다.
+- 브랜치: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/resale-scout-map-info-20261102
+
 ## [미출시] — v1.2.x 앱 초기화 실패 긴급 복구 (2026-11-02 작성, PR #9)
 
 **상태:** `fix/map-cluster-init-fallback-20261102` 브랜치에 수정, `main` 미병합·미배포. 저장소의 명시적 승인 원칙에 따라 PR 병합 전에는 공개 사이트 복구 완료로 보지 않는다.

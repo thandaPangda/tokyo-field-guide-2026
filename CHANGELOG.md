@@ -4,6 +4,23 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
+## [미출시] — v1.2.x 앱 초기화 실패 긴급 복구 (2026-11-02 작성, PR #9)
+
+**상태:** `fix/map-cluster-init-fallback-20261102` 브랜치에 수정, `main` 미병합·미배포. 저장소의 명시적 승인 원칙에 따라 PR 병합 전에는 공개 사이트 복구 완료로 보지 않는다.
+
+### 수정
+
+- `index.html`: `clusterPoints(z)` 안에서 `//` 주석에 붙어 무효화된 `const clusters=[];` 선언을 독립된 실행 줄로 복구했다. 이전에는 `ReferenceError: clusters is not defined`로 초기 지도 렌더링이 중단되고 `app-ready`가 설정되지 않아 정적 ‘여행 가이드’ 화면에 머물 수 있었다. 지도 내용·배치·정보 탭·하단 메뉴의 구조는 변경하지 않는다.
+- `tests/map-cluster-init.test.mjs`: 실제 HTML에서 `clusterPoints` 함수를 추출해 실행하는 회귀 테스트를 추가했다. 모바일·데스크톱 묶음 계산, 빈 목록, `app-ready` 설정 위치를 점검한다.
+
+### 검증 및 한계
+
+- 수정 전 함수에서 `ReferenceError: clusters is not defined`를 재현했다. 수정 후 동일 함수를 390px 및 1280px 환경의 모의 지도 데이터로 실행해 각각 2개 묶음 결과를 확인했다.
+- 수정 후 실행형 인라인 JavaScript 구문 검사 통과. `application/json` 데이터 태그는 JavaScript로 파싱하지 않는다.
+- 공개 GitHub Pages 실브라우저의 전체 메뉴·터치·배포 동작 및 Node 테스트 CLI 전체 실행은 아직 미검증이다. PR 병합 후 실제 사용자 기기에서 추가 확인이 필요하다.
+- 작업 브랜치: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/fix/map-cluster-init-fallback-20261102
+- 검토 PR: https://github.com/thandaPangda/tokyo-field-guide-2026/pull/9
+
 ## [미출시] — v1.2.x 포켓몬 카드 구매 경험·전문점 가이드 보강 (2026-11-02 작성, PR #8)
 
 **상태:** `feat/pokemon-card-community-guide-20261102` 브랜치에 푸시했으며 `main` 미병합·미배포. 사용자가 제공한 두 Reddit 대화는 개별 경험담이며 현행 점포 재고 데이터가 아니다.

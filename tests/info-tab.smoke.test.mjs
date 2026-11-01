@@ -72,7 +72,7 @@ test('region filter limits candidates to four unverified Koenji stores', () => {
 
 test('tax refund view explains inspection before luggage check-in', () => {
   const { root } = mount('#info/taxfree');
-  assert.match(root.innerHTML, /적색은 실물 확인 대상/);
+  assert.match(root.innerHTML, /적색 결과는 지정 장소에서 구매품 실물 검사가 필요/);
   assert.match(root.innerHTML, /위탁 수하물/);
   assert.match(root.innerHTML, /한 번의 구매 거래/);
   assert.match(root.innerHTML, /법적 봉투 의무는 아닙니다/);

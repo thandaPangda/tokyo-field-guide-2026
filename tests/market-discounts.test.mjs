@@ -26,3 +26,15 @@ test('script, website sale cards, maps and research are wired',()=>{
  assert.match(html,/data\.sale\?saleDisplay\(data\)/);assert.match(html,/MARKET_STOPS/);
  assert.match(html,/const MARKET_STOPS=window\.TFGMarketStops/);
 });
+
+test('map opening-state keeps after-midnight supermarkets open without extending daytime shops',()=>{
+ const start=html.indexOf('function openingState('),end=html.indexOf('function applyMapClock()',start);
+ assert.ok(start>=0&&end>start);
+ const snippet=html.slice(start,end);
+ const ctx={storeHoursForDate:(p,d)=>({known:true,start:420,end:1500,status:'listed'}),entryAvailableOnDay:()=>true};
+ vm.runInNewContext(snippet,ctx,{timeout:1000});
+ assert.equal(ctx.openingState({isPlace:true},1470,'11/13'),'open');
+ assert.equal(ctx.openingState({isPlace:true},1500,'11/13'),'closed');
+ ctx.storeHoursForDate=()=>({known:true,start:480,end:1380,status:'published'});
+ assert.equal(ctx.openingState({isPlace:true},1470,'11/13'),'closed');
+});

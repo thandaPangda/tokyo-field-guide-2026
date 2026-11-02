@@ -269,3 +269,8 @@
   #view-info .info-resale-results{grid-template-columns:1fr}
   #view-info .info-resale-calc{padding:14px}
 }
+
+/* Pokémon bulk: keep 11-store comparison readable on narrow mobile screens. */
+#view-info .info-table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:13px;overscroll-behavior-x:contain}
+#view-info #info-bulk .info-table-scroll .info-table{min-width:650px}
+#view-info #info-bulk .info-table-scroll td,#view-info #info-bulk .info-table-scroll th{min-width:115px}

@@ -1021,7 +1021,10 @@ const regionDescriptions={'도쿄역·니혼바시':'황궁 동어원 · 마루�
 function regionOf(area){let a=String(area||'');if(/나카메구로|中目黒|上目黒/.test(a))return '나카메구로';if(/에비스/.test(a))return '에비스';if(/하라주쿠/.test(a))return '하라주쿠';if(/도쿄역|니혼바시/.test(a))return '도쿄역·니혼바시';if(/긴자/.test(a))return '긴자';if(/아오야마|오모테산도/.test(a))return '아오야마';if(/다이칸야마/.test(a))return '다이칸야마';if(/진구마에/.test(a)&&!a.includes('시부야'))return '시부야';if(/시부야|도겐자카|우다가와|마루야마초|PARCO|우구이스다니|渋谷/.test(a))return '시부야';if(/코엔지/.test(a))return '코엔지';if(/나카노/.test(a))return '나카노';if(/하쓰다이|니시신주쿠|신주쿠|가부키초/.test(a))return '신주쿠';if(/롯폰기/.test(a))return '롯폰기';if(/하타가야/.test(a))return '하타가야';if(/구라마에/.test(a))return '구라마에';if(/기요스미/.test(a))return '기요스미시라카와';if(/진보초/.test(a))return '진보초';if(/우에노|야나카/.test(a))return '우에노·야나카';if(/아사쿠사/.test(a))return '아사쿠사';return '기타';}
 function clockLabel(min){if(min===null||min===undefined)return '미확인';return String(Math.floor((min%1440)/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0');}
 function minutesForEvent(e){let t=String(e.time||'');let hit=t.match(/(\d{1,2}):(\d{2})/);return hit?(+hit[1]*60+ +hit[2]):null;}
-function storeScheduleAt(p,date){let prev=storeDate;storeDate=date==='all'?'11/13':date;let v=storeHoursFor(p);storeDate=prev;return v;}
+function storeScheduleAt(p,date){let prev=storeDate;storeDate=date==='all'?'11/13':date;let v=storeHoursFor(p);
+ // All-date browsing should not hide a venue merely because the Friday reference is a closure.
+ if(date==='all'&&v.closed){for(const d of ['11/11','11/12','11/14','11/15']){storeDate=d;const alternate=storeHoursFor(p);if(!alternate.closed){v=alternate;break;}}}
+ storeDate=prev;return v;}
 function classifyPlace(p){let x=p.category;if(x==='뮤직바'||x==='클럽')return 'night';return 'day';}
 function whenActive(start,end,period){if(start===null)return null;let en=end;
  if(en===null||en===undefined)return start >= 18*60||start<6*60?'night':'day';

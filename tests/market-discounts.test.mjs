@@ -10,7 +10,7 @@ test('15 unique places with source-backed addresses and consistent sale schema',
  for(const x of data.places){assert.ok(x.address.startsWith('東京都'));assert.ok(x.shopHoursSource);assert.ok(x.sale.evidenceUrl);assert.ok(['official_floor','merchant','review','unknown'].includes(x.sale.level));assert.equal(x.sale.guaranteed,false);}
 });
 test('official FAQ never promoted to guaranteed individual-store discount',()=>{
- for(const id of ['MK_UORIKI_SHIBUYA','MK_FOODEDGE_SHIBUYA']){const p=data.places.find(x=>x.id===id);assert.equal(p.sale.level,'official_floor');assert.match(p.sale.time,/20:00/);assert.match(p.sale.summary,/전/);}
+ for(const id of ['MK_UORIKI_SHIBUYA','MK_FOODEDGE_SHIBUYA']){const p=data.places.find(x=>x.id===id);assert.equal(p.sale.level,'official_floor');assert.match(p.sale.time,/20:00/);assert.match(p.sale.summary,/보장/);}
  const a=data.places.find(x=>x.id==='MK_NAKAMURA_NAKANO');assert.equal(a.sale.level,'review');assert.match(a.sale.time,/18:00/);
  const o=data.places.find(x=>x.id==='MK_UOKO_OGIKUBO');assert.equal(o.sale.level,'review');assert.match(o.sale.time,/19:00/);
 });

@@ -1,4 +1,4 @@
-/* 2026-11-03 verified store presence; bulk/box inventory intentionally NOT verified. */
+/* Initial eleven shops 2026-11-03; seven verified shop locations and product/lottery research added 2026-11-04. Stock not verified. */
 window.TFGPokemonBulk={
   "reviewedAt": "2026-11-03",
   "travelDates": [
@@ -535,6 +535,412 @@ window.TFGPokemonBulk={
         "source": "https://www.biccamera.com/bc/i/shop/shoplist/shop007.jsp",
         "reason": "공식 매장 영업시간. 매입 마감과 판매 마감을 혼동하지 말 것."
       }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "historical_observation",
+      "tags": [
+        "포켓몬 카드",
+        "旧裏",
+        "스토리지 과거 확인"
+      ],
+      "type": "cardshop",
+      "sourceLevel": "official_store_and_2025_review",
+      "id": "PK_LEGACY_MINT_IKEBUKURO",
+      "name": "MINT GAMES 이케부쿠로점",
+      "region": "ikebukuro",
+      "area": "이케부쿠로 · P'PARCO 2F",
+      "address": "東京都豊島区東池袋1-50-35 池袋P'PARCO 2F",
+      "url": "https://ikebukuro.parco.jp/shop/detail/?cd=028222",
+      "weekday": "11:00–21:00",
+      "weekend": "11:00–21:00",
+      "hours": "11:00–21:00",
+      "weekdaySchedule": [
+        11,
+        21
+      ],
+      "weekendSchedule": [
+        11,
+        21
+      ],
+      "cardFocus": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
+      "visit": "11/11 11:00부터 이케부쿠로 첫 방문 후보",
+      "status": "공식 운영 확인 · 旧裏 스토리지는 과거 후기",
+      "storageEvidenceSource": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
+      "historicalStoragePrice": "2025년 3월 개인 조사 30엔부터 · 2026 현재 미확인",
+      "description": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
+      "notes": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
+      "storeHourSchedule": {
+        "weekday": [
+          11,
+          21
+        ],
+        "weekend": [
+          11,
+          21
+        ],
+        "status": "published",
+        "source": "https://ikebukuro.parco.jp/shop/detail/?cd=028222",
+        "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "historical_observation",
+      "tags": [
+        "포켓몬 카드",
+        "旧裏",
+        "스토리지 과거 확인"
+      ],
+      "type": "cardshop",
+      "sourceLevel": "players_club_listing_2025_review",
+      "id": "PK_LEGACY_BOKURANO_IKEBUKURO",
+      "name": "보쿠라노 카드숍 이케부쿠로",
+      "region": "ikebukuro",
+      "area": "이케부쿠로 · 마루추빌딩 4F",
+      "address": "東京都豊島区東池袋1-2-1 丸忠ビル4F",
+      "url": "https://players.pokemon-card.com/event/search/20013/202611/list",
+      "weekday": "공식 12:00–21:30 vs 외부 14:00–21:00",
+      "weekend": "공식 토12:00–21:30 · 일축12:00–20:00",
+      "hours": "평일 공식 12:00–21:30 / 외부 정보 14:00–21:00 상충. 평일 14시 이후 권고; 토12:00–21:30·일축12:00–20:00 공식.",
+      "weekdaySchedule": [
+        14,
+        21
+      ],
+      "weekendSchedule": [
+        12,
+        20
+      ],
+      "hourStatus": "conflicting",
+      "hourReason": "플레이어즈클럽 평일 12시와 외부 매장 목록 14시 개점 정보 상충; 안전한 공통 구간 반영",
+      "cardFocus": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
+      "visit": "평일 14시 이후 방문 권고 · 영업시간 상충",
+      "status": "포켓몬 공식 등록 / 영업시간 상충 / 재고 미확인",
+      "storageEvidenceSource": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
+      "historicalStoragePrice": "2025년 3월 개인 조사 30엔부터",
+      "description": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
+      "notes": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
+      "storeHourSchedule": {
+        "weekday": [
+          14,
+          21
+        ],
+        "weekend": [
+          12,
+          20
+        ],
+        "status": "conflicting",
+        "source": "https://players.pokemon-card.com/event/search/20013/202611/list",
+        "reason": "플레이어즈클럽 평일 12시와 외부 매장 목록 14시 개점 정보 상충; 안전한 공통 구간 반영"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "third_party_listing",
+      "tags": [
+        "포켓몬 카드",
+        "스토리지 소개"
+      ],
+      "type": "cardshop",
+      "sourceLevel": "official_store_third_party_storage",
+      "id": "PK_LEGACY_LAMB_IKEBUKURO",
+      "name": "트레카숍 LAMB(램) 이케부쿠로",
+      "region": "ikebukuro",
+      "area": "이케부쿠로 · 요시다빌딩 1F",
+      "address": "東京都豊島区東池袋1-3-7 吉田ビル1F",
+      "url": "https://shop.lamb-pokemon.jp/stores/ikebukuro",
+      "weekday": "12:00–21:00",
+      "weekend": "12:00–21:00",
+      "hours": "12:00–21:00",
+      "weekdaySchedule": [
+        12,
+        21
+      ],
+      "weekendSchedule": [
+        12,
+        21
+      ],
+      "cardFocus": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
+      "visit": "11/11 12시부터 1층 포켓몬 스토리지 탐색",
+      "status": "공식 영업 확인 · 스토리지 가격은 제3자 정보",
+      "storageEvidenceSource": "https://torecamap.co.jp/shops/tokyo/r13002/s13002001/2425",
+      "description": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
+      "notes": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
+      "storeHourSchedule": {
+        "weekday": [
+          12,
+          21
+        ],
+        "weekend": [
+          12,
+          21
+        ],
+        "status": "published",
+        "source": "https://shop.lamb-pokemon.jp/stores/ikebukuro",
+        "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "unverified",
+      "tags": [
+        "포켓몬 카드",
+        "신상 추첨 후보"
+      ],
+      "type": "cardshop",
+      "sourceLevel": "official_store_secondary_lottery",
+      "id": "PK_LEGACY_DRAGON_IKEBUKURO",
+      "name": "드래곤스타 이케부쿠로점",
+      "region": "ikebukuro",
+      "area": "이케부쿠로 · 세이코선샤인 XII 4F",
+      "address": "東京都豊島区東池袋1-30-6 セイコーサンシャインビルXII 4F",
+      "url": "https://dorasuta.jp/shop/detail?scd=17",
+      "weekday": "13:00–21:00",
+      "weekend": "토10:00–21:00·일축10:00–20:00",
+      "hours": "평일 13:00–21:00 / 토 10:00–21:00 / 일축 10:00–20:00",
+      "weekdaySchedule": [
+        13,
+        21
+      ],
+      "weekendSchedule": [
+        10,
+        20
+      ],
+      "cardFocus": "공식 전문점 운영. 11/13 세트 추첨은 제3자 집계 기준 11/05 23:59 마감이나 신청 대상 점포·회원조건 확인 필요. 旧裏 벌크 재고는 미확인.",
+      "visit": "11/11 13시 이후 카드 확인 · 신규 덱은 별도 추첨",
+      "status": "공식 점포 확인 / 신상 추첨은 2차 안내",
+      "description": "공식 전문점 운영. 11/13 세트 추첨은 제3자 집계 기준 11/05 23:59 마감이나 신청 대상 점포·회원조건 확인 필요. 旧裏 벌크 재고는 미확인.",
+      "notes": "공식 전문점 운영. 11/13 세트 추첨은 제3자 집계 기준 11/05 23:59 마감이나 신청 대상 점포·회원조건 확인 필요. 旧裏 벌크 재고는 미확인.",
+      "storeHourSchedule": {
+        "weekday": [
+          13,
+          21
+        ],
+        "weekend": [
+          10,
+          20
+        ],
+        "status": "published",
+        "source": "https://dorasuta.jp/shop/detail?scd=17",
+        "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "unverified",
+      "tags": [
+        "포켓몬 카드",
+        "旧裏",
+        "빈티지 전문"
+      ],
+      "type": "cardshop",
+      "sourceLevel": "official_vintage_catalog",
+      "id": "PK_LEGACY_OTACHU_AKIHABARA",
+      "name": "오타츄 아키하바라 2호점 트레카관",
+      "region": "akihabara",
+      "area": "아키하바라 · 고구레 스에히로빌딩 8F",
+      "address": "東京都千代田区外神田3-15-6 小暮末広ビル8F",
+      "url": "https://otachu-akiba.com/2go/access/",
+      "weekday": "11:00–20:00",
+      "weekend": "11:00–20:00",
+      "hours": "11:00–20:00",
+      "weekdaySchedule": [
+        11,
+        20
+      ],
+      "weekendSchedule": [
+        11,
+        20
+      ],
+      "floor": "8F",
+      "cardFocus": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
+      "visit": "11/12 아키하바라 11시 이후 · 구형 카드 비교",
+      "status": "旧裏 및 과거 시리즈 공식 취급 확인",
+      "vintageSpecialist": true,
+      "description": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
+      "notes": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
+      "storeHourSchedule": {
+        "weekday": [
+          11,
+          20
+        ],
+        "weekend": [
+          11,
+          20
+        ],
+        "status": "published",
+        "source": "https://otachu-akiba.com/2go/access/",
+        "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "unverified",
+      "tags": [
+        "포켓몬 카드",
+        "구축 덱 세트 추첨 수령"
+      ],
+      "type": "toyshop",
+      "sourceLevel": "official_shop_secondary_lottery",
+      "id": "PK_LOTTERY_KIDDY_KICHIJOJI",
+      "name": "키디랜드 기치조지점",
+      "region": "kichijoji",
+      "area": "기치조지 · 코피스 A관 6F",
+      "address": "東京都武蔵野市吉祥寺本町1-11-5 コピス吉祥寺 A館6F",
+      "url": "https://www.kiddyland.co.jp/shoplist/kichijyouji/",
+      "weekday": "시설 일반 10–20·금10–21",
+      "weekend": "토10–21·일10–20",
+      "hours": "11/13 금·11/14 토 10–21, 11/15 일 10–20(시설). 점포 안내의 매일 10–21과 상충.",
+      "weekdaySchedule": [
+        10,
+        20
+      ],
+      "weekendSchedule": [
+        10,
+        20
+      ],
+      "hourStatus": "conflicting",
+      "hourSource": "https://www.coppice.jp/access/",
+      "hourReason": "시설의 요일별 시간과 점포의 일반 10~21 안내 상충, 시설 운영시간을 우선",
+      "floor": "A館6F",
+      "cardFocus": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 수령. 매장 간 중복 응모 무효, 사진 신분증·QR 필요.",
+      "visit": "11/13~15 사전 추첨 당첨자만 수령 후보",
+      "status": "공식 점포 확인 · 추첨은 2차 공지 교차 대조",
+      "lotteryOnly": true,
+      "lotteryDeadline": "2026-11-04 23:59 JST",
+      "description": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 수령. 매장 간 중복 응모 무효, 사진 신분증·QR 필요.",
+      "notes": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 수령. 매장 간 중복 응모 무효, 사진 신분증·QR 필요.",
+      "storeHourSchedule": {
+        "weekday": [
+          10,
+          20
+        ],
+        "weekend": [
+          10,
+          20
+        ],
+        "status": "conflicting",
+        "source": "https://www.coppice.jp/access/",
+        "reason": "시설의 요일별 시간과 점포의 일반 10~21 안내 상충, 시설 운영시간을 우선"
+      }
+    },
+    {
+      "category": "포켓몬",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address; requires_GSI_block_geocoding_not_verified_entrance",
+      "priority": "pass_by",
+      "freshPacks": "현장 재고·일반 판매 시작 시간 미확인",
+      "sealedBox": "추첨·재고·일반 판매 미확인",
+      "storageEvidence": "unverified",
+      "tags": [
+        "포켓몬 카드",
+        "구축 덱 세트 추첨 수령"
+      ],
+      "type": "toyshop",
+      "sourceLevel": "official_shop_secondary_lottery",
+      "id": "PK_LOTTERY_KIDDY_FUTAKOTAMAGAWA",
+      "name": "키디랜드 후타코타마가와점",
+      "region": "futakotamagawa",
+      "area": "후타코타마가와 · 라이스 타운프론트 6F",
+      "address": "東京都世田谷区玉川2-21-1 二子玉川ライズ・ショッピングセンター タウンフロント6F",
+      "url": "https://www.kiddyland.co.jp/shoplist/futakotamagawa/",
+      "weekday": "10:00–20:00",
+      "weekend": "10:00–20:00",
+      "hours": "10:00–20:00",
+      "weekdaySchedule": [
+        10,
+        20
+      ],
+      "weekendSchedule": [
+        10,
+        20
+      ],
+      "floor": "6F",
+      "cardFocus": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 지정 점포 수령. 기치조지와 중복 응모 불가.",
+      "visit": "11/13~15 추첨 당첨자만 수령 가능 · 벌크 매장 아님",
+      "status": "공식 점포 확인 · 추첨 조건은 2차 안내",
+      "lotteryOnly": true,
+      "lotteryDeadline": "2026-11-04 23:59 JST",
+      "description": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 지정 점포 수령. 기치조지와 중복 응모 불가.",
+      "notes": "11/13 출시 스페셜 덱 세트(5,500엔) LivePocket 추첨 11/4 23:59 마감, 당첨자 11/13~15 지정 점포 수령. 기치조지와 중복 응모 불가.",
+      "storeHourSchedule": {
+        "weekday": [
+          10,
+          20
+        ],
+        "weekend": [
+          10,
+          20
+        ],
+        "status": "published",
+        "source": "https://www.kiddyland.co.jp/shoplist/futakotamagawa/",
+        "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
     }
   ],
   "closed": [
@@ -597,5 +1003,68 @@ window.TFGPokemonBulk={
       "jp": "パックはありますか",
       "ko": "새 낱개 팩이 있는지 묻는 표현"
     }
-  ]
+  ],
+  "expansionReviewedAt": "2026-11-04",
+  "release": {
+    "reviewedAt": "2026-11-04",
+    "deck": {
+      "date": "2026-11-13",
+      "name": "스페셜 덱 세트 MEGA · 메가오더일·메가망나뇽·메가팬텀",
+      "yen": 5500,
+      "kind": "구축 덱 세트 3개(각 60장), 일반 무작위 확장팩 BOX가 아님",
+      "url": "https://www.pokemon-card.com/products/mega/mg.html"
+    },
+    "pack": {
+      "date": "2026-11-27",
+      "name": "하도우 시커(ハドウシーカー)",
+      "packYen": 200,
+      "packCards": 5,
+      "boxPacks": 30,
+      "nominalBoxYen": 6000,
+      "kind": "11/15 여행 종료 후 확장팩 발매",
+      "url": "https://www.pokemon-card.com/ex/m7/"
+    },
+    "lotteries": [
+      {
+        "name": "키디랜드 기치조지",
+        "deadline": "11/04 23:59 JST",
+        "pickup": "11/13~15 당첨자 본인",
+        "conditions": "LivePocket 추첨, 사진 신분증·당첨 QR. 같은 상품을 키디랜드 여러 점포에서 중복 응모하면 무효.",
+        "url": "https://livepocket.jp/e/wjv4a",
+        "level": "신청 페이지 접근 제한 · 2차 교차 확인"
+      },
+      {
+        "name": "키디랜드 후타코타마가와",
+        "deadline": "11/04 23:59 JST",
+        "pickup": "11/13~15 당첨자 본인",
+        "conditions": "기치조지와 동일 상품 중복 응모 금지. LivePocket 응모.",
+        "url": "https://chusen-cal.com/product/specialset-mega",
+        "level": "2차 판매 집계 · 매장 공식 주소 확인"
+      },
+      {
+        "name": "GEO(점포별)",
+        "deadline": "11/05 17:59 JST",
+        "pickup": "11/13 이후 당첨 지정점",
+        "conditions": "GEO ID·Ponta/매장 렌탈 회원 조건. 방문 여행자 응모 가능 여부 미확인.",
+        "url": "https://www.card-chusen.com/special-deck-set-mega-lottery/",
+        "level": "2차 판매 공지 · 지정 점포 직접 확인"
+      },
+      {
+        "name": "드래곤스타 일부 점포",
+        "deadline": "11/05 23:59 JST",
+        "pickup": "11/13~15 지정점, 본인 확인",
+        "conditions": "모바일 회원 추첨. 이케부쿠로 지점 참여 여부는 회원 응모 화면에서 확인.",
+        "url": "https://pokeca-check.com/news/pokemon-card-lottery/",
+        "level": "2차 판매 집계 · 참여 지점 미확인"
+      },
+      {
+        "name": "SHIBUYA TSUTAYA (기존 매장)",
+        "deadline": "사전 예약 접수 종료",
+        "pickup": "11/13 10:00~22:30 사전 예약자만",
+        "conditions": "예약 없이 오전 10시 방문해 구매 가능한 일반 판매가 아님.",
+        "url": "https://shibuyatsutaya.tsite.jp/article/2854.html",
+        "level": "매장 공식 예약 종료"
+      }
+    ]
+  }
 };

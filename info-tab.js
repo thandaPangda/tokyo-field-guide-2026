@@ -53,9 +53,9 @@
   try { const saved=JSON.parse(window.localStorage?.getItem(taxChecklistKey)||'[]'); if(Array.isArray(saved))state.taxChecked=saved.filter(id=>taxChecklistItems.some(x=>x[0]===id)); } catch(_){ /* Browser storage may be unavailable. */ }
 
   const regions = [
-    ['all','전체 지역'],['koenji','코엔지'],['ogikubo','오기쿠보'],['nakano','나카노'],['akihabara','아키하바라'],['shibuya','시부야'],['ikebukuro','이케부쿠로'],['nihonbashi','니혼바시'],['skytree','스카이트리'],['tachikawa','타치카와'],['funabashi','후나바시'],['kawasaki','가와사키'],['machida','마치다'],['hachioji','하치오지'],['shinjuku','신주쿠'],
+    ['all','전체 지역'],['koenji','코엔지'],['ogikubo','오기쿠보'],['nakano','나카노'],['akihabara','아키하바라'],['shibuya','시부야'],['ikebukuro','이케부쿠로'],['nihonbashi','니혼바시'],['skytree','스카이트리'],['tachikawa','타치카와'],['kichijoji','기치조지'],['futakotamagawa','후타코타마가와'],['funabashi','후나바시'],['kawasaki','가와사키'],['machida','마치다'],['hachioji','하치오지'],['shinjuku','신주쿠'],
   ];
-  const kinds = [['all','모든 판매처'],['center','포켓몬센터'],['convenience','편의점'],['vending','카드 자판기'],['cardshop','카드 전문점'],['bookoff','북오프'],['electronics','가전양판점']];
+  const kinds = [['all','모든 판매처'],['center','포켓몬센터'],['convenience','편의점'],['vending','카드 자판기'],['cardshop','카드 전문점'],['bookoff','북오프'],['electronics','가전양판점'],['toyshop','완구·추첨 수령']];
   const $ = id => document.getElementById(id);
   const esc = input => String(input).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const external = (url,text) => '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(text)+'</a>';
@@ -76,27 +76,27 @@
   }
 
   function storeCard(store) {
-    const label = ({center:'포켓몬센터',convenience:'편의점',vending:'카드 자판기',cardshop:'카드 전문점',bookoff:'북오프·중고 카드',electronics:'가전양판점'})[store.type]||'카드 판매처';
+    const label = ({center:'포켓몬센터',convenience:'편의점',vending:'카드 자판기',cardshop:'카드 전문점',bookoff:'북오프·중고 카드',electronics:'가전양판점',toyshop:'완구·추첨 수령'})[store.type]||'카드 판매처';
     const official = store.type==='center';
     return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(official?' official':'')+'">'+esc(store.status)+'</span></div>'+
       '<p class="info-store-address">'+esc(store.address)+'</p>'+
-      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.cardFocus?'<dt>벌크·새 팩·박스</dt><dd>현재 재고와 스토리지 가격·BOX 구매 조건 미확인</dd>':'')+'</dl>'+
+      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
       '<div class="info-store-actions">'+external(store.url,'점포·출처 보기')+' '+external(mapsUrl(store),'지도 열기')+'</div></article>';
   }
 
   function storeResults() {
     const filtered=stores.filter(s=>{
-      if(state.region!=='all'&&s.area!==state.region)return false;
+      if(state.region!=='all'&&s.area!==state.region&&s.region!==state.region)return false;
       if(state.kind!=='all'&&s.type!==state.kind)return false;
       return true;
     });
-    const rank=s=>state.goal==='bulk'?({bookoff:0,cardshop:1,center:3,electronics:4,vending:5,convenience:6}[s.type]??7):state.goal==='box'?({center:0,electronics:1,bookoff:2,cardshop:3,vending:4,convenience:5}[s.type]??6):state.goal==='pack'?({center:0,electronics:1,convenience:2,vending:3,cardshop:4,bookoff:5}[s.type]??6):({cardshop:0,bookoff:1,center:2,electronics:3,vending:4,convenience:5}[s.type]??6);
+    const rank=s=>state.goal==='bulk'&&['historical_observation','third_party_listing'].includes(s.storageEvidence)?-1:state.goal==='vintage'&&s.vintageSpecialist?-1:state.goal==='bulk'?({bookoff:0,cardshop:1,center:3,electronics:4,vending:5,convenience:6}[s.type]??7):state.goal==='box'?({toyshop:0,center:1,electronics:2,bookoff:3,cardshop:4,vending:5,convenience:6}[s.type]??6):state.goal==='pack'?({center:0,electronics:1,convenience:2,vending:3,cardshop:4,bookoff:5}[s.type]??6):({cardshop:0,bookoff:1,center:2,electronics:3,vending:4,convenience:5}[s.type]??6);
     filtered.sort((a,b)=>rank(a)-rank(b));
     return '<div class="info-filters"><span class="info-filter-caption">구매 목적</span><div class="info-choices" role="group" aria-label="구매 목적">'+
       [['bulk','벌크·스토리지'],['pack','정가 팩·공식 상품'],['box','미개봉 박스'],['single','싱글·중고 카드'],['vintage','구형 팩·오리파 탐색']].map(o=>'<button type="button" class="info-filter" data-info-goal="'+o[0]+'" aria-pressed="'+(state.goal===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">지역 선택</span><div class="info-choices" role="group" aria-label="지역 필터">'+regions.map(o=>'<button type="button" class="info-filter" data-info-region="'+o[0]+'" aria-pressed="'+(state.region===o[0])+'">'+o[1]+'</button>').join('')+'</div>'+
       '<span class="info-filter-caption">판매처 구분</span><div class="info-choices" role="group" aria-label="판매처 유형 필터">'+kinds.map(o=>'<button type="button" class="info-filter" data-info-kind="'+o[0]+'" aria-pressed="'+(state.kind===o[0])+'">'+o[1]+'</button>').join('')+'</div></div>'+
-      '<p class="info-note info-goal-note">'+(state.goal==='bulk'?'북오프 매장을 우선 보여줍니다. 벌크·묶음 카드의 현장 재고는 미확인입니다.':state.goal==='box'?'미개봉 BOX 구매는 추첨·수량 제한·슈링크 여부를 확인하세요.':state.goal==='pack'?'정가 팩은 공식 매장·취급 편의점을 참고하세요. 원하는 팩의 재고·수량 제한은 매장·상품마다 달라집니다.':state.goal==='single'?'싱글은 전문점에서 같은 카드의 버전·상태·가격을 비교하세요.':'구형 팩·오리파는 취급 여부가 불확실합니다. 아래 전문점은 탐색 후보이며 해당 상품 판매를 확인한 목록이 아닙니다.')+'</p>'+      '<p class="info-results" aria-live="polite">조건에 맞는 확인 후보 '+filtered.length+'곳 · 카드 재고/편의점 취급 여부를 확인한 결과가 아닙니다.</p>'+
+      '<p class="info-note info-goal-note">'+(state.goal==='bulk'?'旧裏 스토리지 과거 취급 기록이 있는 전문점부터 보여줍니다. 현재 재고·가격은 미확인입니다.':state.goal==='box'?'미개봉 BOX 구매는 추첨·수량 제한·슈링크 여부를 확인하세요.':state.goal==='pack'?'정가 팩은 공식 매장·취급 편의점을 참고하세요. 원하는 팩의 재고·수량 제한은 매장·상품마다 달라집니다.':state.goal==='single'?'싱글은 전문점에서 같은 카드의 버전·상태·가격을 비교하세요.':'구형 팩·오리파는 취급 여부가 불확실합니다. 아래 전문점은 탐색 후보이며 해당 상품 판매를 확인한 목록이 아닙니다.')+'</p>'+      '<p class="info-results" aria-live="polite">조건에 맞는 확인 후보 '+filtered.length+'곳 · 카드 재고/편의점 취급 여부를 확인한 결과가 아닙니다.</p>'+
       '<div class="info-list">'+(filtered.length?filtered.map(storeCard).join(''):'<p class="info-empty">선택한 조건의 점포 데이터가 없습니다. 지역이나 판매처 유형을 바꿔보세요.</p>')+'</div>';
   }
 
@@ -114,10 +114,22 @@
     return '<section class="info-section" id="info-bulk"><h2>벌크·스토리지·새 팩·미개봉 박스</h2><div class="info-buy-grid">'+blocks+'</div>'+
       '<div class="info-notice info-warning"><strong>벌크 매장 순위·입고 회전율은 미검증입니다.</strong>라라포트 묶음 수백 장, 타치카와 7층 TCG 매대, 가와사키 매일 새 벌크 입고는 공식 확인되지 않았습니다. 타치카와 트레카 매대는 5층이고 7층은 포켓몬·애니 굿즈 중심입니다. 북오프는 실시간 카드 재고 조회를 받지 않습니다.</div>'+
       '<div class="info-notice"><strong>폐업해서 제외한 점포: '+esc(closed.name)+'</strong>'+esc(closed.closedOn)+'에 폐점했습니다. 주변 매입 전용 센터에서는 카드 구매를 할 수 없습니다. '+external(closed.source,'운영사 공식 기록')+'</div>'+
-      '<h3>영업이 확인된 후보 11곳</h3><div class="info-table-scroll"><table class="info-table"><thead><tr><th>매장</th><th>영업시간</th><th>층·참고</th><th>근거·지도</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<h3>매장 정보 확인 후보 '+g.stores.length+'곳 (기존 11 + 신규 7)</h3><div class="info-table-scroll"><table class="info-table"><thead><tr><th>매장</th><th>영업시간</th><th>층·참고</th><th>근거·지도</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
       '<p class="info-note">실제 방문일은 11/11~15입니다. 영업시간과 트레카 매입 접수 시각은 구분해야 합니다. 지도에는 주소 구역 근사 좌표를 사용할 수 있으므로 정확한 출입구는 공식 매장 안내를 확인하세요.</p>'+
-      '<h3>현장 일본어</h3><div class="info-phrases">'+[['스토리지 카드가 있나요?','ポケモンカードのストレージはありますか。'],['노멀 카드 묶음 판매가 있나요?','ノーマルカードのまとめ売りはありますか。'],['새 팩·박스를 살 수 있나요?','新品パックや未開封BOXは買えますか。'],['슈링크가 있나요?','BOXはシュリンク付きですか。']].map(x=>'<div class="info-phrase"><div><strong>'+esc(x[0])+'</strong><span lang="ja">'+esc(x[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(x[1])+'">복사</button></div>').join('')+'</div>'+
+      '<h3>현장 일본어</h3><div class="info-phrases">'+[['초창기 旧裏 스토리지가 있나요?','旧裏のストレージはありますか。'],['옛날 노멀 카드를 여러 장 사고 싶습니다.','昔のノーマルカードをまとめて買いたいです。'],['스토리지 카드가 있나요?','ポケモンカードのストレージはありますか。'],['노멀 카드 묶음 판매가 있나요?','ノーマルカードのまとめ売りはありますか。'],['새 팩·박스를 살 수 있나요?','新品パックや未開封BOXは買えますか。'],['슈링크가 있나요?','BOXはシュリンク付きですか。']].map(x=>'<div class="info-phrase"><div><strong>'+esc(x[0])+'</strong><span lang="ja">'+esc(x[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(x[1])+'">복사</button></div>').join('')+'</div>'+
       '<p class="info-note">'+external(g.products.priceSource,'2026년 공식 팩 가격 개정')+' · '+external('https://www.bookoff.co.jp/buy/tradingcard/','북오프 공식 트레카 정책')+'</p></section>';
+  }
+
+  function pokemonReleaseGuide(){
+    const r=window.TFGPokemonBulk?.release;if(!r)return '';
+    const entries=r.lotteries.map(x=>'<article class="info-buy-card"><span class="info-buy-index">'+esc(x.deadline)+'</span><h3>'+esc(x.name)+'</h3><p>'+esc(x.conditions)+'</p><p>당첨자 수령: '+esc(x.pickup)+'</p><p class="info-note">근거 수준: '+esc(x.level)+'</p><div class="info-store-actions">'+external(x.url,'신청·판매 조건 출처')+'</div></article>').join('');
+    return '<section class="info-section" id="info-release"><h2>2026년 11월 신상: 출시 상품과 추첨 시간</h2>'+
+      '<div class="info-notice"><strong>'+esc(r.deck.date)+' · '+esc(r.deck.name)+'</strong>'+esc(r.deck.kind)+' · 정가 '+r.deck.yen.toLocaleString('en-US')+'엔. '+external(r.deck.url,'공식 상품·발매일')+'</div>'+
+      '<div class="info-notice info-warning"><strong>'+esc(r.pack.date)+' · '+esc(r.pack.name)+'</strong>'+esc(r.pack.kind)+'. 5장팩 '+r.pack.packYen+'엔, 30팩 BOX 정가 환산 '+r.pack.nominalBoxYen.toLocaleString('en-US')+'엔. '+external(r.pack.url,'공식 확장팩')+'</div>'+
+      '<h3>11/13 출시 세트의 선추첨·사전예약 현황</h3><p class="info-note">2026-11-04 일본 현지 시간(JST) 기준 조사. 신청 마감과 매장 개점은 신상품 일반 판매 시작 시각이 아닙니다. 각 판매처 회원 자격과 당첨 여부를 확인하세요.</p>'+
+      '<div class="info-buy-grid">'+entries+'</div>'+
+      '<div class="info-notice info-warning"><strong>편의점 오전 7시·포켓몬센터 오전 10시 구매 보장 불가</strong>온라인 상품의 오전 10시 표기와 오프라인 매장의 일반 판매 시작은 다릅니다. SHIBUYA TSUTAYA는 공식적으로 사전예약 접수를 종료했습니다. 추첨 당첨이 없는 방문객에게 11/13 판매가 보장되지 않습니다.</div>'+
+      '<p class="info-note"><a href="./research/pokemon-legacy-stores-release-2026-11-04.md">지점별 공식 링크·과거 스토리지 후기·응모 조건과 상충 운영시간 근거</a></p></section>';
   }
   function pokemonCommunityGuide() {
     return '<section class="info-section" id="info-buying-decisions"><h2>구매 목적별로 달라지는 탐색 방법</h2>'+
@@ -150,13 +162,13 @@
     return '<div class="info-wrap">'+crumb('포켓몬 카드')+
       header('SHOPPING · POKÉMON TCG','도쿄에서 포켓몬 카드 구매하기','정가 팩을 찾는 경우와 싱글 카드를 구매하는 경우는 적합한 매장이 다릅니다. 카드 판매가 확인되지 않은 편의점은 구매 확정 장소로 안내하지 않습니다.')+
       '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
-      toc([['info-where','판매처 비교'],['info-bulk','벌크·박스 탐색'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
+      toc([['info-where','판매처 비교'],['info-bulk','벌크·박스 탐색'],['info-release','11월 발매·추첨'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
       '<section class="info-section" id="info-where"><h2>어디서 살까?</h2>'+
       '<table class="info-table"><thead><tr><th>판매처</th><th>적합한 목적</th><th>확인할 조건</th></tr></thead><tbody>'+
       '<tr><td>포켓몬센터</td><td>공식 정가 상품, 관련 굿즈</td><td>점포 영업시간, 상품별 재고·구매 제한</td></tr>'+
       '<tr><td>편의점</td><td>이동 중 낱개 팩 구매 시도</td><td>점포의 카드 취급 여부 자체가 미확인일 수 있음</td></tr>'+
       '<tr><td>카드 전문점</td><td>싱글·중고·구형 카드, 가격 비교</td><td>프리미엄 가격/매입·판매 조건 확인</td></tr>'+'<tr><td>포켓몬 카드 스탠드</td><td>이동 중 공식 카드 자판기 확인</td><td>공식 설치 위치는 확인되지만 재고는 확인 불가. 포켓몬 굿즈용 스탠드와 다름.</td></tr>'+'<tr><td>BOOKOFF</td><td>중고 스토리지·노멀 묶음 탐색</td><td>취급 점포 운영과 당일 벌크 재고는 별개</td></tr>'+'<tr><td>GEO·가전양판점</td><td>일부 카드 상품·추첨 판매</td><td>점포·상품별 회원/추첨 조건 확인 필요. 일반 관광객 구매를 보장하지 않음.</td></tr></tbody></table>'+
-      '<p class="info-note">위 표는 구매 목적별 구분이며 실시간 재고나 실제 구매 성공률 순위가 아닙니다.</p></section>'+pokemonBulkGuide()+pokemonCommunityGuide()+
+      '<p class="info-note">위 표는 구매 목적별 구분이며 실시간 재고나 실제 구매 성공률 순위가 아닙니다.</p></section>'+pokemonBulkGuide()+pokemonReleaseGuide()+pokemonCommunityGuide()+
       '<section class="info-section" id="info-convenience"><h2>편의점 구매법: 점포별 취급 여부가 우선</h2>'+
       '<table class="info-table"><thead><tr><th>체인</th><th>시간 안내의 의미</th><th>주의할 점</th></tr></thead><tbody>'+
       '<tr><td>세븐일레븐</td><td>오전 7시: 비공식 참고 경험</td><td>체인 공통 판매시간 아님. 취급·입고·구매 제한은 점포별로 다름.</td></tr>'+
@@ -175,7 +187,7 @@
         ['구매 수량 제한이 있나요?','購入数の制限はありますか。']
       ].map(o=>'<div class="info-phrase"><div><strong>'+esc(o[0])+'</strong><span lang="ja">'+esc(o[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(o[1])+'">복사</button></div>').join('')+'</div><div id="info-copy-status" class="info-copy-result" role="status" aria-live="polite"></div></section>'+
       '<section class="info-section" id="info-sources"><h2>정보의 근거</h2>'+
-      srcList([['포켓몬 카드 공식 취급점 검색과 미등재 안내',sources.pokemonMap],['로손 상품별 판매·문의 제한 공지 (2026-09-08)',sources.lawson],['11월 13일 스페셜 덱 세트 공식 정보',sources.product],['포켓몬 카드 스탠드 공식 설치 위치',sources.stand],['포켓몬센터 공식 상품 재고·구매 제한 FAQ',sources.centerFaq],['하레루야2 포켓몬 전문점 공식 목록',sources.hareruyaList],['BOOKOFF 포켓몬 카드 취급 정책',sources.bookoff],['스루가야 포켓몬 카드 취급 점포 목록',sources.surugaya],['SHIBUYA TSUTAYA 카드 라운지 판매 조건',sources.shibuyaLounge],['포켓몬센터 메가도쿄 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/'],['포켓몬센터 시부야 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/']])+
+      srcList([['포켓몬 카드 공식 취급점 검색과 미등재 안내',sources.pokemonMap],['로손 상품별 판매·문의 제한 공지 (2026-09-08)',sources.lawson],['11월 13일 스페셜 덱 세트 공식 정보',sources.product],['11월 27일 하도우 시커 확장팩','https://www.pokemon-card.com/ex/m7/'],['포켓몬 카드 스탠드 공식 설치 위치',sources.stand],['포켓몬센터 공식 상품 재고·구매 제한 FAQ',sources.centerFaq],['하레루야2 포켓몬 전문점 공식 목록',sources.hareruyaList],['BOOKOFF 포켓몬 카드 취급 정책',sources.bookoff],['스루가야 포켓몬 카드 취급 점포 목록',sources.surugaya],['SHIBUYA TSUTAYA 카드 라운지 판매 조건',sources.shibuyaLounge],['포켓몬센터 메가도쿄 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/'],['포켓몬센터 시부야 점포 정보','https://shop.pokemon.co.jp/ja/shop/pokemoncenter-shibuya/']])+
       '<p class="info-note">점포별 출처는 각 카드에서 확인할 수 있습니다. 기존 여행 사이트에 등록된 카드 전문점의 영업시간은 변경 가능하므로 현장 방문 전 다시 확인하세요.</p></section></div>';
   }
 

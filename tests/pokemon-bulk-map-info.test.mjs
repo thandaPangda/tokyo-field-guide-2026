@@ -6,11 +6,11 @@ const read = p => readFileSync(new URL('../' + p, import.meta.url),'utf8');
 const html=read('index.html'), info=read('info-tab.js');
 const w={};vm.runInNewContext(read('pokemon-bulk-2026-11-03.js'),{window:w},{timeout:1000});
 const g=w.TFGPokemonBulk;
-test('11 active stores and one closed store only in research',()=>{
- assert.equal(g.stores.length,11);
+test('18 active stores and one closed store only in research',()=>{
+ assert.equal(g.stores.length,18);
  assert.equal(g.closed.length,1);
  assert.equal(g.closed[0].closedOn,'2022-09-19');
- assert.equal(new Set(g.stores.map(x=>x.id)).size,11);
+ assert.equal(new Set(g.stores.map(x=>x.id)).size,18);
  assert.ok(g.stores.every(x=>x.url&&x.address&&x.storeHourSchedule));
  assert.ok(g.stores.every(x=>x.bulkVerified===false&&x.storagePriceVerified===false&&x.bundledBulkVerified===false));
  assert.ok(g.stores.every(x=>!x.name.includes('みなみ野')));
@@ -36,7 +36,7 @@ test('map integrates same IDs, broadens address verification, and keeps closed l
  assert.match(html,/pokemonRetailNotice\(p,true\)/);
  assert.doesNotMatch(html,/PK_CLOSED_HACHIOJI_MINAMINO/);
 });
-test('Pokemon info shows 11 locations with bulk, sealed boxes, and closure warning',()=>{
+test('Pokemon info shows 18 locations with bulk, sealed boxes, and closure warning',()=>{
  const root={innerHTML:'',listeners:{},addEventListener(k,v){this.listeners[k]=v;},contains(){return true;}};
  const results={innerHTML:''};
  const document={title:'',getElementById(id){return id==='view-info'?root:id==='info-store-results'?results:null;}};

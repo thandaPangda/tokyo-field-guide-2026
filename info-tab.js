@@ -60,7 +60,7 @@
   const esc = input => String(input).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const external = (url,text) => '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(text)+'</a>';
   const mapsUrl = (place) => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(place.address+' '+place.name);
-  const header = (short,title,lead) => '<div class="info-kicker">'+esc(short)+'</div><h1 class="info-title">'+esc(title)+'</h1><p class="info-lead">'+esc(lead)+'</p><p class="info-meta">조사 기준 '+checkedOn+' · 점포 정보와 판매 정책은 변경될 수 있습니다.</p>';
+  const header = (short,title,lead,date=checkedOn) => '<div class="info-kicker">'+esc(short)+'</div><h1 class="info-title">'+esc(title)+'</h1><p class="info-lead">'+esc(lead)+'</p><p class="info-meta">조사 기준 '+esc(date)+' · 점포 정보와 판매 정책은 변경될 수 있습니다.</p>';
   const crumb = (section) => '<nav class="info-crumb" aria-label="현재 위치"><a href="#info">정보</a><span aria-hidden="true">/</span><span aria-current="page">'+esc(section)+'</span></nav>';
   const srcList = (items) => '<ul class="info-source">'+items.map(item=>'<li>'+external(item[1],item[0])+'</li>').join('')+'</ul>';
   const toc = items => '<nav class="info-toc" aria-label="이 페이지에서 이동">'+items.map(x=>'<a class="info-anchor" href="#'+x[0]+'" data-info-jump="'+x[0]+'">'+esc(x[1])+'</a>').join('')+'</nav>';
@@ -70,6 +70,7 @@
       '<div class="info-grid">'+
       '<a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
       '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a>'+ 
+      '<a class="info-tile" href="#info/grocery"><span class="eyebrow">SUPERMARKET · FOOD</span><h2>마트 흑모와규 · 할인 라벨 읽기</h2><p>사진 속 20% 할인은 특정 상품 사례입니다. 일본어 라벨·취사 숙소 조건·면세 여부를 구분합니다.</p></a>'+
       '<a class="info-tile" href="#info/resale"><span class="eyebrow">TOKYO SCOUT · RESELL</span><h2>리셀 소싱 · 33개 매장</h2><p>19개 상품의 과거 수요·예상 가격과 79개 매장 탐색 연결을 비교합니다. 재고와 실수익은 미확인입니다.</p></a></div>'+
       '<section class="info-section"><div class="info-notice"><strong>이 정보 탭이 다루는 범위</strong>실시간 재고를 예측하거나 동선을 자동 편성하지 않습니다. 현장에서 어디를 확인하고 어떤 규정을 지켜야 할지 판단하는 데 필요한 자료를 제공합니다.</div></section></div>';
   }
@@ -188,7 +189,7 @@
         <li>VJW의 <strong>환급 절차(Refund Procedure)</strong>를 열고, 구매 기록을 확인한 뒤 <strong>Confirm</strong>을 누릅니다. 출국 로비의 전용 Wi-Fi 연결 구역에서 진행해야 합니다.</li>
         <li><strong>Completed</strong>이면 세관 확인을 마친 것입니다. <strong>Not Completed</strong>이면 세관 검사 장소로 이동해 실물을 제시합니다.</li>
       </ol>
-      <p class="info-note">VJW 면세 구입용 QR을 매장에서 사용하지 않았더라도 전송된 구매 기록이 표시될 수 있습니다. 기록이 없으면 구매처의 전송 여부를 확인하고, 온라인 수속이 안 되면 현장 단말기를 이용하세요.</p>
+      <p class="info-note">VJW 면세 구입용 QR을 매장에서 사용하지 않았더라도 면세점이 전송한 구매 기록은 표시될 수 있습니다. 이는 일반 결제 영수증 전체가 자동 등록된다는 뜻은 아닙니다. 기록이 없으면 매장 전송 여부를 확인하세요. 출국 당일 온라인 접속에 장애가 있을 때는 현장 여권 단말기를 이용하되, 매장이 전송하지 않은 거래 자체를 단말기가 새로 생성해 주는 것은 아닙니다.</p>
       <div class="info-store-actions">${external(sources.ntaVjw,'국세청 VJW 절차 한국어 안내')} ${external(sources.ntaFaq,'VJW 오류·구매기록 FAQ')}</div>`;
   }
   return `<div class="info-tax-method-head"><strong>현장 단말기에서 처리: 여권 스캔</strong><span class="info-status official">VJW 가입 불필요</span></div>
@@ -251,7 +252,7 @@
         <div class="info-tax-result green"><span class="info-tax-result-label">GREEN · COMPLETED</span><strong>세관 반출 확인 완료</strong><p>상품 검사를 요구받지 않은 상태입니다. 다른 필요한 환급 신청이 있다면 매장 안내에 따라 진행하고 항공편 수속으로 이동합니다.</p></div>
         <div class="info-tax-result red"><span class="info-tax-result-label">RED · NOT COMPLETED</span><strong>세관 창구에서 실물 확인</strong><p>환급 거절이 확정된 것이 아닙니다. 보관한 면세품을 가지고 직원에게 요청된 물품을 제시해 확인을 마쳐야 합니다. 포기하면 해당 거래는 환급받을 수 없습니다.</p></div>
       </div>
-      <p class="info-note">VJW에서 결과 화면을 닫았다면 History(절차 이력)에서 구매 기록별 결과를 확인할 수 있습니다. 오류나 표시 지연은 별개 문제이며 'Completed'와 실제 카드 환급 입금을 혼동하지 마세요.</p>
+      <p class="info-note">VJW에서 결과 화면을 닫았다면 History(절차 이력)에서 확인할 수 있습니다. 미처리 구매 기록은 구매일로부터 90일간 표시되며, 절차 이력은 여권 제시·Confirm 이후 약 6주간 표시됩니다(국세청 FAQ). 검은 X의 Not approved or expired는 환급 불승인·기한 초과를 뜻합니다. Completed와 실제 카드 환급 입금은 다릅니다.</p>
     </section>
     <section class="info-section" id="info-tax-receipts">
       <h2>영수증별 정리는 실용적인 팁이지 법적 봉투 의무는 아닙니다</h2>
@@ -267,7 +268,7 @@
       <h2>세관 확인 완료 후 환급이 안 들어왔다면?</h2>
       <div class="info-tax-followup">
         <div><strong>01 · 세관 확인 상태를 점검</strong><p>VJW의 History(절차 이력)에서 해당 거래가 Completed인지 확인합니다. 전산 구매 기록은 기본적으로 영수증 등 거래 단위로 나타납니다.</p></div>
-        <div><strong>02 · 구매 매장의 환급 약관을 확인</strong><p>현금 환급과 신용카드·전자결제·계좌 환급은 사업자별로 방법·시기가 다릅니다. 모든 매장이 공항 현금 환급을 지원하지는 않습니다.</p></div>
+        <div><strong>02 · 구매 매장의 환급 약관을 확인</strong><p>현금·신용카드·앱·계좌 환급과 별도 수단 등록은 구매 매장 또는 지정 환급 사업자가 안내합니다. 특정 앱 가입이 모든 면세 구매에 필수인 것은 아닙니다. 공항 현금 지급은 지원 사업자의 거래에만 해당합니다.</p></div>
         <div><strong>03 · 입금 지연은 구매처 또는 지정 환급사에 문의</strong><p>세관의 세금 반출 확인이 끝났다는 것은 환급 승인 정보에 관한 것이며 즉시 입금 보장은 아닙니다. 문의를 위해 구매일·거래 기록·결제 정보를 보관하세요.</p></div>
       </div>
       <p class="info-note">나리타 T1에서는 세관 확인 구역(중앙빌딩 4층, 05:30~23:00)과 환급금 현금 지급기(중앙빌딩 4층 보안검색 전, 06:00~24:00)가 별도로 안내됩니다. 보안검색 후 북쪽 윙 3층에도 환급 사업자 기기가 있지만, 이용 가능 여부는 매장이 지정한 환급 방식에 달려 있습니다.</p>
@@ -276,7 +277,9 @@
       <h2>현장에서 자주 헷갈리는 상황</h2>
       <details><summary>Visit Japan Web에 등록하지 않으면 면세 환급을 못 받나요?</summary><p>아닙니다. 공항에 설치된 면세 절차 단말기에서 여권을 스캔하는 방법도 있습니다. VJW는 지정 전용 Wi-Fi를 사용하는 대안입니다.</p></details>
       <details><summary>세관 확인 단말기와 실제 환급금 받는 기기는 같은 기계인가요?</summary><p>아닙니다. 반출 확인 후 매장이나 지정 환급 사업자가 환급하며, 공항 현금 환급 기기는 별도입니다. 이용 가능한 환급 방법은 구매 매장에서 지정합니다.</p></details>
-      <details><summary>VJW에 구매 내역이 없거나 오류가 나면요?</summary><p>매장 전송 지연 여부를 살피고 화면을 새로 고치세요. 면세 구매용 QR을 제시하지 않았어도 거래가 표시될 수 있습니다. 온라인으로 진행이 어려우면 현장 단말기를 이용하고, 거래 정보 자체가 누락된 경우 구매 매장에 문의합니다.</p></details>
+      <details><summary>VJW에 구매 내역이 없거나 오류가 나면요?</summary><p>구매한 면세점이 전달한 기록만 표시됩니다. 미처리 기록은 구매일로부터 90일 내 확인할 수 있으며, 면세 QR 미제시만으로 누락되는 것은 아닙니다. 새로 고침 후에도 거래가 없다면 구매처에 전송 여부를 문의하세요. 전용 Wi-Fi 오류는 현장 여권 단말기로 대체할 수 있지만, 누락된 매장 기록을 여행자가 임의 등록할 수는 없습니다.</p></details>
+      <details><summary>환급 사업자 앱이나 이메일을 모든 매장에서 등록해야 하나요?</summary><p>아닙니다. 구매 시 매장 또는 위탁 환급사가 환급수단 등록 방법을 별도로 안내합니다. 한 업체에서 등록한 정보가 다른 모든 업체에 자동 연동된다고 가정하지 말고, 거래별 환급사·지급수단·문의처를 영수증과 함께 확인하세요.</p></details>
+      <details><summary>간사이·고베공항 후기의 소요시간을 나리타에도 적용할 수 있나요?</summary><p>아닙니다. 키오스크 여권 스캔 자체는 빠를 수 있지만 공항별 설치 위치·이동거리·혼잡·적색 검사 여부가 다릅니다. 국세청이 Visit Japan Web 온라인 절차를 안내한 공항은 나리타·하네다·간사이·주부·후쿠오카·신치토세·나하 7곳이며, 그 밖의 공항은 현장 단말기 위치를 확인해야 합니다. 나리타 제1터미널과 피치항공 체크인 마감을 우선하세요.</p></details>
       <details><summary>빨간불이면 짐을 전부 검사하나요?</summary><p>적색은 세관 실물 확인이 필요하다는 의미입니다. 요청 범위는 현장 세관 직원이 안내하므로 모든 짐의 전수검사라고 단정할 수 없습니다. 해당 물품을 제시해야 거래별 확인이 가능합니다.</p></details>
       <details><summary>위탁 수하물이 없다면 세관 확인을 건너뛰어도 되나요?</summary><p>아닙니다. 환급을 원한다면 반출 확인은 필요합니다. 위탁 수하물이 없더라도 면세품을 소지한 상태에서 보안검색 전에 세관 확인을 완료해야 합니다.</p></details>
       <details><summary>영수증 중 상품 하나를 일본에서 사용했어요.</summary><p>한 번의 구매 거래에 포함된 상품이 누락되거나 소비되면 거래 전체가 환급 대상에서 제외될 수 있습니다. 소비재를 소비했다면 단말기 확인을 진행하지 말고 먼저 세관 직원에게 신고하세요.</p></details>
@@ -292,7 +295,7 @@
         ['피치항공 · 나리타 국제선 수속 장소·시각',sources.peachNarita],
         ['일본 디지털청 · Visit Japan Web 이용 안내',sources.vjwHelp]
       ])}
-      <p class="info-note">조사 기준 2026.11.01. 제공된 SNS 글은 현장 정리법의 참고 자료이며, 절차·권리·의무는 위 공식 자료를 우선합니다. 환급 가능 여부와 실제 처리 시기는 구매 업체·현장 세관에 따라 달라질 수 있습니다.</p>
+      <p class="info-note">기존 공항 동선 조사는 2026.11.01, 구매 기록·환급수단 FAQ 재대조는 2026.11.04입니다. 제공된 SNS 글은 현장 정리법의 참고 자료이며, 절차·권리·의무는 위 공식 자료를 우선합니다. 환급 가능 여부와 실제 처리 시기는 구매 업체·현장 세관에 따라 달라질 수 있습니다.</p>
     </section>
   </div>`;
 }
@@ -374,16 +377,33 @@
       '<p>'+external('https://github.com/thandaPangda/tokyo-field-guide-2026/blob/main/README.md','프로젝트 기존 가이드')+' · <a href="./research/resale-scout-context-2026-11-02.md">리셀 조사 맥락·근거 문서</a></p></section></div>';
   }
 
+
+  // Independent supermarket/self-catering note; it does not create or duplicate map places.
+  function groceryGuide() {
+    return '<div class="info-wrap info-grocery-page">'+crumb('마트 고기·숙소 취사')+
+      header('SUPERMARKET · SELF-CATERING','도쿄 마트 흑모와규 · 할인 라벨 가이드','사진의 마블링·할인 스티커는 특정 매장의 한 시점 사례입니다. 흑모와규가 항상 싸거나 취사 숙소가 호텔보다 경제적이라는 결론은 도출할 수 없습니다.','2026.11.04')+
+      '<div class="info-notice info-warning"><strong>사진과 숙소 선택은 별개의 근거</strong>SNS 사진은 흑모와규로 소개된 소고기 포장과 20% 할인 표시를 보여주지만, 무게·세금·할인 전후 가격과 매장·촬영일이 확인되지 않습니다. 에어비앤비가 호텔보다 저렴하다는 비교자료도 없습니다. 조리가 가능한 숙소의 냉장고·조리도구·취사 규칙·총 숙박비를 확인한 후 판단하세요.</div>'+
+      '<section class="info-section"><h2>매장에서 먼저 읽을 일본어</h2><div class="info-grid">'+
+      '<div class="info-notice"><strong>黒毛和牛 · 国産牛</strong>黒毛和牛(구로게와규)는 일본 흑모화종을 가리키며, 国産牛(국산우)는 일본에서 사육한 소고기라는 더 넓은 표시입니다. 마블링 사진만으로 품종·등급을 판단하지 마세요.</div>'+
+      '<div class="info-notice"><strong>20%引 · 税込 · 税抜</strong>20%引은 할인 표시, 税込은 세금 포함, 税抜은 세금 별도 가격입니다. 스티커가 붙은 특정 팩에만 적용될 수 있으므로 최종 계산대 가격을 확인하세요.</div>'+
+      '<div class="info-notice"><strong>100g当たり · 内容量</strong>100g당 가격과 팩 총중량이 다르면 진열된 가격 숫자만 비교할 수 없습니다. 원산지·부위·등급·100g 단가를 같은 조건으로 비교하세요.</div>'+
+      '<div class="info-notice"><strong>消費期限 · 要加熱</strong>소비기한과 가열 필요 표시를 확인하고, 냉장 상태로 숙소까지 운반해 충분히 조리하세요. 생고기·가열용 제품을 생식용으로 취급하지 않습니다.</div></div></section>'+
+      '<section class="info-section"><h2>기존 지도와 연결하는 방법</h2><p>기존 도쿄 지도에는 라이프 시부야히가시점, 오케이 고엔지점, 세이유 고엔지점 등 장보기 후보가 이미 있습니다. 새 고기 판매처를 중복 등록하지 않았으며, 이들 점포에 흑모와규 재고 또는 20% 할인이 있다는 뜻도 아닙니다.</p><p><a href="#map">기존 지도에서 마트 동선 확인</a> · <a href="./research/market-discounts-2026-11-03.md">기존 회·초밥 마감할인 조사</a></p></section>'+
+      '<section class="info-section"><h2>현지에서 먹을 음식과 출국 면세품은 구분하세요</h2><p>숙소에서 조리해 일본 안에서 먹을 소고기는 출국 시 반출할 물품이 아니므로 2026년 면세 환급을 신청하는 대상이 아닙니다. 식품의 특수 밀봉 포장 규정이 폐지된 것과 일본에서 소비한 식품에 대한 환급 가능성은 별개의 문제입니다.</p><p>'+external(sources.tourism,'일본 관광청 · 2026 면세품 반출·일본 내 소비 규정')+'</p></section>'+
+      '<section class="info-section"><h2>자료 해석 범위</h2><p>스크린샷은 매장 가격표를 원문 확인한 영수증이나 현행 상품 카탈로그가 아닙니다. 사진 속 20% 할인은 모든 매장의 매일 할인율이 아니며, 일본 가격과 한국 가격의 품질·무게 일치 비교도 검증되지 않았습니다.</p><p><a href="./research/social-shopping-taxrefund-2026-11-04.md">스크린샷 8장·중복 내용·공식 근거 정리</a></p></section></div>';
+  }
+
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
     const path=String(route||'info').replace(/^#/,'');
-    if(path==='info/resale')root.innerHTML=resalePage();
+    if(path==='info/grocery')root.innerHTML=groceryGuide();
+    else if(path==='info/resale')root.innerHTML=resalePage();
     else if(path==='info/taxfree')root.innerHTML=taxfree();
     else if(path==='info/pokemon')root.innerHTML=pokemon();
     else root.innerHTML=hub();
     if(path==='info/resale')updateResaleCalculator();
-    document.title=(path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':'여행 정보')+' · TOKYO FIELD GUIDE';
+    document.title=(path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
   }
   async function copyText(value) {
     try{

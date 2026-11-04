@@ -183,7 +183,7 @@
     return '<div class="info-wrap">'+crumb('포켓몬 카드')+
       header('SHOPPING · POKÉMON TCG','도쿄에서 포켓몬 카드 구매하기','정가 팩을 찾는 경우와 싱글 카드를 구매하는 경우는 적합한 매장이 다릅니다. 카드 판매가 확인되지 않은 편의점은 구매 확정 장소로 안내하지 않습니다.')+
       '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
-      toc([['info-where','판매처 비교'],['info-bulk','벌크·박스 탐색'],['info-release','11월 발매·추첨'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
+      toc([['info-where','시간대·판매처'],['info-bulk','벌크·박스 탐색'],['info-release','11월 발매·추첨'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
       pokemonPackTimingGuide()+pokemonBulkGuide()+pokemonReleaseGuide()+pokemonCommunityGuide()+
       '<section class="info-section" id="info-convenience"><h2>편의점 구매법: 점포별 취급 여부가 우선</h2>'+
       '<table class="info-table"><thead><tr><th>체인</th><th>시간 안내의 의미</th><th>주의할 점</th></tr></thead><tbody>'+

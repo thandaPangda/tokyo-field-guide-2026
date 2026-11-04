@@ -14,7 +14,7 @@
 - `research/pokemon-pack-buying-video-2026-11-04.md`, `README.md`, `tests/pokemon-visit-plan-2026-11-04.test.mjs`: 사용자 제공 영상과 공식 점포 시간·상품별 한정 공지를 구분하고, 추가 14곳/방문 정보 20건/기존 매장 ID 중복 방지·탭별 표시 범위를 회귀 검사한다.
 - **검증:** 수정한 JS 문법 검사와 브라우저 모의 객체를 이용한 정보 탭 렌더·ID 고유성·14곳 추가·20곳 방문 필드 연결을 점검했다. 전체 Node 테스트 스위트·실제 모바일/지도 서비스·GitHub Pages 배포는 별도 확인 대상이다.
 - **근거일:** 릴스 캡처에 2026년 10월 상품 사례 포함, 반영·코드 확인 2026-11-04. 07:00 전국 동시 입고나 정가 팩 구매를 보장하지 않는다.
-- **관련 변경:** [변경 제안 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/pokemon-pack-buying-timing-20261104) (PR/커밋 링크는 생성 시 확인).
+- **관련 변경:** [PR #13](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/13), [초기 구현 커밋](https://github.com/thandaPangda/tokyo-field-guide-2026/commit/d833b97cccd37ee4701d74198a347c1b3de4c433).
 
 ## [미출시] — v1.5.4 관심사 중심 탐색·정보 간편 읽기 UX (2026-11-04 작성)
 

@@ -7,10 +7,10 @@ const html=read('index.html'), info=read('info-tab.js');
 const w={};vm.runInNewContext(read('pokemon-bulk-2026-11-03.js'),{window:w},{timeout:1000});
 const g=w.TFGPokemonBulk;
 test('18 active stores and one closed store only in research',()=>{
- assert.equal(g.stores.length,18);
+ assert.equal(g.stores.length,19);
  assert.equal(g.closed.length,1);
  assert.equal(g.closed[0].closedOn,'2022-09-19');
- assert.equal(new Set(g.stores.map(x=>x.id)).size,18);
+ assert.equal(new Set(g.stores.map(x=>x.id)).size,19);
  assert.ok(g.stores.every(x=>x.url&&x.address&&x.storeHourSchedule));
  assert.ok(g.stores.every(x=>x.bulkVerified===false&&x.storagePriceVerified===false&&x.bundledBulkVerified===false));
  assert.ok(g.stores.every(x=>!x.name.includes('みなみ野')));

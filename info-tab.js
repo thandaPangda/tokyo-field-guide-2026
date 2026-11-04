@@ -46,7 +46,7 @@
     {id:'pao-nakano',name:'류세이노 PAO 나카노',area:'nakano',region:'나카노',type:'cardshop',hours:'11:00–21:00 (기존 사이트 등록값)',visit:'개점 이후 나카노 방문 중',status:'카드 전문점',address:'東京都中野区新井1-9-4',url:'https://pao-toreka.com/shop/nakano.html',note:'싱글 카드·TCG 상품용 전문점입니다. 포켓몬센터의 정가 팩과는 구매 목적과 가격 체계가 다릅니다.'},
   ];
   // Use stable map IDs for the same shops; closed/unknown stores are never appended.
-  if(window.TFGPokemonBulk){for(const x of window.TFGPokemonBulk.stores){if(stores.some(p=>p.id===x.id||(p.name===x.name&&p.address===x.address)))continue;stores.push({...x,note:x.notes});}}
+  if(window.TFGPokemonBulk){for(const x of window.TFGPokemonBulk.stores){const existing=stores.find(p=>p.id===x.id||(p.name===x.name&&p.address===x.address));if(existing){if(x.buyPlan)existing.buyPlan=x.buyPlan;continue;}stores.push({...x,note:x.notes});}}
   const taxChecklistItems = [["purchase","면세 구매 기록과 영수증을 매장·거래별로 정리했습니다."],["goods","같은 거래에 포함된 모든 면세품을 가지고 있으며, 일본에서 소비하지 않았습니다."],["cabin","기내 수하물 총 7kg·2개와 국제선 액체류 제한을 확인했습니다."],["passport","여권과 예약번호, 환급수단 정보를 언제든 꺼낼 수 있습니다."],["airport","나리타 제1터미널 4층에서 보안검색 전에 세관 확인할 것을 기억합니다."],["deadline","피치항공 08:30편의 체크인 마감 07:40을 우선하겠습니다."]];
   const taxChecklistKey='tokyo-field-guide:tax-checklist:v1';
   const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[],resaleArea:'전체',resaleKind:'전체',resaleSearch:'',resalePick:1};
@@ -78,10 +78,10 @@
   function storeCard(store) {
     const label = ({center:'포켓몬센터',convenience:'편의점',vending:'카드 자판기',cardshop:'카드 전문점',bookoff:'북오프·중고 카드',electronics:'가전양판점',toyshop:'완구·추첨 수령'})[store.type]||'카드 판매처';
     const official = store.type==='center';
-    return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(official?' official':'')+'">'+esc(store.status)+'</span></div>'+
+    return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(official?' official':'')+'">'+esc(store.buyPlan?.title||store.status)+'</span></div>'+
       '<p class="info-store-address">'+esc(store.address)+'</p>'+
-      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
-      '<div class="info-store-actions">'+external(store.url,'점포·출처 보기')+' '+external(mapsUrl(store),'지도 열기')+'</div></article>';
+      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.buyPlan?'<dt>구형 카드 추천 이유</dt><dd>'+esc(store.buyPlan.reason)+'</dd><dt>추천 방문</dt><dd>'+esc(store.buyPlan.time)+'</dd>':store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
+      '<div class="info-store-actions">'+external(store.url,'점포·출처 보기')+' '+external(mapsUrl(store),'지도 열기')+(store.buyPlan?' <a href="#place/'+esc(store.id)+'">장소 상세·찜</a>':'')+'</div></article>';
   }
 
   function storeResults() {
@@ -102,6 +102,12 @@
 
 
 
+
+  function vintageBuyingShortlist(g){
+    const items=g.stores.filter(s=>s.buyPlan).sort((a,b)=>a.buyPlan.rank-b.buyPlan.rank);
+    const cards=items.map(s=>'<article class="info-buy-card"><span class="info-buy-index">'+s.buyPlan.rank+' · '+esc(s.buyPlan.title)+'</span><h3>'+esc(s.name)+'</h3><p>'+esc(s.buyPlan.reason)+'</p><p><strong>방문:</strong> '+esc(s.buyPlan.time)+'</p><div class="info-store-actions"><a href="#place/'+esc(s.id)+'">장소 상세·찜</a> '+external(s.buyPlan.source,'취급·후기 근거')+'</div></article>').join('');
+    return '<div class="info-vintage-shortlist"><h3>옛날 벌크 카드, 어디부터 가야 하나?</h3><p>저렴한 旧裏 스토리지를 먼저 뒤져보고 싶다면 <strong>이케부쿠로 MINT → LAMB → 보쿠라노</strong>를 추천합니다. 초기 카드·구형 싱글을 세대별로 비교하려면 <strong>아키하바라 하레루야2 → 오타츄 2호점</strong>이 더 적합합니다. 재고량 순위가 아니라 구형 카드 취급 근거에 기반한 방문 순서입니다.</p><div class="info-buy-grid">'+cards+'</div><p class="info-note">MINT·보쿠라노의 저가 스토리지 가격은 2025년 방문 후기, LAMB는 갱신일 불명 제3자 안내입니다. 하레루야2·오타츄는 공식적으로 구형 카드 취급이 확인됩니다. 이는 2026년 현재 가격·물량 보장이 아닙니다.</p></div>';
+  }
   function pokemonBulkGuide(){
     const g=window.TFGPokemonBulk;if(!g)return '';
     const tiles=[['ストレージ / STORAGE','낱장 스토리지','상자에서 낱장 카드를 고릅니다. 30~55엔/장 주장은 현재 각 지점의 공식 가격이 아닙니다.'],
@@ -109,12 +115,12 @@
       ['新品パック / PACK','공식 새 낱개팩','2026년 5월 이후 일반 5장팩 200엔(이전 출시분 180엔), 30th CELEBRATION은 홀로그램 6장팩 360엔입니다. 해당 박스 공식 가격은 7,200엔이며 추첨·신원 확인 조건이 안내됩니다.'],
       ['未開封BOX / BOX','박스째 사기','정가와 팩 수는 상품마다 다릅니다. 추첨·수량 제한·슈링크 유무와 오리파 여부를 확인하세요.']];
     const blocks=tiles.map(x=>'<article class="info-buy-card"><span class="info-buy-index">'+esc(x[0])+'</span><h3>'+esc(x[1])+'</h3><p>'+esc(x[2])+'</p></article>').join('');
-    const rows=g.stores.map(p=>'<tr><td><strong>'+esc(p.name)+'</strong><p class="info-note">'+esc(p.area)+'</p></td><td>'+esc(p.hours)+'</td><td>'+esc(p.floor||'벌크·팩 재고 미확인')+'</td><td>'+external(p.url,'공식')+' '+external(mapsUrl(p),'지도')+'</td></tr>').join('');
+    const rows=g.stores.map(p=>'<tr><td><strong>'+esc(p.name)+'</strong><p class="info-note">'+esc(p.area)+'</p></td><td>'+esc(p.hours)+'</td><td>'+esc(p.buyPlan?p.buyPlan.title+' · '+p.buyPlan.time:(p.floor||'매장 안내 참고'))+'</td><td>'+external(p.url,'공식')+' '+external(mapsUrl(p),'지도')+'</td></tr>').join('');
     const closed=g.closed[0];
-    return '<section class="info-section" id="info-bulk"><h2>벌크·스토리지·새 팩·미개봉 박스</h2><div class="info-buy-grid">'+blocks+'</div>'+
+    return '<section class="info-section" id="info-bulk"><h2>벌크·스토리지·새 팩·미개봉 박스</h2>'+vintageBuyingShortlist(g)+'<div class="info-buy-grid">'+blocks+'</div>'+
       '<div class="info-notice info-warning"><strong>벌크 매장 순위·입고 회전율은 미검증입니다.</strong>라라포트 묶음 수백 장, 타치카와 7층 TCG 매대, 가와사키 매일 새 벌크 입고는 공식 확인되지 않았습니다. 타치카와 트레카 매대는 5층이고 7층은 포켓몬·애니 굿즈 중심입니다. 북오프는 실시간 카드 재고 조회를 받지 않습니다.</div>'+
       '<div class="info-notice"><strong>폐업해서 제외한 점포: '+esc(closed.name)+'</strong>'+esc(closed.closedOn)+'에 폐점했습니다. 주변 매입 전용 센터에서는 카드 구매를 할 수 없습니다. '+external(closed.source,'운영사 공식 기록')+'</div>'+
-      '<h3>매장 정보 확인 후보 '+g.stores.length+'곳 (기존 11 + 신규 7)</h3><div class="info-table-scroll"><table class="info-table"><thead><tr><th>매장</th><th>영업시간</th><th>층·참고</th><th>근거·지도</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<h3>지도 통합 매장 '+g.stores.length+'곳 (이전 18곳 + 정보 탭 전용 하레루야2 1곳)</h3><div class="info-table-scroll"><table class="info-table"><thead><tr><th>매장</th><th>영업시간</th><th>층·참고</th><th>근거·지도</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
       '<p class="info-note">실제 방문일은 11/11~15입니다. 영업시간과 트레카 매입 접수 시각은 구분해야 합니다. 지도에는 주소 구역 근사 좌표를 사용할 수 있으므로 정확한 출입구는 공식 매장 안내를 확인하세요.</p>'+
       '<h3>현장 일본어</h3><div class="info-phrases">'+[['초창기 旧裏 스토리지가 있나요?','旧裏のストレージはありますか。'],['옛날 노멀 카드를 여러 장 사고 싶습니다.','昔のノーマルカードをまとめて買いたいです。'],['스토리지 카드가 있나요?','ポケモンカードのストレージはありますか。'],['노멀 카드 묶음 판매가 있나요?','ノーマルカードのまとめ売りはありますか。'],['새 팩·박스를 살 수 있나요?','新品パックや未開封BOXは買えますか。'],['슈링크가 있나요?','BOXはシュリンク付きですか。']].map(x=>'<div class="info-phrase"><div><strong>'+esc(x[0])+'</strong><span lang="ja">'+esc(x[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(x[1])+'">복사</button></div>').join('')+'</div>'+
       '<p class="info-note">'+external(g.products.priceSource,'2026년 공식 팩 가격 개정')+' · '+external('https://www.bookoff.co.jp/buy/tradingcard/','북오프 공식 트레카 정책')+'</p></section>';

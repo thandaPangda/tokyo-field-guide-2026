@@ -13,9 +13,9 @@ function mount(hash='#info/pokemon'){
  return {root,results,window};
 }
 test('seven new distinct stores plus original eleven',()=>{
- assert.equal(g.stores.length,18);
+ assert.equal(g.stores.length,19);
  const newly=g.stores.filter(x=>x.dateChecked==='2026-11-04');
- assert.equal(newly.length,7);assert.equal(new Set(g.stores.map(x=>x.id)).size,18);
+ assert.equal(newly.length,7);assert.equal(new Set(g.stores.map(x=>x.id)).size,19);
  assert.equal(newly.filter(x=>x.region==='ikebukuro').length,4);
  assert.equal(newly.filter(x=>x.type==='toyshop').length,2);
  assert.ok(newly.every(x=>x.address&&x.url&&x.lat===null&&x.lon===null&&x.bulkVerified===false&&x.storagePriceVerified===false));

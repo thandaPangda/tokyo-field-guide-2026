@@ -1,4 +1,4 @@
-/* Initial eleven shops 2026-11-03; seven verified shop locations and product/lottery research added 2026-11-04. Stock not verified. */
+/* Initial research 2026-11-03; purchase-priority evidence, one info-only shop mapped 2026-11-04. */
 window.TFGPokemonBulk={
   "reviewedAt": "2026-11-03",
   "travelDates": [
@@ -573,13 +573,13 @@ window.TFGPokemonBulk={
         11,
         21
       ],
-      "cardFocus": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
-      "visit": "11/11 11:00부터 이케부쿠로 첫 방문 후보",
+      "cardFocus": "2025년 실제 방문 조사에 旧裏 스토리지가 기록되어 있습니다. 이케부쿠로에서 여러 장을 저렴하게 고르는 첫 확인처로 추천합니다.",
+      "visit": "11/11 수 11:00부터 · 저가 旧裏 벌크 첫 방문",
       "status": "공식 운영 확인 · 旧裏 스토리지는 과거 후기",
       "storageEvidenceSource": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
       "historicalStoragePrice": "2025년 3월 개인 조사 30엔부터 · 2026 현재 미확인",
-      "description": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
-      "notes": "공식 포켓몬 싱글·BOX 취급. 旧裏 스토리지 30엔부터는 2025년 개인 조사로 현재 가격·재고 확인 불가.",
+      "description": "2025년 실제 방문 조사에 旧裏 스토리지가 기록되어 있습니다. 이케부쿠로에서 여러 장을 저렴하게 고르는 첫 확인처로 추천합니다.",
+      "notes": "2025년 실제 방문 조사에 旧裏 스토리지가 기록되어 있습니다. 이케부쿠로에서 여러 장을 저렴하게 고르는 첫 확인처로 추천합니다.",
       "storeHourSchedule": {
         "weekday": [
           11,
@@ -592,6 +592,16 @@ window.TFGPokemonBulk={
         "status": "published",
         "source": "https://ikebukuro.parco.jp/shop/detail/?cd=028222",
         "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      },
+      "buyPlan": {
+        "id": "PK_LEGACY_MINT_IKEBUKURO",
+        "rank": 1,
+        "title": "저가 旧裏 벌크 첫 방문",
+        "time": "11/11 수 11:00부터",
+        "reason": "2025년 실제 방문 조사에 旧裏 스토리지가 기록되어 있습니다. 이케부쿠로에서 여러 장을 저렴하게 고르는 첫 확인처로 추천합니다.",
+        "evidence": "2025년 3월 방문 후기",
+        "source": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
+        "region": "이케부쿠로"
       }
     },
     {
@@ -633,13 +643,13 @@ window.TFGPokemonBulk={
       ],
       "hourStatus": "conflicting",
       "hourReason": "플레이어즈클럽 평일 12시와 외부 매장 목록 14시 개점 정보 상충; 안전한 공통 구간 반영",
-      "cardFocus": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
-      "visit": "평일 14시 이후 방문 권고 · 영업시간 상충",
+      "cardFocus": "2025년 방문 기록에 旧裏 스토리지가 등장합니다. 평일 개점이 12시와 14시로 상충하여 보수적으로 14시 이후 방문을 권합니다.",
+      "visit": "11/11 수 14:00 이후 · 초기 카드 벌크 확인",
       "status": "포켓몬 공식 등록 / 영업시간 상충 / 재고 미확인",
       "storageEvidenceSource": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
       "historicalStoragePrice": "2025년 3월 개인 조사 30엔부터",
-      "description": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
-      "notes": "포켓몬 플레이어즈클럽 공식 등록. 旧裏 스토리지 30엔부터는 2025년 개인 조사 자료(현재 가격 미확인).",
+      "description": "2025년 방문 기록에 旧裏 스토리지가 등장합니다. 평일 개점이 12시와 14시로 상충하여 보수적으로 14시 이후 방문을 권합니다.",
+      "notes": "2025년 방문 기록에 旧裏 스토리지가 등장합니다. 평일 개점이 12시와 14시로 상충하여 보수적으로 14시 이후 방문을 권합니다.",
       "storeHourSchedule": {
         "weekday": [
           14,
@@ -652,6 +662,16 @@ window.TFGPokemonBulk={
         "status": "conflicting",
         "source": "https://players.pokemon-card.com/event/search/20013/202611/list",
         "reason": "플레이어즈클럽 평일 12시와 외부 매장 목록 14시 개점 정보 상충; 안전한 공통 구간 반영"
+      },
+      "buyPlan": {
+        "id": "PK_LEGACY_BOKURANO_IKEBUKURO",
+        "rank": 3,
+        "title": "초기 카드 벌크 확인",
+        "time": "11/11 수 14:00 이후",
+        "reason": "2025년 방문 기록에 旧裏 스토리지가 등장합니다. 평일 개점이 12시와 14시로 상충하여 보수적으로 14시 이후 방문을 권합니다.",
+        "evidence": "2025년 3월 후기와 상충 영업시간",
+        "source": "https://cardgame.zonosite.com/ikebukuropokecastorage00/",
+        "region": "이케부쿠로"
       }
     },
     {
@@ -690,12 +710,12 @@ window.TFGPokemonBulk={
         12,
         21
       ],
-      "cardFocus": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
-      "visit": "11/11 12시부터 1층 포켓몬 스토리지 탐색",
+      "cardFocus": "포켓몬 카드 공식 취급점이고 제3자 점포 정보에 저가 스토리지가 소개되어 있습니다. MINT 다음으로 들러 구형 노멀 카드를 비교하기 좋습니다.",
+      "visit": "11/11 수 12:00부터 · 스토리지 가격 비교",
       "status": "공식 영업 확인 · 스토리지 가격은 제3자 정보",
       "storageEvidenceSource": "https://torecamap.co.jp/shops/tokyo/r13002/s13002001/2425",
-      "description": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
-      "notes": "공식 점포 1층 포켓몬 카드 판매. 제3자 점포 등록에 스토리지 30엔부터 안내가 있으나 현재 가격·갱신일 미확인.",
+      "description": "포켓몬 카드 공식 취급점이고 제3자 점포 정보에 저가 스토리지가 소개되어 있습니다. MINT 다음으로 들러 구형 노멀 카드를 비교하기 좋습니다.",
+      "notes": "포켓몬 카드 공식 취급점이고 제3자 점포 정보에 저가 스토리지가 소개되어 있습니다. MINT 다음으로 들러 구형 노멀 카드를 비교하기 좋습니다.",
       "storeHourSchedule": {
         "weekday": [
           12,
@@ -708,6 +728,16 @@ window.TFGPokemonBulk={
         "status": "published",
         "source": "https://shop.lamb-pokemon.jp/stores/ikebukuro",
         "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      },
+      "buyPlan": {
+        "id": "PK_LEGACY_LAMB_IKEBUKURO",
+        "rank": 2,
+        "title": "스토리지 가격 비교",
+        "time": "11/11 수 12:00부터",
+        "reason": "포켓몬 카드 공식 취급점이고 제3자 점포 정보에 저가 스토리지가 소개되어 있습니다. MINT 다음으로 들러 구형 노멀 카드를 비교하기 좋습니다.",
+        "evidence": "공식 점포 운영과 갱신일 미상 점포 소개",
+        "source": "https://torecamap.co.jp/shops/tokyo/r13002/s13002001/2425",
+        "region": "이케부쿠로"
       }
     },
     {
@@ -803,12 +833,12 @@ window.TFGPokemonBulk={
         20
       ],
       "floor": "8F",
-      "cardFocus": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
-      "visit": "11/12 아키하바라 11시 이후 · 구형 카드 비교",
+      "cardFocus": "운영사가 직접 旧裏·e/web/vs·BW·XY 등 구형 카드 취급을 안내합니다. 초창기 카드나 수집용 구형 카드를 찾는 데 방문할 근거가 명확합니다.",
+      "visit": "11/12 목 11:00부터 · 빈티지 旧裏·e/web/vs 전문",
       "status": "旧裏 및 과거 시리즈 공식 취급 확인",
       "vintageSpecialist": true,
-      "description": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
-      "notes": "운영사 공식 사이트에 旧裏·e/web/vs·XY/BW 및 구형 미개봉 판매/매입 분야 안내. 저가 벌크 상품의 현재 가격·재고는 미확인.",
+      "description": "운영사가 직접 旧裏·e/web/vs·BW·XY 등 구형 카드 취급을 안내합니다. 초창기 카드나 수집용 구형 카드를 찾는 데 방문할 근거가 명확합니다.",
+      "notes": "운영사가 직접 旧裏·e/web/vs·BW·XY 등 구형 카드 취급을 안내합니다. 초창기 카드나 수집용 구형 카드를 찾는 데 방문할 근거가 명확합니다.",
       "storeHourSchedule": {
         "weekday": [
           11,
@@ -821,6 +851,16 @@ window.TFGPokemonBulk={
         "status": "published",
         "source": "https://otachu-akiba.com/2go/access/",
         "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      },
+      "buyPlan": {
+        "id": "PK_LEGACY_OTACHU_AKIHABARA",
+        "rank": 5,
+        "title": "빈티지 旧裏·e/web/vs 전문",
+        "time": "11/12 목 11:00부터",
+        "reason": "운영사가 직접 旧裏·e/web/vs·BW·XY 등 구형 카드 취급을 안내합니다. 초창기 카드나 수집용 구형 카드를 찾는 데 방문할 근거가 명확합니다.",
+        "evidence": "운영사 공식 구형 카드 분야 안내",
+        "source": "https://otachu-akiba.com/2go/akihabara/",
+        "region": "아키하바라"
       }
     },
     {
@@ -940,6 +980,61 @@ window.TFGPokemonBulk={
         "status": "published",
         "source": "https://www.kiddyland.co.jp/shoplist/futakotamagawa/",
         "reason": "매장 영업시간과 신상품 판매 개시·재고는 별도"
+      }
+    },
+    {
+      "id": "tcg-hareruya2-tower",
+      "name": "하레루야2 아키하바라 타워",
+      "area": "아키하바라 · 이시마루 빌딩 B1–6F",
+      "region": "akihabara",
+      "address": "東京都千代田区外神田1-2-13 石丸3号館ビル B1–6F",
+      "url": "https://www.hareruya2.com/en/pages/store_tower-en",
+      "weekday": "10:00–22:00",
+      "weekend": "10:00–22:00",
+      "hours": "10:00–22:00",
+      "type": "cardshop",
+      "category": "포켓몬",
+      "cardFocus": "포켓몬 전문 대형 매장으로 오래된 旧裏와 구형 싱글을 비교하기 좋습니다. 상자형 저가 벌크보다 카드 종류와 상태 비교에 적합합니다.",
+      "description": "포켓몬 전문 대형 매장으로 오래된 旧裏와 구형 싱글을 비교하기 좋습니다. 상자형 저가 벌크보다 카드 종류와 상태 비교에 적합합니다.",
+      "notes": "포켓몬 전문 대형 매장으로 오래된 旧裏와 구형 싱글을 비교하기 좋습니다. 상자형 저가 벌크보다 카드 종류와 상태 비교에 적합합니다.",
+      "visit": "11/12 목 10:00부터 · 구형 세대별 싱글 비교",
+      "status": "공식 구형 카드 전문점",
+      "bulkVerified": false,
+      "storagePriceVerified": false,
+      "bundledBulkVerified": false,
+      "sourceLevel": "official_vintage_shop",
+      "dateChecked": "2026-11-04",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "official_address_block_geocoding_pending",
+      "tags": [
+        "포켓몬 카드",
+        "旧裏",
+        "구형 카드 추천"
+      ],
+      "buyPlan": {
+        "id": "tcg-hareruya2-tower",
+        "rank": 4,
+        "title": "구형 세대별 싱글 비교",
+        "time": "11/12 목 10:00부터",
+        "reason": "포켓몬 전문 대형 매장으로 오래된 旧裏와 구형 싱글을 비교하기 좋습니다. 상자형 저가 벌크보다 카드 종류와 상태 비교에 적합합니다.",
+        "evidence": "하레루야2 공식 구형 카드 안내",
+        "source": "https://www.hareruya2.com/en/pages/store_tower-en",
+        "region": "아키하바라"
+      },
+      "vintageSpecialist": true,
+      "storeHourSchedule": {
+        "weekday": [
+          10,
+          22
+        ],
+        "weekend": [
+          10,
+          22
+        ],
+        "status": "published",
+        "source": "https://www.hareruya2.com/en/pages/store_tower-en",
+        "reason": "공식 매장 영업시간은 입고시간이 아닙니다."
       }
     }
   ],
@@ -1066,5 +1161,6 @@ window.TFGPokemonBulk={
         "level": "매장 공식 예약 종료"
       }
     ]
-  }
+  },
+  "curatedBulk": "11/11 이케부쿠로 MINT→LAMB→보쿠라노, 11/12 아키하바라 하레루야2→오타츄. 저가 판매 후기(2025)와 공식 구형 카드 취급은 구분."
 };

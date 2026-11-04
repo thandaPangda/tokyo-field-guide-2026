@@ -43,6 +43,9 @@ test('discovery offers eight interests while relying on existing browse controls
   assert.match(ux, /data-browse-day="all"/);
   assert.match(ux, /data-browse-type/);
   assert.match(ux, /browseCount/);
+  assert.match(ux, /browseMatches\(previewState\)/);
+  assert.match(ux, /preview\.textContent = '등록된 후보 '/);
+  assert.match(css, /\.discovery-story-preview/);
 });
 
 test('information sections use accessible native disclosure and preserve actions', () => {

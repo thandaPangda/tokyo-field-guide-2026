@@ -68,7 +68,8 @@
   function hub() {
     return '<div class="info-wrap">'+header('TOKYO FIELD GUIDE · ESSENTIALS','도쿄 여행 정보','쇼핑과 현지 이용 규칙을 실제 행동 중심으로 정리했습니다. 검증된 규정과 경험에 근거한 참고 팁을 구분합니다.')+
       '<div class="info-grid">'+
-      '<a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
+      '<a class="info-tile" href="#info/seasonal"><span class="eyebrow">NOVEMBER · GOODS &amp; ART</span><h2>크리스마스 피카츄 · AWT 버스</h2><p>온라인 품절 3종의 공식 상품·국내 호가와 일본 판매 완료 사례, 여행 전 종료되는 무료 셔틀을 확인합니다.</p></a>'+
+       '<a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
       '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a>'+ 
       '<a class="info-tile" href="#info/grocery"><span class="eyebrow">SUPERMARKET · FOOD</span><h2>마트 흑모와규 · 할인 라벨 읽기</h2><p>사진 속 20% 할인은 특정 상품 사례입니다. 일본어 라벨·취사 숙소 조건·면세 여부를 구분합니다.</p></a>'+
       '<a class="info-tile" href="#info/resale"><span class="eyebrow">TOKYO SCOUT · RESELL</span><h2>리셀 소싱 · 33개 매장</h2><p>19개 상품의 과거 수요·예상 가격과 79개 매장 탐색 연결을 비교합니다. 재고와 실수익은 미확인입니다.</p></a></div>'+
@@ -80,7 +81,7 @@
     const official = store.type==='center';
     return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(official?' official':'')+'">'+esc(store.buyPlan?.title||store.status)+'</span></div>'+
       '<p class="info-store-address">'+esc(store.address)+'</p>'+
-      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.buyPlan?'<dt>구형 카드 추천 이유</dt><dd>'+esc(store.buyPlan.reason)+'</dd><dt>추천 방문</dt><dd>'+esc(store.buyPlan.time)+'</dd>':store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
+      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.type==='center'&&window.TFGSeasonalAlerts?'<dt>10/24 시즌 마스코트</dt><dd>공식 온라인은 11/04 기준 3종 품절. 이 점포의 진열·재고는 확인되지 않았습니다. <a href="#info/seasonal">상품 확인</a></dd>':'')+(store.buyPlan?'<dt>구형 카드 추천 이유</dt><dd>'+esc(store.buyPlan.reason)+'</dd><dt>추천 방문</dt><dd>'+esc(store.buyPlan.time)+'</dd>':store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
       '<div class="info-store-actions">'+external(store.url,'점포·출처 보기')+' '+external(mapsUrl(store),'지도 열기')+(store.buyPlan?' <a href="#place/'+esc(store.id)+'">장소 상세·찜</a>':'')+'</div></article>';
   }
 
@@ -167,7 +168,8 @@
   function pokemon() {
     return '<div class="info-wrap">'+crumb('포켓몬 카드')+
       header('SHOPPING · POKÉMON TCG','도쿄에서 포켓몬 카드 구매하기','정가 팩을 찾는 경우와 싱글 카드를 구매하는 경우는 적합한 매장이 다릅니다. 카드 판매가 확인되지 않은 편의점은 구매 확정 장소로 안내하지 않습니다.')+
-      '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
+      '<div class="info-notice"><strong>크리스마스 피카츄 한정 마스코트</strong>10/24 발매 3종은 2026.11.04 공식 온라인에서 모두 품절로 표시됩니다. 오프라인 재고는 알 수 없으며 한국 판매 희망가와 일본 판매 완료 가격도 구분해야 합니다. <a href="#info/seasonal">3종 상품·리셀 근거 확인 ↗</a></div>'+ 
+       '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
       toc([['info-where','판매처 비교'],['info-bulk','벌크·박스 탐색'],['info-release','11월 발매·추첨'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
       '<section class="info-section" id="info-where"><h2>어디서 살까?</h2>'+
       '<table class="info-table"><thead><tr><th>판매처</th><th>적합한 목적</th><th>확인할 조건</th></tr></thead><tbody>'+
@@ -411,17 +413,40 @@
       '<section class="info-section"><h2>자료 해석 범위</h2><p>스크린샷은 매장 가격표를 원문 확인한 영수증이나 현행 상품 카탈로그가 아닙니다. 사진 속 20% 할인은 모든 매장의 매일 할인율이 아니며, 일본 가격과 한국 가격의 품질·무게 일치 비교도 검증되지 않았습니다.</p><p><a href="./research/social-shopping-taxrefund-2026-11-04.md">스크린샷 8장·중복 내용·공식 근거 정리</a></p></section></div>';
   }
 
+
+  function seasonalGuide(){
+    const r=window.TFGSeasonalAlerts;if(!r)return '<div class="info-wrap">'+crumb('11월 확인 정보')+'<p>조사 데이터를 불러올 수 없습니다.</p></div>';
+    const p=r.pokemon,a=r.artWeek;
+    const cards=p.items.map(x=>'<article class="info-buy-card"><span class="info-buy-index">정가 '+x.yen.toLocaleString('en-US')+'엔 · 공식 온라인 품절</span><h3>'+esc(x.nameKo)+'</h3><p lang="ja">'+esc(x.nameJp)+'</p><p class="info-note">상품 코드 '+esc(x.sku)+' · 오프라인 점포 재고는 별도</p><div class="info-store-actions">'+external(x.url,'일본 공식 상품 페이지')+'</div></article>').join('');
+    const jp=p.japanCompletedExamples.filter(x=>x.productId==='porygon').map(x=>external(x.url,x.yen.toLocaleString('en-US')+'엔 판매 완료')).join(' · ');
+    const kr=p.koreaListings.map(x=>'<li><strong>'+esc(p.items.find(y=>y.id===x.productId)?.nameKo||x.productId)+'</strong> '+x.krw.toLocaleString('en-US')+'원 판매 등록(거래 완료 아님) '+external(x.url,'등록 매물 확인')+'</li>').join('');
+    return '<div class="info-wrap">'+crumb('11월 한정 굿즈·아트')+header('2026 NOVEMBER · RESEARCH','크리스마스 피카츄 · 아트위크 버스','출시와 품절은 공식 자료로, 리셀 매물은 판매 완료·등록 가격을 분리해 판단합니다. AWT 버스는 여행보다 먼저 종료됩니다.','2026.11.04')+
+      toc([['seasonal-pokemon','크리스마스 피카츄 3종'],['seasonal-resale','일본 거래·한국 호가'],['seasonal-awt','아트위크 무료 버스']])+
+      '<section class="info-section" id="seasonal-pokemon"><h2>크리스마스 준비 츄! 3종 마스코트</h2><p>일본 공식 포켓몬센터에서 2026년 10월 24일(토) 오프라인 출시, 10월 22일(목) 오전 10시 온라인 판매를 시작한 제품입니다. 사진 속 3종은 캐러비너가 달린 마스코트이며 별도로 판매되는 825엔짜리 산타 모자 키홀더와 혼동하지 마세요.</p>'+
+      '<div class="info-notice info-warning"><strong>11월 4일 온라인 확인: 3종 모두 품절(品切れ)</strong>이는 일본 공식 온라인 표시입니다. 포켓몬센터 시부야·메가도쿄·도쿄DX·스카이트리 등 오프라인 지점의 재고가 모두 0이라는 뜻은 아닙니다. 공식 FAQ는 매장 재고·재입고 시점을 안내하지 않으며 진열 재고 예약도 받지 않는다고 설명합니다.</div>'+
+      '<div class="info-buy-grid">'+cards+'</div><p class="info-note">온라인 개별 상품 페이지에는 1인당 1개 제한이 표시되어 있습니다. 오프라인 점포 제한은 현장 POP를 확인해야 합니다. '+external(p.officialAnnouncement,'공식 출시 공지')+' · '+external(p.onlineListing,'공식 온라인 품절 목록')+' · '+external(p.stockFaq,'매장 재고·예약 FAQ')+'</p></section>'+
+      '<section class="info-section" id="seasonal-resale"><h2>한국 판매 가치와 일본 실거래는 다릅니다</h2>'+
+      '<p>폴리곤2 디자인은 일본 메루카리에서 아래처럼 실제 판매 완료 표시가 확인됩니다. 표본은 개별 매물 일부이며 전체 시장의 평균 거래가격이나 한국 판매가격이 아닙니다.</p>'+
+      '<div class="info-notice"><strong>폴리곤2 일본 완료 매물 예시</strong>'+jp+' · 공식 정가 2,200엔. 별도로 쿠키+눈 2종 합계 5,600엔 판매 완료 사례가 있습니다. '+external('https://jp.mercari.com/item/m40816534848','2종 합계 판매 완료')+'</div>'+
+      '<h3>한국 중고 플랫폼 등록 사례</h3><ul>'+kr+'</ul><p>한국의 11만 8천 원 등은 판매자가 요구한 금액으로, 실제 결제·판매 완료까지 확인된 값이 아닙니다. 수수료·배송비·환율·미판매 리스크를 고려해야 하므로 이 숫자로 예상 순이익을 계산하지 않습니다.</p>'+
+      '<div class="info-notice"><strong>11/11~15 구매 동선</strong>이미 방문하려던 포켓몬센터 시부야나 메가도쿄의 마스코트 진열을 간단히 확인하는 정도가 적합합니다. 온라인에서 3종이 품절된 상황에서 키링만을 위해 여러 점포를 찾아 먼 거리를 우회하는 일정은 추천하지 않습니다. 기존 지도 매장에 새로운 점포 또는 입고 시각을 만들어 넣지 않았습니다.</div></section>'+
+      '<section class="info-section" id="seasonal-awt"><h2>아트위크 도쿄 AWT BUS — 여행 중 미운행</h2>'+
+      '<div class="info-notice info-warning"><strong>버스 11월 6일(금)~8일(일) · 여행 11월 11일(수)~15일(일)</strong>2026년 Art Week Tokyo 전체 행사는 11월 4~8일이고, 무료 AWT BUS는 11월 6~8일 10:00~18:00에만 약 15분 간격으로 운행했습니다. 여행 일정에는 겹치는 날짜가 없습니다.</div>'+
+      '<p>운행 기간에는 승차 지점·AWT 데스크에서 당일 유효한 무료 리스트밴드를 받아 여러 노선을 이용할 수 있었습니다. 그러나 11/11~15의 여행일에 버스나 AWT 전용 할인 혜택이 계속된다고 가정하면 안 됩니다. 이 기간에는 기존 아트 탭의 일반 미술관·갤러리 관람 일정을 이용하고, 각각의 전시 개별 종료일을 확인하세요.</p>'+
+      '<div class="info-store-actions">'+external(a.officialBus,'AWT BUS 공식 운행일')+' '+external(a.officialEvents,'2026 AWT 행사 일정')+' <a href="#art">여행 중 전시·아트 탭</a></div></section></div>';
+  }
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
     const path=String(route||'info').replace(/^#/,'');
-    if(path==='info/grocery')root.innerHTML=groceryGuide();
+    if(path==='info/seasonal')root.innerHTML=seasonalGuide();
+    else if(path==='info/grocery')root.innerHTML=groceryGuide();
     else if(path==='info/resale')root.innerHTML=resalePage();
     else if(path==='info/taxfree')root.innerHTML=taxfree();
     else if(path==='info/pokemon')root.innerHTML=pokemon();
     else root.innerHTML=hub();
     if(path==='info/resale')updateResaleCalculator();
-    document.title=(path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
+    document.title=(path==='info/seasonal'?'크리스마스 피카츄·AWT 버스':path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
   }
   async function copyText(value) {
     try{

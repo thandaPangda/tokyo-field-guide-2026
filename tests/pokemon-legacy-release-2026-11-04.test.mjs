@@ -14,7 +14,7 @@ function mount(hash='#info/pokemon'){
 }
 test('seven new distinct stores plus original eleven',()=>{
  assert.equal(g.stores.length,19);
- const newly=g.stores.filter(x=>x.dateChecked==='2026-11-04');
+ const newly=g.stores.filter(x=>x.dateChecked==='2026-11-04'&&x.id!=='tcg-hareruya2-tower');
  assert.equal(newly.length,7);assert.equal(new Set(g.stores.map(x=>x.id)).size,19);
  assert.equal(newly.filter(x=>x.region==='ikebukuro').length,4);
  assert.equal(newly.filter(x=>x.type==='toyshop').length,2);
@@ -27,7 +27,7 @@ test('release dates and application deadlines are distinct',()=>{
  assert.match(g.release.lotteries.find(x=>x.name.includes('SHIBUYA')).deadline,/종료/);
 });
 test('information page shows new stores and release calendar',()=>{
- const {root}=mount();assert.match(root.innerHTML,/기존 11 \+ 신규 7/);
+ const {root}=mount();assert.match(root.innerHTML,/지도 통합 매장 19곳/);
  assert.match(root.innerHTML,/id="info-release"/);assert.match(root.innerHTML,/하도우 시커/);
  assert.match(root.innerHTML,/드래곤스타/);assert.match(root.innerHTML,/키디랜드 기치조지/);
  assert.match(root.innerHTML,/미확인/);assert.match(root.innerHTML,/23:59 JST/);

@@ -50,6 +50,30 @@
           '</span><strong>' + t[2] + '</strong><span class="discovery-story-note">' + t[3] +
           '</span><span class="discovery-story-link" aria-hidden="true">장소 살펴보기 <span>↗</span></span></button>';
       }).join('') + '</div>';
+    // Show real entries from the existing dataset before the user applies a filter.
+    // Counts refer to registered candidates for the chosen time of day, not live availability.
+    if (typeof browseMatches === 'function' && typeof browseState !== 'undefined') {
+      themes.forEach(function (theme) {
+        try {
+          var previewState = Object.assign({}, browseState, {
+            period: theme[4], day: 'all', type: theme[5], region: 'all',
+            genre: 'all', order: 'time', query: '',
+            tags: new Set(), smoking: new Set()
+          });
+          var examples = browseMatches(previewState);
+          if (!examples.length) return;
+          var button = stories.querySelector('[data-discovery-theme="' + theme[0] + '"]');
+          if (!button) return;
+          var preview = document.createElement('span');
+          preview.className = 'discovery-story-preview';
+          preview.textContent = '등록된 후보 ' + examples.length + '개 · ' +
+            examples.slice(0, 2).map(function (entry) { return entry.name; }).join(' / ');
+          button.insertBefore(preview, button.querySelector('.discovery-story-link'));
+        } catch (_) {
+          // Existing exploration still works if preview data cannot be obtained.
+        }
+      });
+    }
     header.insertAdjacentElement('afterend', stories);
 
     var originalChildren = Array.from(controls.children);

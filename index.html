@@ -842,6 +842,7 @@ body.app-ready #sento-static{display:none!important}#sento-static{max-width:1050
 <script src="./photo-discoveries-2026-11-02.js"></script>
 <script src="./market-discounts-2026-11-03.js"></script>
 <script src="./pokemon-bulk-2026-11-03.js"></script>
+<script src="./pokemon-visit-plan-2026-11-04.js"></script>
 <script>
 'use strict';
 const SOURCE=JSON.parse(document.getElementById('site-data').textContent);
@@ -855,6 +856,11 @@ if(MARKET_STOPS){for(const market of MARKET_STOPS.places){if(!SOURCE.PLACES.some
 // Verified current shops only; closed locations remain in research, not map.
 const POKEMON_BULK=window.TFGPokemonBulk;
 if(POKEMON_BULK){for(const r of POKEMON_BULK.stores){if(SOURCE.PLACES.some(p=>p.id===r.id||(p.name===r.name&&p.address===r.address)))continue;const {storeHourSchedule,...p}=r;SOURCE.PLACES.push({...p,description:r.description,tripNote:'벌크·팩·미개봉 박스의 현재 재고·가격 미확인. '+r.visit});}}
+const POKEMON_VISIT=window.TFGPokemonVisitPlan;
+if(POKEMON_VISIT){
+ for(const addition of POKEMON_VISIT.places){if(!SOURCE.PLACES.some(p=>p.id===addition.id||(p.address===addition.address&&p.name===addition.name)))SOURCE.PLACES.push({...addition});}
+ for(const place of SOURCE.PLACES){const visit=POKEMON_VISIT.visits[place.id];if(visit)place.pokemonVisit=visit;}
+}
 const {VENUES,EVENTS,PLACES}=SOURCE;
 // Add sourcing candidates without changing the original dated itinerary or embedded archive.
 const RESALE=window.TOKYO_RESALE;
@@ -1152,8 +1158,9 @@ function cardOneLine(entry){let guide=readGuide(entry);
  return description;
 }
 function pokemonRetailNotice(p,full=false){
- if(!p?.cardFocus)return '';
+ if(!p?.cardFocus&&!p?.pokemonVisit)return '';
  if(p.buyPlan){const v=p.buyPlan;return '<div class="pokemon-retail-note"><strong>구형 카드 추천 · '+esc(v.title)+'</strong><p>'+esc(v.reason)+'</p><p><b>추천 방문</b> '+esc(v.time)+'</p>'+(full?'<p>선정 근거 · '+esc(v.evidence)+'. 현재 재고·가격은 현장 확인 대상입니다.</p><a href="'+esc(v.source)+'" target="_blank" rel="noopener noreferrer">취급 근거 ↗</a>':'')+' <a href="#info/pokemon">구형 벌크 구매 순서 ↗</a></div>';}
+ if(p.pokemonVisit){const v=p.pokemonVisit;return '<div class="pokemon-retail-note"><strong>추천 방문 · '+esc(v.time)+'</strong><p>'+esc(v.reason)+'</p>'+(full?'<p>근거: '+esc(v.basis)+'. 실제 입고·구매 성공은 보장되지 않습니다.</p>':'')+' <a href="#info/pokemon">구매처별 공통 전략 ↗</a></div>';}
  return '<div class="pokemon-retail-note"><strong>'+(p.lotteryOnly?'추첨 당첨자 수령 후보':'포켓몬 카드 취급 후보')+'</strong><p>'+esc(p.cardFocus)+'</p>'+(full?'<a href="#info/pokemon">포켓몬 구매 가이드 ↗</a>':'')+'</div>';
 }
 function saleEvidenceLabel(s){return ({official_floor:'공식 시설 안내',merchant:'점포 요일 행사',review:'방문 후기',unknown:'세일 정보 미확인'})[s?.level]||'세일 근거 미확인';}
@@ -1191,7 +1198,7 @@ function browseCard(entry){
  <div class="browse-card-header"><div class="browse-card-when ${start===null?'unknown':''}">${label}${carried?`<span>${clockLabel(start)} 개장</span>`:browseState.day==='all'&&kind==='event'?`<span>${esc(data.date)} (${esc(data.weekday||'')})</span>`:''}</div>
  <div class="browse-card-main"><div class="browse-card-eyebrow">${esc(kind==='event'?'공연':kind==='art'?'전시':'장소')}</div><h3 class="browse-card-title">${esc(name)}</h3><p class="browse-card-sub">${esc(cardPlaceLine(entry))}</p></div>
  </div><div class="browse-card-content"><div class="browse-card-genre">${badge}</div><p class="browse-card-why">${esc(body)}</p>${notice?`<p class="browse-card-tip"><span>알아둘 점</span> ${esc(notice)}</p>`:''}
- ${smallTag?'<div class="browse-card-tags">'+smallTag+'</div>':''}${kind==='place'&&data.sale?saleDisplay(data):''}${kind==='place'&&data.cardFocus?pokemonRetailNotice(data):''}${miniTimeline(entry)}
+ ${smallTag?'<div class="browse-card-tags">'+smallTag+'</div>':''}${kind==='place'&&data.sale?saleDisplay(data):''}${kind==='place'&&(data.cardFocus||data.pokemonVisit)?pokemonRetailNotice(data):''}${miniTimeline(entry)}
  <div class="browse-card-foot"><span class="browse-price">${kind==='event'?esc(cost):kind==='art'?esc(cost):''}</span><span class="browse-card-actions">${chip}${bookmarkButton(kind,id)}<button type="button" ${go}>상세 ↗</button></span></div></div></article>`;
 }
 
@@ -1238,7 +1245,7 @@ function mapFilterRender(){document.querySelectorAll('[data-map-period]').forEac
 function renderMapTab(shouldFit=true){mapState.mode='browse';hidePop();mapFilterRender();const entries=mapBrowseEntries();mapState.items=mapBrowseItems();installMapPins();const missing=entries.filter(x=>!validGeo(x));document.getElementById('asideTitle').textContent=entries.length+'개 장소·행사';document.getElementById('asideDesc').textContent=mapDayText(mapFilters.day)+' · '+(mapFilters.period==='day'?'낮':'밤')+' · 이 패널 안에서 장소를 탐색합니다.';document.getElementById('storeDays').hidden=true;document.getElementById('mapItems').innerHTML=entries.length?entries.map(x=>`<div class="map-card-anchor" data-map-item="${esc(x.id)}">${browseCardMap(x)}${!validGeo(x)?'<p class="map-unmapped">정확한 좌표 미확인 · 지도 마커 제외</p>':''}</div>`).join(''):'<p class="empty">'+(mapFilters.favoritesOnly?'현재 날짜·낮밤·유형에 맞는 찜이 없습니다. 전체 날짜를 선택하거나 필터를 바꿔보세요.':'지도 조건과 일치하는 장소가 없습니다.')+'</p>';if(missing.length)document.getElementById('asideDesc').textContent+=' · 위치 미확인 '+missing.length+'개는 목록에만 표시';if(shouldFit&&mapFilters.region!=='all')fitItems(mapState.groups);else if(shouldFit&&!mapState.hasOpened){mapState.hasOpened=true;setView(35.6606,139.7010,window.innerWidth<=800?13:14);}applyMapClock();}
 function browseCardMap(e){const oldDay=browseState.day,oldPeriod=browseState.period;try{browseState.day=mapFilters.day;browseState.period=mapFilters.period;return browseCard(e);}finally{browseState.day=oldDay;browseState.period=oldPeriod;}}
 function scrollToMapCard(ids){const cards=[...document.querySelectorAll('#mapItems [data-map-item]')];cards.forEach(c=>c.classList.toggle('map-card-selected',ids.includes(c.dataset.mapItem)));const card=cards.find(c=>ids.includes(c.dataset.mapItem));if(!card)return;const aside=document.querySelector('#view-map .map-aside');const fixed=aside.querySelector('.aside-head')?.getBoundingClientRect().height||0;const target=aside.scrollTop+card.getBoundingClientRect().top-aside.getBoundingClientRect().top-fixed-10;const reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;aside.scrollTo({top:Math.max(0,target),behavior:reduced?'instant':'smooth'});}
-function mapPopupItem(x){const isEvent=!x.isPlace&&!x.isArt;let when=isEvent?`${esc(x.date)} (${esc(x.weekday||'')}) · ${esc(x.time)}`:x.isArt?esc(x.time):esc(storeHoursForDate(x,mapFilters.day).original||'영업시간 미확인');let label=isEvent?'공연':x.isArt?'전시':x.category;return `<div class="pop-item"><strong>${esc(x.kind==='event'?cardDisplayName({kind:'event',data:x,id:x.id}):x.kind==='place'&&x.sentoId?CARD_GUIDE.sentoNames[x.sentoId]||x.name:x.name)}</strong><p>${esc(label)} · ${when}</p>${x.isPlace&&x.sale?saleDisplay(x):''}${x.isPlace&&x.cardFocus?pokemonRetailNotice(x):''}<button class="pop-btn" type="button" data-map-show-card="${esc(x.id)}">목록에서 보기 ↘</button>${bookmarkButton(x.kind,x.id)}${x.isArt?`<a href="${esc(x.url)}" target="_blank" rel="noopener">전시 공식 안내 ↗</a>`:`<button class="pop-btn" type="button" ${x.isPlace?`data-place="${esc(x.id)}"`:`data-detail="${esc(x.id)}"`}>상세 보기 ↗</button>`}</div>`;}
+function mapPopupItem(x){const isEvent=!x.isPlace&&!x.isArt;let when=isEvent?`${esc(x.date)} (${esc(x.weekday||'')}) · ${esc(x.time)}`:x.isArt?esc(x.time):esc(storeHoursForDate(x,mapFilters.day).original||'영업시간 미확인');let label=isEvent?'공연':x.isArt?'전시':x.category;return `<div class="pop-item"><strong>${esc(x.kind==='event'?cardDisplayName({kind:'event',data:x,id:x.id}):x.kind==='place'&&x.sentoId?CARD_GUIDE.sentoNames[x.sentoId]||x.name:x.name)}</strong><p>${esc(label)} · ${when}</p>${x.isPlace&&x.sale?saleDisplay(x):''}${x.isPlace&&(x.cardFocus||x.pokemonVisit)?pokemonRetailNotice(x):''}<button class="pop-btn" type="button" data-map-show-card="${esc(x.id)}">목록에서 보기 ↘</button>${bookmarkButton(x.kind,x.id)}${x.isArt?`<a href="${esc(x.url)}" target="_blank" rel="noopener">전시 공식 안내 ↗</a>`:`<button class="pop-btn" type="button" ${x.isPlace?`data-place="${esc(x.id)}"`:`data-detail="${esc(x.id)}"`}>상세 보기 ↗</button>`}</div>`;}
 function storeHoursForDate(p,date){return storeScheduleAt(p,date==='all'?'11/13':date);}
 function openGroup(g){if(!g)return;hidePop();mapState.selected=g.key;mapState.markers.get(g.key)?.classList.add('selected');document.getElementById('popTitle').textContent=g.items.length===1?g.items[0].name:`같은 위치 · ${g.items.length}개`;document.getElementById('popBody').innerHTML=g.items.map(mapPopupItem).join('');document.getElementById('map-popover').classList.add('open');scrollToMapCard(g.items.map(x=>x.id));}
 function initMapBrowse(){

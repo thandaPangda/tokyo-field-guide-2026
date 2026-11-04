@@ -4,6 +4,20 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
+## [미출시] — v1.5.4 관심사 중심 탐색·정보 간편 읽기 UX (2026-11-04 작성)
+
+**상태:** \`feat/discovery-info-progressive-ux-20261104\` 작업 브랜치, 미병합·미배포. 운영 페이지에 반영된 것으로 안내하지 않음.
+
+### 추가 / 변경 / 접근성 / 검증
+
+- \`index.html\`에 \`experience-ux.css\`·\`experience-ux.js\`를 기존 지도 및 정보 모듈 이후에 로드하도록 연결. 대형 HTML·장소 원자료·일정·지도 좌표는 수정하지 않음.
+- **탐색(\`#discover\`)**: 기존 '낮/밤 → 언제 → 무엇을 → 태그 → 흡연 정보'의 긴 조건 양식을 **8개 관심사 입구(미술·음악·쇼핑·카페·포켓몬·음식·리셀·센토)**로 재배치. 관심사를 선택하면 기존 \`browseClear\`·\`data-browse-period\`·\`data-browse-type\`·날짜 필터를 통해 목록을 표시하고 선택 주제를 안내. 세부 조건은 기본 접힘으로 두되 기존 태그·흡연 상태·지역·장르·정렬과 초기화 동작은 보존.
+- **정보(\`#info\` 및 4개 하위 가이드)**: 허브 카드를 목적 중심으로 재배치하고, 하위 페이지 상단에 4개 빠른 작업 링크를 추가. 길게 이어지는 문단·매장표·조사 자료를 네이티브 \`details/summary\` 단위로 구획해 필요할 때 펼치도록 변경. 면세 환급 체크리스트는 먼저 보이게 유지하며 빠른 이동 시 닫힌 섹션을 연 뒤 기존 스크롤·포커스 처리를 재사용.
+- **접근성·반응형:** 버튼 상태 \`aria-pressed\`, 펼침 상태 \`aria-expanded\`, 제목·영역 레이블, 키보드 \`focus-visible\`, 모션 감소 설정, 320px대 모바일 카드·간편 링크 레이아웃 반영.
+- **검증:** \`experience-ux.js\`의 JavaScript 문법 확인 및 \`tests/experience-ux.test.mjs\`에 기존 스크립트 로드 순서, 경로 래핑, 8개 탐색 주제, 정보 원본 앵커, 펼침·접근성 회귀 검사 추가. 실제 Node 전체 실행·모바일 터치 실측·GitHub Pages 배포 확인은 아직 수행하지 않음.
+- **사용자 영향:** 탐색 첫 화면에서 새 장소를 발견하고, 정보 페이지에서는 먼저 필요한 행동을 선택한 후 세부 정보를 볼 수 있음. 기존 개인 찜 저장 형식·리셀 계산기·면세 체크 상태·모든 원자료를 수정하지 않음.
+- **관련 커밋:** [UX 스크립트](https://github.com/thandaPangda/tokyo-field-guide-2026/commit/921fe2eb973da1b7de843447b12e7c377f8d6a5d), [스타일](https://github.com/thandaPangda/tokyo-field-guide-2026/commit/1b35860bc618ac2d05e5392fde80a0e750f5f709), [앱 연결](https://github.com/thandaPangda/tokyo-field-guide-2026/commit/c73f21f62f83007c5655a7558fe1dafda1bb496d).
+
 ## [미출시] — v1.5.3 탐색·지도 필터와 구형 벌크 구매 우선순위 (2026-11-04 작성)
 
 **상태:** \`main\` 직접 커밋·푸시 대상, GitHub Pages 게시·실기기·현장 재고 미검증. [main 커밋 이력](https://github.com/thandaPangda/tokyo-field-guide-2026/commits/main/).

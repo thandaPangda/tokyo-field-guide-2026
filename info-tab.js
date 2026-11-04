@@ -1,6 +1,6 @@
 (function infoTabModule() {
   'use strict';
-  const checkedOn = '2026.11.03';
+  const checkedOn = '2026.11.04';
   const sources = {
     customs: 'https://www.customs.go.jp/kaigairyoko/taxrefund.htm',
     naritaTax: 'https://www.narita-airport.jp/en/service/exchange/taxrefund/',
@@ -76,12 +76,10 @@
   }
 
   function storeCard(store) {
-    const label = ({center:'포켓몬센터',convenience:'편의점',vending:'카드 자판기',cardshop:'카드 전문점',bookoff:'북오프·중고 카드',electronics:'가전양판점',toyshop:'완구·추첨 수령'})[store.type]||'카드 판매처';
-    const official = store.type==='center';
-    return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(official?' official':'')+'">'+esc(store.buyPlan?.title||store.status)+'</span></div>'+
-      '<p class="info-store-address">'+esc(store.address)+'</p>'+
-      '<dl class="info-store-details"><dt>영업시간</dt><dd>'+esc(store.hours)+'</dd><dt>방문 안내</dt><dd>'+esc(store.visit)+'</dd><dt>판매 정보</dt><dd>'+esc(store.note)+'</dd>'+(store.buyPlan?'<dt>구형 카드 추천 이유</dt><dd>'+esc(store.buyPlan.reason)+'</dd><dt>추천 방문</dt><dd>'+esc(store.buyPlan.time)+'</dd>':store.cardFocus?'<dt>구매 근거</dt><dd>'+esc(store.cardFocus)+'</dd>':'')+'</dl>'+
-      '<div class="info-store-actions">'+external(store.url,'점포·출처 보기')+' '+external(mapsUrl(store),'지도 열기')+(store.buyPlan?' <a href="#place/'+esc(store.id)+'">장소 상세·찜</a>':'')+'</div></article>';
+    const label=({center:'포켓몬센터',convenience:'편의점',vending:'카드 자판기',cardshop:'카드 전문점',bookoff:'북오프·중고 카드',electronics:'가전양판점',toyshop:'완구·추첨 수령'})[store.type]||'카드 판매처';
+    const placeId=store.id==='pao-nakano'?'P04':store.id;
+    return '<article class="info-store"><div class="info-store-top"><div><div class="info-kicker">'+esc(store.region)+' · '+label+'</div><h3 class="info-store-title">'+esc(store.name)+'</h3></div><span class="info-status'+(store.type==='center'?' official':'')+'">'+esc(store.buyPlan?.title||store.status)+'</span></div>'+
+      '<div class="info-store-actions"><a href="#place/'+esc(placeId)+'">장소 상세에서 권장 시간·위치·찜 확인</a> '+external(store.url,'점포 출처')+'</div></article>';
   }
 
   function storeResults() {
@@ -105,8 +103,8 @@
 
   function vintageBuyingShortlist(g){
     const items=g.stores.filter(s=>s.buyPlan).sort((a,b)=>a.buyPlan.rank-b.buyPlan.rank);
-    const cards=items.map(s=>'<article class="info-buy-card"><span class="info-buy-index">'+s.buyPlan.rank+' · '+esc(s.buyPlan.title)+'</span><h3>'+esc(s.name)+'</h3><p>'+esc(s.buyPlan.reason)+'</p><p><strong>방문:</strong> '+esc(s.buyPlan.time)+'</p><div class="info-store-actions"><a href="#place/'+esc(s.id)+'">장소 상세·찜</a> '+external(s.buyPlan.source,'취급·후기 근거')+'</div></article>').join('');
-    return '<div class="info-vintage-shortlist"><h3>옛날 벌크 카드, 어디부터 가야 하나?</h3><p>저렴한 旧裏 스토리지를 먼저 뒤져보고 싶다면 <strong>이케부쿠로 MINT → LAMB → 보쿠라노</strong>를 추천합니다. 초기 카드·구형 싱글을 세대별로 비교하려면 <strong>아키하바라 하레루야2 → 오타츄 2호점</strong>이 더 적합합니다. 재고량 순위가 아니라 구형 카드 취급 근거에 기반한 방문 순서입니다.</p><div class="info-buy-grid">'+cards+'</div><p class="info-note">MINT·보쿠라노의 저가 스토리지 가격은 2025년 방문 후기, LAMB는 갱신일 불명 제3자 안내입니다. 하레루야2·오타츄는 공식적으로 구형 카드 취급이 확인됩니다. 이는 2026년 현재 가격·물량 보장이 아닙니다.</p></div>';
+    const cards=items.map(s=>'<article class="info-buy-card"><span class="info-buy-index">'+s.buyPlan.rank+' · '+esc(s.buyPlan.title)+'</span><h3>'+esc(s.name)+'</h3><div class="info-store-actions"><a href="#place/'+esc(s.id)+'">장소에서 방문 시간·추천 근거 확인</a></div></article>').join('');
+    return '<div class="info-vintage-shortlist"><h3>구형 카드 탐색 동선</h3><p>저렴한 旧裏 스토리지를 우선한다면 <strong>이케부쿠로 MINT → LAMB → 보쿠라노</strong>, 구형 싱글 카드와 세대별 상품을 비교한다면 <strong>아키하바라 하레루야2 → 오타츄 2호점</strong> 순으로 탐색합니다. 이 순서는 2025년 저가 스토리지 후기와 공식 구형 카드 취급 근거를 종합한 것이며, 현재 가격·재고 순위는 아닙니다.</p><div class="info-buy-grid">'+cards+'</div></div>';
   }
   function pokemonBulkGuide(){
     const g=window.TFGPokemonBulk;if(!g)return '';
@@ -115,12 +113,11 @@
       ['新品パック / PACK','공식 새 낱개팩','2026년 5월 이후 일반 5장팩 200엔(이전 출시분 180엔), 30th CELEBRATION은 홀로그램 6장팩 360엔입니다. 해당 박스 공식 가격은 7,200엔이며 추첨·신원 확인 조건이 안내됩니다.'],
       ['未開封BOX / BOX','박스째 사기','정가와 팩 수는 상품마다 다릅니다. 추첨·수량 제한·슈링크 유무와 오리파 여부를 확인하세요.']];
     const blocks=tiles.map(x=>'<article class="info-buy-card"><span class="info-buy-index">'+esc(x[0])+'</span><h3>'+esc(x[1])+'</h3><p>'+esc(x[2])+'</p></article>').join('');
-    const rows=g.stores.map(p=>'<tr><td><strong>'+esc(p.name)+'</strong><p class="info-note">'+esc(p.area)+'</p></td><td>'+esc(p.hours)+'</td><td>'+esc(p.buyPlan?p.buyPlan.title+' · '+p.buyPlan.time:(p.floor||'매장 안내 참고'))+'</td><td>'+external(p.url,'공식')+' '+external(mapsUrl(p),'지도')+'</td></tr>').join('');
     const closed=g.closed[0];
     return '<section class="info-section" id="info-bulk"><h2>벌크·스토리지·새 팩·미개봉 박스</h2>'+vintageBuyingShortlist(g)+'<div class="info-buy-grid">'+blocks+'</div>'+
       '<div class="info-notice info-warning"><strong>벌크 매장 순위·입고 회전율은 미검증입니다.</strong>라라포트 묶음 수백 장, 타치카와 7층 TCG 매대, 가와사키 매일 새 벌크 입고는 공식 확인되지 않았습니다. 타치카와 트레카 매대는 5층이고 7층은 포켓몬·애니 굿즈 중심입니다. 북오프는 실시간 카드 재고 조회를 받지 않습니다.</div>'+
       '<div class="info-notice"><strong>폐업해서 제외한 점포: '+esc(closed.name)+'</strong>'+esc(closed.closedOn)+'에 폐점했습니다. 주변 매입 전용 센터에서는 카드 구매를 할 수 없습니다. '+external(closed.source,'운영사 공식 기록')+'</div>'+
-      '<h3>지도 통합 매장 '+g.stores.length+'곳 (이전 18곳 + 정보 탭 전용 하레루야2 1곳)</h3><div class="info-table-scroll"><table class="info-table"><thead><tr><th>매장</th><th>영업시간</th><th>층·참고</th><th>근거·지도</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<h3>지도 통합 매장 '+g.stores.length+'곳 (이전 18곳 + 정보 탭 전용 하레루야2 1곳)</h3><p>매장별 주소·영업시간·방문 권장 시각은 아래 지역/목적 필터에서 점포를 선택한 다음 <strong>장소 상세</strong>로 이동해 확인합니다. 같은 상세 정보를 이 탭에 반복하지 않습니다. <a href="#discover">장소 탐색으로 이동</a></p>'+
       '<p class="info-note">실제 방문일은 11/11~15입니다. 영업시간과 트레카 매입 접수 시각은 구분해야 합니다. 지도에는 주소 구역 근사 좌표를 사용할 수 있으므로 정확한 출입구는 공식 매장 안내를 확인하세요.</p>'+
       '<h3>현장 일본어</h3><div class="info-phrases">'+[['초창기 旧裏 스토리지가 있나요?','旧裏のストレージはありますか。'],['옛날 노멀 카드를 여러 장 사고 싶습니다.','昔のノーマルカードをまとめて買いたいです。'],['스토리지 카드가 있나요?','ポケモンカードのストレージはありますか。'],['노멀 카드 묶음 판매가 있나요?','ノーマルカードのまとめ売りはありますか。'],['새 팩·박스를 살 수 있나요?','新品パックや未開封BOXは買えますか。'],['슈링크가 있나요?','BOXはシュリンク付きですか。']].map(x=>'<div class="info-phrase"><div><strong>'+esc(x[0])+'</strong><span lang="ja">'+esc(x[1])+'</span></div><button class="info-copy" type="button" data-info-copy="'+esc(x[1])+'">복사</button></div>').join('')+'</div>'+
       '<p class="info-note">'+external(g.products.priceSource,'2026년 공식 팩 가격 개정')+' · '+external('https://www.bookoff.co.jp/buy/tradingcard/','북오프 공식 트레카 정책')+'</p></section>';
@@ -137,6 +134,24 @@
       '<div class="info-notice info-warning"><strong>편의점 오전 7시·포켓몬센터 오전 10시 구매 보장 불가</strong>온라인 상품의 오전 10시 표기와 오프라인 매장의 일반 판매 시작은 다릅니다. SHIBUYA TSUTAYA는 공식적으로 사전예약 접수를 종료했습니다. 추첨 당첨이 없는 방문객에게 11/13 판매가 보장되지 않습니다.</div>'+
       '<p class="info-note"><a href="./research/pokemon-legacy-stores-release-2026-11-04.md">지점별 공식 링크·과거 스토리지 후기·응모 조건과 상충 운영시간 근거</a></p></section>';
   }
+  function pokemonPackTimingGuide(){
+    const places=[
+      ['1','포켓몬센터','각 매장 개점 무렵','정가 팩 우선 방문처 · 영상의 통상 구매 제한 1인 5~10팩'],
+      ['2','세븐일레븐·패밀리마트·로손','07:00 전후 빠르게 확인','오전 재입고 경험 · 통상 1인 2~5팩 · 지점별 취급 여부 상이'],
+      ['3','카드 전문점·BOOKOFF','개점 이후 · 관광지 외곽 우선','중고·구형 카드 비교에도 적합 · 정가 팩은 재고가 드물 수 있음'],
+      ['4','공식 포켓몬 카드 스탠드','역을 지날 때','영상의 2팩 묶음 판매 사례 · 재고 제한과 대기 가능성'],
+      ['5','포켓몬센터 온라인','수시로 판매·추첨 공지 확인','불규칙 재입고 및 추첨 · 일본 전화번호/배송지 조건 확인']
+    ];
+    return '<section class="info-section" id="info-where"><h2>정가 팩 구매: 어느 시간에 어떤 판매처를 볼까?</h2>'+
+      '<p>제공된 pokedoncards.jp 영상의 우선순위를 따릅니다. <strong>아침에는 편의점, 매장 개점 무렵에는 포켓몬센터, 이후에는 전문점</strong>을 탐색하고, 자판기는 이동 중에만 확인합니다. 이 구간은 일본 현지시간(JST) 기준의 탐색 권장 순서이지 입고 시간표가 아닙니다.</p>'+
+      '<div class="info-table-scroll"><table class="info-table"><thead><tr><th>순위</th><th>판매처</th><th>권장 확인 시점</th><th>구매 전략</th></tr></thead><tbody>'+
+      places.map(p=>'<tr><td>'+p[0]+'</td><td><strong>'+esc(p[1])+'</strong></td><td>'+esc(p[2])+'</td><td>'+esc(p[3])+'</td></tr>').join('')+'</tbody></table></div>'+
+      '<div class="info-notice"><strong>매장별 목적지는 장소 탭에 있습니다.</strong>코엔지 편의점, 시부야·이케부쿠로·니혼바시·스카이트리 포켓몬센터, 오기쿠보·이케부쿠로 카드 스탠드, 아키하바라·이케부쿠로 카드숍의 주소와 추천 시각은 각각 장소 상세에서 확인할 수 있습니다. <a href="#discover">장소 탐색 열기</a></div>'+
+      '<div class="info-notice info-warning"><strong>07:00은 전국 공통 입고 시각이 아닙니다.</strong>영상의 오전 보충 경험을 참고하되, 카드 취급·입고일·팩 종류·구매 제한은 지점과 상품마다 다릅니다. 일부 로손 상품의 별도 07:00 공식 판매 공지도 모든 신상품에 일반화하지 않습니다. 재고 문의나 판매 전 대기를 제한하는 점포 정책을 따라야 합니다.</div>'+
+      '<details class="info-faq"><summary>영상 속 가격 사례와 온라인 구매 조건</summary><p>영상에는 카드 자판기 2팩 360엔/400엔, 테라스탈 페스티벌 ex 1팩 550엔, MEGA 드림 ex BOX 5,500엔, 메가 심포니아 BOX 5,400엔이 표시됩니다. 이는 해당 영상의 상품 가격 사례이며, 모든 팩에 적용되는 공통 정가가 아닙니다. 온라인에서는 불규칙한 품절·재입고·추첨이 있고 일본 번호·배송 주소·본인 인증 조건을 개별 상품에서 확인해야 합니다. '+external('https://www.pokemoncenter-online.com/','포켓몬센터 온라인')+'</p></details>'+
+      '<p class="info-note">출처: 사용자 제공 pokedoncards.jp 릴스 화면(2026년 10월 상품 사례 포함). 제작자의 구매 성공 가능성 순위와 수량은 경험적 안내이며, 공식 실시간 재고 통계나 보장된 상한은 아닙니다.</p></section>';
+  }
+
   function pokemonCommunityGuide() {
     return '<section class="info-section" id="info-buying-decisions"><h2>구매 목적별로 달라지는 탐색 방법</h2>'+
       '<div class="info-buy-grid">'+
@@ -169,21 +184,16 @@
       header('SHOPPING · POKÉMON TCG','도쿄에서 포켓몬 카드 구매하기','정가 팩을 찾는 경우와 싱글 카드를 구매하는 경우는 적합한 매장이 다릅니다. 카드 판매가 확인되지 않은 편의점은 구매 확정 장소로 안내하지 않습니다.')+
       '<div class="info-notice"><strong>먼저 기억할 3가지</strong>공식 포켓몬센터도 원하는 팩의 재고를 보장하지 않습니다. 편의점은 같은 체인이라도 취급 여부가 다릅니다. 영업시간·판매 개시·상품 입고는 서로 다른 정보입니다.</div>'+
       toc([['info-where','판매처 비교'],['info-bulk','벌크·박스 탐색'],['info-release','11월 발매·추첨'],['info-buying-decisions','목적별 구매'],['info-community','현장 후기'],['info-specialist','전문점 팁'],['info-convenience','편의점 구매법'],['info-stores','도쿄 확인 후보'],['info-phrases','현장 표현'],['info-sources','공식 근거']])+
-      '<section class="info-section" id="info-where"><h2>어디서 살까?</h2>'+
-      '<table class="info-table"><thead><tr><th>판매처</th><th>적합한 목적</th><th>확인할 조건</th></tr></thead><tbody>'+
-      '<tr><td>포켓몬센터</td><td>공식 정가 상품, 관련 굿즈</td><td>점포 영업시간, 상품별 재고·구매 제한</td></tr>'+
-      '<tr><td>편의점</td><td>이동 중 낱개 팩 구매 시도</td><td>점포의 카드 취급 여부 자체가 미확인일 수 있음</td></tr>'+
-      '<tr><td>카드 전문점</td><td>싱글·중고·구형 카드, 가격 비교</td><td>프리미엄 가격/매입·판매 조건 확인</td></tr>'+'<tr><td>포켓몬 카드 스탠드</td><td>이동 중 공식 카드 자판기 확인</td><td>공식 설치 위치는 확인되지만 재고는 확인 불가. 포켓몬 굿즈용 스탠드와 다름.</td></tr>'+'<tr><td>BOOKOFF</td><td>중고 스토리지·노멀 묶음 탐색</td><td>취급 점포 운영과 당일 벌크 재고는 별개</td></tr>'+'<tr><td>GEO·가전양판점</td><td>일부 카드 상품·추첨 판매</td><td>점포·상품별 회원/추첨 조건 확인 필요. 일반 관광객 구매를 보장하지 않음.</td></tr></tbody></table>'+
-      '<p class="info-note">위 표는 구매 목적별 구분이며 실시간 재고나 실제 구매 성공률 순위가 아닙니다.</p></section>'+pokemonBulkGuide()+pokemonReleaseGuide()+pokemonCommunityGuide()+
+      pokemonPackTimingGuide()+pokemonBulkGuide()+pokemonReleaseGuide()+pokemonCommunityGuide()+
       '<section class="info-section" id="info-convenience"><h2>편의점 구매법: 점포별 취급 여부가 우선</h2>'+
       '<table class="info-table"><thead><tr><th>체인</th><th>시간 안내의 의미</th><th>주의할 점</th></tr></thead><tbody>'+
-      '<tr><td>세븐일레븐</td><td>오전 7시: 비공식 참고 경험</td><td>체인 공통 판매시간 아님. 취급·입고·구매 제한은 점포별로 다름.</td></tr>'+
-      '<tr><td>패밀리마트</td><td>오전 10시: 비공식 참고 경험</td><td>체인 공통 판매시간 아님. 카드 판매가 없는 점포도 있음.</td></tr>'+
+      '<tr><td>세븐일레븐</td><td>취급 점포의 계산대·판매 안내 확인</td><td>체인 전체가 포켓몬 카드를 취급하는 것은 아님.</td></tr>'+
+      '<tr><td>패밀리마트</td><td>판매 공지와 카드 취급 여부 우선 확인</td><td>카드 판매가 없는 점포도 있고 신상품마다 판매 방식이 다름.</td></tr>'+
       '<tr><td>로손</td><td>2026년 9월 16일 특정 팩은 07:00 공식 공지</td><td>해당 상품은 1회 계산 5팩 제한. 11월의 다른 상품과 모든 점포에 자동 적용되지 않음.</td></tr></tbody></table>'+
-      '<p class="info-note">사용자 경험에 근거한 시간은 관찰 정보로만 표시했습니다. 로손의 07:00/5팩은 9월 16일 30th CELEBRATION 상품에 한정된 공식 사례입니다.</p>'+
+      '<p class="info-note">로손의 07:00/5팩은 9월 16일 30th CELEBRATION 상품에 한정된 공식 사례입니다. 아침 탐색 순서와 영상의 구매 경험은 상단 전략에서 설명합니다.</p>'+
       '<div class="info-notice info-warning"><strong>입고 시간 문의와 대기 주의</strong>로손은 해당 상품 공지에서 점포별 재고·납품 시각 문의와 판매 전 대기를 제한했습니다. 점원에게 입고 시간 문의를 반복하거나 매장 내에서 대기하는 행동을 권하지 않습니다.</div>'+
       '<p class="info-note">공식 포켓몬 카드 취급점 지도는 모든 취급점을 보여주지 않고, 표시된 곳도 품절일 수 있다고 안내합니다. 지도 미등재=비취급이라고 판정하지 않습니다.</p></section>'+
-      '<section class="info-section" id="info-stores"><h2>도쿄에서 접근 가능한 점포</h2><p>코엔지 숙박을 고려해 역 주변 편의점을 확인 후보로 포함했습니다. 상품 재고가 확인된 곳을 의미하지 않으며, 별도의 날짜별 방문 일정을 만들지 않습니다.</p>'+
+      '<section class="info-section" id="info-stores"><h2>도쿄에서 접근 가능한 점포</h2><p>지역과 유형으로 점포를 찾는 색인입니다. 개별 주소·영업시간·추천 시각은 장소 상세에서 한 번만 표시하며, 이 목록은 실시간 재고 검색 결과가 아닙니다.</p>'+
       '<div id="info-store-results">'+storeResults()+'</div></section>'+
       '<section class="info-section"><h2>여행 기간 주목할 공식 상품</h2><div class="info-notice"><strong>11월 13일 출시 · 스페셜 덱 세트 MEGA</strong>메가장크로다일·메가망나뇽·메가팬텀의 구축 덱 세트이며 희망소비자가격은 5,500엔(세금 포함)입니다. 일반 확장팩이 아니며, 출시일이 즉시 구매 가능함을 보장하지 않습니다. '+external(sources.product,'상품 공식 정보')+'</div></section>'+
       '<section class="info-section" id="info-phrases"><h2>매장에서 사용할 일본어</h2><p>판매 중인 상품에 관해 짧게 확인할 때 사용하세요. 금지된 개별 납품/재고 문의나 장시간 대기를 권하는 표현은 포함하지 않았습니다.</p>'+

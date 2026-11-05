@@ -14,7 +14,7 @@
 - `experience-ux.js`, `experience-ux.css`, `map-marker-system.js`: 관심사 8개를 식당·장보기가 독립된 9개로 개편하고, 포크·나이프와 장바구니 아이콘/색상 및 지도 묶음의 유형 집계를 분리했다. 기존 정보 탭, 쇼핑·포켓몬·리셀 기능은 유지했다.
 - `README.md`, `tests/experience-ux.test.mjs`, `tests/dining-grocery-categories.test.mjs`: 분류·필터·아이콘·찜 키 호환성에 대한 회귀 테스트와 미배포 상태를 명시했다. GitHub Pages 게시·현장 정보·실기기 확인은 아직 수행하지 않았다.
 - **사용자 영향:** 식당만, 또는 슈퍼마켓·수산점·식품관만 검색/지도/찜에서 각각 볼 수 있으며 이미 저장한 장소 ID와 할인 정보가 유지된다.
-- **관련 변경:** [작업 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/separate-dining-grocery-20261106). PR 링크는 생성 후 기록한다.
+- **관련 변경:** [작업 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/separate-dining-grocery-20261106). [PR #14](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/14)를 검토한다.
 
 ## [미출시] — v1.5.5 포켓몬 카드 정가 팩 구매 시각·장소 연결 (2026-11-04 작성)
 

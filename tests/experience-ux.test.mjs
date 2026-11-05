@@ -31,10 +31,10 @@ test('enhancement JavaScript compiles and leaves legacy route functions intact',
   assert.deepEqual(invoked, ['info/pokemon', 'info/taxfree']);
 });
 
-test('discovery offers eight interests while relying on existing browse controls', () => {
-  const cards = ux.match(/^\s+\['0[1-8]',/gm) || [];
-  assert.equal(cards.length, 8);
-  for (const type of ['현대미술', '공연', '쇼핑', '카페', '포켓몬', '음식', '리셀', '대중목욕탕']) {
+test('discovery offers nine interests with separate dining and grocery controls', () => {
+  const cards = ux.match(/^\s+\['0[1-9]',/gm) || [];
+  assert.equal(cards.length, 9);
+  for (const type of ['현대미술', '공연', '쇼핑', '카페', '포켓몬', '식당', '장보기', '리셀', '대중목욕탕']) {
     assert.ok(ux.includes("', '" + type + "']"), type);
   }
   assert.match(ux, /id = 'discoveryRefinePanel'/);

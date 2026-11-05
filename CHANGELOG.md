@@ -4,6 +4,18 @@
 
 관리 원칙은 [AGENTS.md](AGENTS.md)를 따른다. 실제 병합 및 게시 후 `미출시` 항목을 확정 버전으로 옮기고 배포 날짜·관련 PR·커밋을 남긴다. 모든 버전은 최신순으로 기록하며, 기능 추가·변경·수정·정보 교정·삭제·검증 한계를 구분한다.
 
+## [미출시] — v1.5.6 식당·장보기 독립 탐색 (2026-11-06 작성)
+
+**상태:** `feat/separate-dining-grocery-20261106` 작업 브랜치, 미병합·미배포. GitHub Pages 게시와 모바일 실기기 검증 전.
+
+### 추가 / 변경 / 검증
+- `index.html`: `placePurpose`에 따라 식당과 장보기의 낮·밤 탐색 필터, 지도 유형 및 마커, 장소 카드·상세·팝업, 전체 검색, 찜 필터를 분리했다. 기존 `place:id` 저장 키와 장소 ID·위치·일정은 유지했다.
+- `market-discounts-2026-11-03.js`: 기존 마트·수산점 15곳의 `placePurpose=grocery`를 명시하고 실제 판매 형식에 따라 `marketType`을 슈퍼마켓 7곳, 수산점 7곳, 식품관 1곳으로 정리했다. 기본 데이터의 `P07` 세이유 나카노도 기존 ID로 장보기 처리했다. 할인 시각·할인율·출처를 변경하지 않았다.
+- `experience-ux.js`, `experience-ux.css`, `map-marker-system.js`: 관심사 8개를 식당·장보기가 독립된 9개로 개편하고, 포크·나이프와 장바구니 아이콘/색상 및 지도 묶음의 유형 집계를 분리했다. 기존 정보 탭, 쇼핑·포켓몬·리셀 기능은 유지했다.
+- `README.md`, `tests/experience-ux.test.mjs`, `tests/dining-grocery-categories.test.mjs`: 분류·필터·아이콘·찜 키 호환성에 대한 회귀 테스트와 미배포 상태를 명시했다. GitHub Pages 게시·현장 정보·실기기 확인은 아직 수행하지 않았다.
+- **사용자 영향:** 식당만, 또는 슈퍼마켓·수산점·식품관만 검색/지도/찜에서 각각 볼 수 있으며 이미 저장한 장소 ID와 할인 정보가 유지된다.
+- **관련 변경:** [작업 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/separate-dining-grocery-20261106). [PR #14](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/14)를 검토한다.
+
 ## [미출시] — v1.5.5 포켓몬 카드 정가 팩 구매 시각·장소 연결 (2026-11-04 작성)
 
 **상태:** `feat/pokemon-pack-buying-timing-20261104` 작업 브랜치, 미병합·미배포. GitHub Pages 게시·실기기·현장 재고는 미확인.

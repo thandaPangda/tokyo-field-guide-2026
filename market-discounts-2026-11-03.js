@@ -11,6 +11,7 @@ window.TFGMarketStops={
       "address": "東京都中野区中野5-52-15 中野ブロードウェイ B1F",
       "description": "참치·회·포장초밥·해산물 덮밥. 19시 폐점 전 할인 방문 후기가 있어 나카노 원래 계획의 1순위.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:00–19:00 · 부정기 휴무",
       "url": "https://tokubai.co.jp/%E3%83%8A%E3%82%AB%E3%83%A0%E3%83%A9%E6%B0%B4%E7%94%A3/171135",
       "lat": 35.7095,
@@ -55,6 +56,7 @@ window.TFGMarketStops={
       "address": "東京都中野区中野5-52-15 中野ブロードウェイ B1F",
       "description": "마구로·사시미 신선 생선점과 같은 운영자의 Kitchen Katsuta(초밥·해산물 덮밥·반찬). 같은 건물의 나카무라 수산 대안.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:30–19:30 · 수·일·공휴일 원칙적 휴무 · 품절 시 조기 마감",
       "url": "https://www.katsutashoten.com/",
       "lat": 35.7095,
@@ -109,6 +111,7 @@ window.TFGMarketStops={
       "address": "東京都中野区中野3-34-28 中野マルイ B1F",
       "description": "나카노역 남쪽 출구 수산·초밥 점포. 주중 요일별 10% 할인 공지를 확인, 브로드웨이 실패 시 대안.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:00–20:00 · 요일별 10% 행사 (2026-12-16까지 안내)",
       "url": "https://www.uoko.co.jp/shop/571nakano/index.html",
       "lat": null,
@@ -153,6 +156,7 @@ window.TFGMarketStops={
       "address": "東京都杉並区上荻1-9-1 荻窪タウンセブン B1F",
       "description": "오기쿠보역 1분의 수산 전문점. 초밥·해산물 덮밥·반찬을 다루며 2026년 4월 19시 이후 반값 사례가 남아 있음.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:00–20:00 (공식) · 다른 후기 19:30 폐점 주장",
       "url": "https://www.uoko.co.jp/shop/011ogikubohonten/index.html",
       "lat": null,
@@ -197,6 +201,7 @@ window.TFGMarketStops={
       "address": "東京都渋谷区道玄坂1-12-1 渋谷マークシティ B1F",
       "description": "역 직결 신선 어패류·회·가공 수산식품. 도큐 푸드쇼 전체의 공식 신선식품 타임세일 안내가 있으나 우오리키 개별 할인은 보장되지 않음.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:00–21:00 · 신선식품 타임세일 공식 20시 이후 일반 안내",
       "url": "https://www.tokyu-dept.co.jp/shibuya_foodshow/shop/detail.html?brand_code=uoriki",
       "lat": null,
@@ -241,6 +246,7 @@ window.TFGMarketStops={
       "address": "東京都渋谷区渋谷2-24-12 渋谷スクランブルスクエア B2F",
       "description": "역 직결 도시락·반찬 중심 푸드홀. 수산전문점보다 포장 저녁식사 대안이며 20시 이후 타임세일 공식 FAQ.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:00–21:00 · B2 타임세일 20시 이후",
       "url": "https://www.tokyu-dept.co.jp/scsq/foodshow_edge/",
       "lat": null,
@@ -251,7 +257,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "food_hall",
       "sale": {
         "level": "official_floor",
         "time": "20:00 이후 (B2 공통)",
@@ -285,6 +291,7 @@ window.TFGMarketStops={
       "address": "東京都台東区上野3-27-12 御徒町吉池本店ビル 1F",
       "description": "오카치마치역 바로 앞 큰 수산점. 참치·생선·회·조개류. 2025년 평일 저녁 회 반값 구매 후기, 2026년 3월 게 반값 구매 사례.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "09:30–20:30 · 정기휴무 없음(공식 게시)",
       "url": "https://www.yoshiike-group.co.jp/group_profile.html",
       "lat": null,
@@ -329,6 +336,7 @@ window.TFGMarketStops={
       "address": "東京都中央区銀座3-2-1 マロニエゲート銀座2 B1F・B2F",
       "description": "B1 수산, B2 매장 제조 초밥·반찬. 마감세일보다 평소 저렴한 포장 식품과 회 구매 목적.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "08:30–21:30 · 정월 3일간 휴업(여행일 해당 없음)",
       "url": "https://ok-corporation.jp/shop/ginnza.html",
       "lat": null,
@@ -339,7 +347,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,
@@ -373,6 +381,7 @@ window.TFGMarketStops={
       "address": "東京都渋谷区千駄ヶ谷5-24-2 新宿髙島屋 B1F",
       "description": "신주쿠역 남쪽 백화점 B1 식품관 수산·포장초밥 점포. 백화점 식품관 상품을 저녁에 살 수 있지만 정확한 마감 할인 증거는 미확인.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "10:30–19:30 · 백화점 기준",
       "url": "https://www.takashimaya.co.jp/shinjuku/businesshours/",
       "lat": null,
@@ -417,6 +426,7 @@ window.TFGMarketStops={
       "address": "東京都渋谷区東1-26-22",
       "description": "시부야역 동쪽에서 늦게까지 영업하는 큰 식품 슈퍼. 회·초밥·반찬 재고가 있으면 늦은 식사 포장 후보.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "09:30–24:00 · 매일",
       "url": "https://store.lifecorp.jp/detail/east829/",
       "lat": null,
@@ -427,7 +437,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,
@@ -461,6 +471,7 @@ window.TFGMarketStops={
       "address": "東京都杉並区高円寺南4-48-1",
       "description": "고엔지역 역 앞 식품 슈퍼. 반찬·회 등 포장 음식 구매. 01시 마감 등록정보와 자정 마감 전단 정보가 상충.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "07:00–다음 날 01:00 (등록정보) / 24:00 마감 자료도 있음",
       "url": "https://www.tokyu-store.co.jp/shop/detail.html?pdid=15",
       "lat": null,
@@ -471,7 +482,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,
@@ -505,6 +516,7 @@ window.TFGMarketStops={
       "address": "東京都杉並区高円寺南3-47-8",
       "description": "고엔지역 남쪽 출구 도보 약 4분의 24시간 슈퍼(B1·1F 식품). 심야 포장 식품 보조 후보.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "24시간 · 원칙 연중무휴 (일부 코너 제외)",
       "url": "https://www.seiyu.co.jp/shop/%E8%A5%BF%E5%8F%8B%E9%AB%98%E5%86%86%E5%AF%BA%E5%BA%97/",
       "lat": null,
@@ -515,7 +527,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,
@@ -549,6 +561,7 @@ window.TFGMarketStops={
       "address": "東京都杉並区高円寺南4-28-3",
       "description": "고엔지역 인근 할인 슈퍼. 19:30 무렵 일부 반찬을 약 30% 할인해 샀다는 후기가 있지만 회·초밥 동일 할인 보장은 없음.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "08:30–21:30 · 매일(등록정보)",
       "url": "https://ok-corporation.jp/",
       "lat": null,
@@ -559,7 +572,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "할인 후기"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "review",
         "time": "19:30 무렵 반찬 사례",
@@ -593,6 +606,7 @@ window.TFGMarketStops={
       "address": "東京都港区赤坂9-7-4 東京ミッドタウン ガレリアB1F",
       "description": "롯폰기 미드타운 고급 식품 슈퍼. 신선식품·도시락·반찬·치즈 등. 저가 마감세일보다는 늦은 식사 대안.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "08:00–23:00 (현재 점포 안내) / 과거 목록 07:00–24:00",
       "url": "https://www.tokyo-midtown.com/jp/restaurants/SOP0000136/",
       "lat": null,
@@ -603,7 +617,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,
@@ -637,6 +651,7 @@ window.TFGMarketStops={
       "address": "東京都台東区雷門2-16-11 ザ・ゲートホテル雷門 by HULIC 1F",
       "description": "가미나리몬 가까운 슈퍼. 담당자가 시장에서 직접 구입한 식재료를 취급하는 수산 코너, 반찬 등.",
       "category": "먹거리",
+      "placePurpose": "grocery",
       "hours": "09:30–21:00 · 정기휴무 없음(등록안내)",
       "url": "https://www.ozeki-net.co.jp/shop/tokyo/taito/asakusa/",
       "lat": null,
@@ -647,7 +662,7 @@ window.TFGMarketStops={
         "마트·수산점",
         "세일 시각 미확인"
       ],
-      "marketType": "seafood_market",
+      "marketType": "supermarket",
       "sale": {
         "level": "unknown",
         "time": null,

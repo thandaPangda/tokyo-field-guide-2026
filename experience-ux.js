@@ -32,9 +32,10 @@
       ['03', '쇼핑', '빈티지와 쇼핑', '편집숍 · 레코드 · 특별한 물건', 'day', '쇼핑'],
       ['04', '카페', '골목의 커피와 킷사텐', '동네를 천천히 걸으며 쉬기', 'day', '카페'],
       ['05', '포켓몬', '포켓몬 카드 찾기', '공식 매장 · 카드 전문점', 'day', '포켓몬'],
-      ['06', '음식', '도쿄에서 먹을 것', '식당 · 간식 · 장보기', 'day', '음식'],
-      ['07', '리셀', '리셀·중고 매장', '소싱 후보 · 재고는 현장 확인', 'day', '리셀'],
-      ['08', '대중목욕탕', '동네 센토 체험', '여행 사이 잠깐 쉬어가기', 'day', '대중목욕탕']
+      ['06', '식당', '도쿄에서 먹을 것', '라멘 · 스시 · 이자카야', 'day', '식당'],
+      ['07', '장보기', '식료품과 포장 음식', '슈퍼마켓 · 수산점 · 식품관', 'day', '장보기'],
+      ['08', '리셀', '리셀·중고 매장', '소싱 후보 · 재고는 현장 확인', 'day', '리셀'],
+      ['09', '대중목욕탕', '동네 센토 체험', '여행 사이 잠깐 쉬어가기', 'day', '대중목욕탕']
     ];
     var stories = document.createElement('section');
     stories.className = 'discovery-stories';
@@ -42,7 +43,7 @@
     stories.innerHTML =
       '<div class="discovery-stories-heading"><div><span class="discovery-overline">DISCOVER BY INTEREST</span>' +
       '<h2 id="discoveryStoriesTitle">관심사로 둘러보기</h2><p>하나를 선택하면 관련 장소와 일정이 아래에 펼쳐집니다.</p></div>' +
-      '<span class="discovery-stories-side">8개의 탐색 주제</span></div>' +
+      '<span class="discovery-stories-side">9개의 탐색 주제</span></div>' +
       '<div class="discovery-story-grid">' + themes.map(function (t) {
         return '<button type="button" class="discovery-story" data-discovery-theme="' + t[0] +
           '" data-discovery-period="' + t[4] + '" data-discovery-type="' + t[5] +

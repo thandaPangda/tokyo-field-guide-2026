@@ -21,7 +21,7 @@
   function labelFor(record) {
     if (!record) return '예약 정보 확인';
     if (record.status === 'soldout') return '선예매 매진';
-    if (record.status === 'advance-soldout') return '할인 예매 매진';
+    if (record.status === 'advance-soldout') return '사전예매 매진';
     if (record.status === 'partial') return '일부 권종 매진';
     if (record.level === 'required') return '사전권 확인 필수';
     if (record.level === 'priority') return '빠른 예약 권장';

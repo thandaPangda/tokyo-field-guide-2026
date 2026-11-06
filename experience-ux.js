@@ -176,6 +176,12 @@
   }
 
   var guides = {
+    'info/airport': {
+      eyebrow: 'AIRPORT · PLAN YOUR TRANSFER',
+      title: '입국과 귀국을 따로 비교하세요',
+      text: '입국은 가격·환승과 좌석을, 귀국은 피치항공 체크인 마감 시각을 우선합니다. 원하는 왕복 조합을 골라 총요금을 계산할 수 있습니다.',
+      links: [['airport-arrival','입국편 비교','코엔지역까지 5가지'],['airport-departure','귀국 동선','시부야 첫차와 공항 도착'],['airport-combinations','왕복 비용 계산','선택 조합별 총액'],['airport-tickets','발권 안내','할인권과 공식 링크']]
+    },
     'info/pokemon': {
       eyebrow: 'CARD SHOPPING · START HERE',
       title: '어떤 카드를 찾고 있나요?',

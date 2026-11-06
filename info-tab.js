@@ -49,7 +49,7 @@
   if(window.TFGPokemonBulk){for(const x of window.TFGPokemonBulk.stores){const existing=stores.find(p=>p.id===x.id||(p.name===x.name&&p.address===x.address));if(existing){if(x.buyPlan)existing.buyPlan=x.buyPlan;continue;}stores.push({...x,note:x.notes});}}
   const taxChecklistItems = [["purchase","면세 구매 기록과 영수증을 매장·거래별로 정리했습니다."],["goods","같은 거래에 포함된 모든 면세품을 가지고 있으며, 일본에서 소비하지 않았습니다."],["cabin","기내 수하물 총 7kg·2개와 국제선 액체류 제한을 확인했습니다."],["passport","여권과 예약번호, 환급수단 정보를 언제든 꺼낼 수 있습니다."],["airport","나리타 제1터미널 4층에서 보안검색 전에 세관 확인할 것을 기억합니다."],["deadline","피치항공 08:30편의 체크인 마감 07:40을 우선하겠습니다."]];
   const taxChecklistKey='tokyo-field-guide:tax-checklist:v1';
-  const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[],resaleArea:'전체',resaleKind:'전체',resaleSearch:'',resalePick:1};
+  const state = {goal:'pack',region:'all',kind:'all',taxMethod:'kiosk',taxChecked:[],resaleArea:'전체',resaleKind:'전체',resaleSearch:'',resalePick:1,airportArrival:'access',airportReturn:'skyliner'};
   try { const saved=JSON.parse(window.localStorage?.getItem(taxChecklistKey)||'[]'); if(Array.isArray(saved))state.taxChecked=saved.filter(id=>taxChecklistItems.some(x=>x[0]===id)); } catch(_){ /* Browser storage may be unavailable. */ }
 
   const regions = [
@@ -68,7 +68,7 @@
   function hub() {
     return '<div class="info-wrap">'+header('TOKYO FIELD GUIDE · ESSENTIALS','도쿄 여행 정보','쇼핑과 현지 이용 규칙을 실제 행동 중심으로 정리했습니다. 검증된 규정과 경험에 근거한 참고 팁을 구분합니다.')+
       '<div class="info-grid">'+
-      '<a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
+      '<a class="info-tile" href="#info/airport"><span class="eyebrow">AIRPORT · TRAIN / BUS</span><h2>나리타 공항 교통 · 왕복 선택</h2><p>입국 나리타→코엔지, 귀국 시부야→나리타. 5가지 입국편과 3가지 귀국편의 환승·대기·편도요금, 왕복 조합 계산을 확인합니다.</p></a><a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
       '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a>'+ 
       '<a class="info-tile" href="#info/grocery"><span class="eyebrow">SUPERMARKET · FOOD</span><h2>마트 흑모와규 · 할인 라벨 읽기</h2><p>사진 속 20% 할인은 특정 상품 사례입니다. 일본어 라벨·취사 숙소 조건·면세 여부를 구분합니다.</p></a>'+
       '<a class="info-tile" href="#info/resale"><span class="eyebrow">TOKYO SCOUT · RESELL</span><h2>리셀 소싱 · 33개 매장</h2><p>19개 상품의 과거 수요·예상 가격과 79개 매장 탐색 연결을 비교합니다. 재고와 실수익은 미확인입니다.</p></a></div>'+
@@ -421,17 +421,123 @@
       '<section class="info-section"><h2>자료 해석 범위</h2><p>스크린샷은 매장 가격표를 원문 확인한 영수증이나 현행 상품 카탈로그가 아닙니다. 사진 속 20% 할인은 모든 매장의 매일 할인율이 아니며, 일본 가격과 한국 가격의 품질·무게 일치 비교도 검증되지 않았습니다.</p><p><a href="./research/social-shopping-taxrefund-2026-11-04.md">스크린샷 8장·중복 내용·공식 근거 정리</a></p></section></div>';
   }
 
+
+  // Airport transfer choices are estimates, not a live train search.
+  // Source/verification detail: research/airport-transport-2026-11-06.md.
+  const airportArrivals = [
+    {id:"main",name:"게이세이 본선 특급 + JR",fare:1366,range:"약 120~155분",wait:"열차에 따라 약 10~30분",changes:"2회",seat:"일반열차 · 지정석 없음",ticket:"Suica/PASMO",tag:"최저가",quality:"요금 우선",route:["나리타공항 제1터미널역에서 게이세이 본선 경유 특급/쾌속특급 확인","닛포리역에서 JR 야마노테선으로 환승","신주쿠역에서 JR 주오·소부선 완행으로 코엔지까지 이동"],note:"게이세이 본선 경유와 SKY ACCESS 경유는 요금이 다릅니다. 좌석 보장이 없고 이동·환승 시간이 길어집니다.",basis:"게이세이 본선 닛포리 IC 1,025엔 + JR 닛포리→코엔지 IC 약 341엔"},
+    {id:"access",name:"액세스 특급 + JR 소부선",fare:1617,range:"약 100~120분",wait:"행선지에 따라 약 20~40분 이상",changes:"1회",seat:"일반열차 · 지정석 없음",ticket:"Suica/PASMO",tag:"추천 · 가성비",quality:"환승 1회 · 예약 불필요",route:["나리타공항 제1터미널역에서 아사쿠사선 직통 액세스 특급 승차","아사쿠사바시(浅草橋)역에서 JR 주오·소부선 완행 미타카 방면으로 환승","코엔지(高円寺)역 하차"],note:"액세스 특급이 모두 아사쿠사바시로 가는 것은 아닙니다. 행선지 표시에서 아사쿠사선 직통 여부를 확인해야 합니다.",basis:"나리타공항→아사쿠사바시 IC 1,276엔 + JR 아사쿠사바시→코엔지 IC 341엔"},
+    {id:"bus",name:"TYO-NRT 공항버스 + JR",fare:1841,range:"약 110~150분",wait:"낮 시간대 보통 약 10~20분",changes:"1회 이상",seat:"버스 좌석 · 짐칸 이용",ticket:"공항 매표소에서 시간 지정 승차권",tag:"캐리어 편의",quality:"버스 탑승 중 짐 이동 적음",route:["나리타공항 제1터미널에서 도쿄역행 TYO-NRT 버스 티켓 구매","도쿄역에서 JR 주오선으로 이동","JR 주오선 코엔지 하차 · 쾌속 비정차일에는 나카노에서 소부선 완행으로 환승"],note:"도쿄역 버스 하차장부터 JR 승강장까지 보행이 있고, 교통정체 시 시간 예측이 어렵습니다. 주말/공휴일 주오선 쾌속은 코엔지에 정차하지 않습니다.",basis:"TYO-NRT 일반 시간대 1,500엔 + JR 도쿄→코엔지 IC 341엔"},
+    {id:"skyliner",name:"스카이라이너 + JR",fare:2651,range:"약 85~110분",wait:"약 20분 간격 중심",changes:"2회",seat:"지정석 · 수하물 보관",ticket:"할인권 구매 후 좌석 지정",tag:"빠른 공항열차",quality:"쾌적하지만 환승이 많음",route:["나리타공항 제1터미널역에서 닛포리행 스카이라이너 승차","닛포리역에서 JR 야마노테선으로 환승","신주쿠역에서 JR 주오·소부선 완행으로 코엔지 이동"],note:"닛포리에서 JR로 갈아타고 다시 환승해야 하므로 공항열차가 빠르더라도 숙소까지의 이동은 길어질 수 있습니다.",basis:"스카이라이너 온라인 편도 2,310엔 + JR 닛포리→코엔지 IC 341엔"},
+    {id:"nex",name:"나리타 익스프레스(N'EX) + JR",fare:3529,range:"약 100~125분",wait:"신주쿠 직통편 대기는 길어질 수 있음",changes:"1회",seat:"전 좌석 지정석 · 짐 보관",ticket:"JR 발매기/창구에서 편도 지정석",tag:"지정석 편의",quality:"큰 짐·피로도에 유리",route:["나리타공항 제1터미널역 JR 승강장에서 신주쿠행 N'EX 승차","신주쿠역에서 JR 주오·소부선 완행(미타카 방면) 환승","코엔지역 하차"],note:"코엔지까지 더 빠르다는 보장은 없습니다. 신주쿠행 출발 대기와 역내 이동이 길어질 수 있습니다. JR 구간을 연속 구매하면 실제 운임이 달라질 수 있습니다.",basis:"N'EX 나리타공항→신주쿠 보통차 편도 3,330엔 + 신주쿠→코엔지 IC 199엔(별도 구매 가정)"}
+  ];
+  const airportReturns = [
+    {id:"skyliner",name:"JR 야마노테선 + 스카이라이너 첫차",fare:2563,arrival:"제1터미널역 06:24",risk:"권장 · 다만 지연 여유 적음",tag:"현실적인 1순위",route:"시부야 04:37 → 닛포리 약 05:05 → 스카이라이너 05:45 → 나리타 T1 06:24",basis:"시부야→닛포리 IC 253엔 + 스카이라이너 할인 편도 2,310엔"},
+    {id:"local",name:"JR + 게이세이 본선 일반열차",fare:1278,arrival:"첫차·접속편에 따라 07시 전후",risk:"비추천 · 체크인 여유 부족",tag:"저렴하나 위험",route:"시부야 → 닛포리 → 게이세이 본선 → 나리타 T1",basis:"JR 시부야→닛포리 253엔 + 게이세이 본선 닛포리→공항 IC 1,025엔"},
+    {id:"bus",name:"시부야 직행 공항 리무진버스",fare:3600,arrival:"제1터미널 약 07:05",risk:"비추천 · 정체 시 마감 위험",tag:"환승 없음 · 늦음",route:"시부야 마크시티 약 05:30 → 나리타공항 제1터미널 약 07:05",basis:"시부야 공항 리무진버스 일반 편도 3,600엔"}
+  ];
+  const airportFmt = n => Number(n).toLocaleString("ko-KR")+"엔";
+  const airportBy = (items,id) => items.find(x=>x.id===id)||items[0];
+  function airportSteps(items) {
+    return "<ol class='info-airport-steps'>"+items.map((step,i)=>"<li><span class='info-airport-stepnum'>"+(i+1)+"</span><span>"+esc(step)+"</span></li>").join("")+"</ol>";
+  }
+  function airportMethod(item) {
+    return "<article class='info-airport-method'><div class='info-airport-method-head'><div><span class='info-airport-small'>"+esc(item.tag)+"</span><h3>"+esc(item.name)+"</h3></div><strong class='info-airport-fare'>"+airportFmt(item.fare)+"</strong></div>"+
+      "<div class='info-airport-metrics'><span>예상 이동 <b>"+esc(item.range)+"</b></span><span>환승 <b>"+esc(item.changes)+"</b></span><span>좌석 <b>"+esc(item.seat)+"</b></span></div>"+
+      airportSteps(item.route)+"<p class='info-airport-note'><b>발권</b> "+esc(item.ticket)+"</p><p class='info-airport-note'><b>고려할 점</b> "+esc(item.note)+"</p>"+
+      "<p class='info-airport-basis'>운임 구성: "+esc(item.basis)+" · 공항 최초 열차 대기·입국심사는 이동시간에서 제외</p></article>";
+  }
+  function airportComparisonRows(items,returning) {
+    return items.map(item=>"<tr><th scope='row'>"+esc(item.name)+"</th><td>"+airportFmt(item.fare)+"</td>"+
+      "<td>"+esc(returning?item.arrival:item.range)+"</td><td>"+esc(returning?item.risk:(item.changes+" 환승 · "+item.seat))+"</td></tr>").join("");
+  }
+  function airportComboDetails(){
+    const arrival=airportBy(airportArrivals,state.airportArrival);
+    const returning=airportBy(airportReturns,state.airportReturn);
+    const roundTripDiscount=(arrival.id==="skyliner"&&returning.id==="skyliner")?120:0;
+    const total=arrival.fare+returning.fare-roundTripDiscount;
+    return "<div class='info-airport-combo-result'><span class='info-airport-small'>선택한 왕복 조합 · 성인 1인 예상 교통비</span>"+
+      "<strong class='info-airport-total'>"+airportFmt(total)+"</strong>"+
+      "<p>"+esc(arrival.name)+" <b>"+airportFmt(arrival.fare)+"</b> + "+esc(returning.name)+" <b>"+airportFmt(returning.fare)+"</b>"+
+      (roundTripDiscount?" − 스카이라이너 온라인 왕복권 추가 할인 120엔":"")+" = <b>"+airportFmt(total)+"</b></p>"+
+      "<p class='info-airport-note'>"+(returning.id==="skyliner"?"귀국 항공편은 08:30 출발입니다. 06:24 공항역 도착 이후 터미널 이동과 피치항공 체크인을 07:40 이전에 완료해야 합니다.":"선택한 귀국편은 체크인 마감 전 여유가 적어 실제 예약에 사용하기 전에 첫차·연결시간 검증이 필요합니다.")+"</p></div>";
+  }
+  function airportPickButtons(items,attr,chosen){
+    return "<div class='info-airport-picks'>"+items.map(item=>
+      "<button type='button' class='info-airport-pick' "+attr+"='"+esc(item.id)+"' aria-pressed='"+(chosen===item.id)+"'>"+
+      "<span>"+esc(item.name)+"</span><strong>"+airportFmt(item.fare)+"</strong></button>").join("")+"</div>";
+  }
+  function refreshAirportCombo(){
+    const panel=$("airport-combo-result");if(panel)panel.innerHTML=airportComboDetails();
+    const root=$("view-info");root?.querySelectorAll?.("[data-airport-arrival]").forEach(btn=>btn.setAttribute("aria-pressed",String(btn.getAttribute("data-airport-arrival")===state.airportArrival)));
+    root?.querySelectorAll?.("[data-airport-return]").forEach(btn=>btn.setAttribute("aria-pressed",String(btn.getAttribute("data-airport-return")===state.airportReturn)));
+  }
+  function airportTransportPage(){
+    const combos=[
+      ["가장 저렴한 일반열차 조합","main", "skyliner"],
+      ["추천 · 가격과 환승 균형","access","skyliner"],
+      ["공항버스 + 스카이라이너","bus","skyliner"],
+      ["스카이라이너 왕복 할인권","skyliner","skyliner"],
+      ["입국 편의 중시 · N'EX","nex","skyliner"]
+    ];
+    const comboRows=combos.map(x=>{
+      const a=airportBy(airportArrivals,x[1]),r=airportBy(airportReturns,x[2]);
+      const discount=a.id==="skyliner"?120:0;
+      return "<tr><th scope='row'>"+esc(x[0])+"</th><td>"+esc(a.name)+"</td><td>"+esc(r.name)+"</td><td><b>"+airportFmt(a.fare+r.fare-discount)+"</b></td></tr>";
+    }).join("");
+    return "<div class='info-wrap info-airport-page'>"+crumb("나리타 공항 교통")+
+      header("AIRPORT TRANSFER · 2026.11.06","나리타 공항 교통 · 입국과 귀국","입국은 나리타공항에서 코엔지 숙소로, 귀국은 시부야에서 피치항공 08:30편을 타러 이동합니다. 가격·대기·환승·좌석·발권을 목적지 기준으로 비교합니다.","2026.11.06")+
+      "<div class='info-airport-overview'><article><span class='info-airport-small'>입국 · 코엔지 숙소</span><strong>액세스 특급 + JR</strong><b>약 1,617엔</b><p>아사쿠사바시 1회 환승 · 가성비 우선</p></article>"+
+      "<article><span class='info-airport-small'>귀국 · 시부야 출발</span><strong>야마노테선 + 스카이라이너</strong><b>약 2,563엔</b><p>닛포리 05:45 출발 · 공항 T1 06:24 도착</p></article>"+
+      "<article class='info-airport-overview-total'><span class='info-airport-small'>기본 추천 왕복 예산</span><strong>4,180엔</strong><p>성인 1명, 입국 1,617엔 + 귀국 2,563엔</p></article></div>"+
+      "<div class='info-notice info-warning'><strong>귀국은 피치항공 체크인 시각이 먼저입니다.</strong>나리타 제1터미널 북쪽 윙 4층에서 국제선 체크인을 출발 120~50분 전(06:30~07:40)에 완료해야 합니다. 스카이라이너 첫차의 공항역 도착 06:24 이후 약 76분 안에 카운터로 이동하고 수속을 마쳐야 합니다. 열차 지연·수하물 위탁·면세 세관 확인을 고려하면 전날 공항 부근 숙박이 더 안정적일 수 있습니다.</div>"+
+      toc([["airport-arrival","입국 5가지 비교"],["airport-departure","귀국 3가지 비교"],["airport-combinations","왕복 조합 계산"],["airport-tickets","발권·구매 팁"],["airport-sources","확인 근거"]])+
+      "<section class='info-section' id='airport-arrival'><h2>입국 · 나리타 T1 → 코엔지역</h2>"+
+      "<p>한국에서 오전 08:30 출발하는 피치항공으로 입국하는 날입니다. 나리타 도착 시각은 항공편마다 다르며, 입국심사·위탁수하물 소요시간은 다음 열차 선택 전에는 확정할 수 없습니다.</p>"+
+      "<div class='info-airport-table-scroll'><table class='info-table info-airport-table'><thead><tr><th scope='col'>선택지</th><th scope='col'>편도</th><th scope='col'>예상 이동</th><th scope='col'>특징</th></tr></thead><tbody>"+airportComparisonRows(airportArrivals,false)+"</tbody></table></div>"+
+      "<p class='info-note'>이동시간은 열차/버스 탑승과 환승의 대략적인 범위이며 공항에서 처음 기다리는 시간과 입국심사 시간은 제외합니다. 가격은 2026.11.06 조사 기준의 일반 성인 IC/온라인 할인 조합입니다.</p>"+
+      "<div class='info-airport-methods'>"+airportArrivals.map(airportMethod).join("")+"</div></section>"+
+      "<section class='info-section' id='airport-departure'><h2>귀국 · 시부야 → 나리타 T1 · 08:30 비행기</h2>"+
+      "<div class='info-airport-timeline'><div><b>04:37</b><span>시부야역 출발 · JR 야마노테선 외선(신주쿠·이케부쿠로 방면)</span></div>"+
+      "<div><b>약 05:05</b><span>닛포리역 도착 · 게이세이 스카이라이너 승강장 이동</span></div>"+
+      "<div><b>05:45</b><span>스카이라이너 1호 출발</span></div>"+
+      "<div><b>06:24</b><span>나리타 제1터미널 철도역 도착 · 체크인 카운터로 이동</span></div>"+
+      "<div><b>07:40</b><span>피치항공 국제선 체크인·위탁수하물 마감</span></div>"+
+      "<div><b>08:30</b><span>피치항공 출발</span></div></div>"+
+      "<div class='info-airport-table-scroll'><table class='info-table info-airport-table'><thead><tr><th scope='col'>선택지</th><th scope='col'>편도</th><th scope='col'>공항 도착</th><th scope='col'>판단</th></tr></thead><tbody>"+airportComparisonRows(airportReturns,true)+"</tbody></table></div>"+
+      "<p class='info-note'>시부야 04:37 → 닛포리 05:05는 확인 당시의 첫차 연결 예시입니다. 여행 종료일은 2026.11.15(일)로 추정되므로 당일 공휴일·주말 시간표와 운행 공지를 반드시 재확인해야 합니다. 게이세이 일반열차는 공항 도착 가능 시각이 운행편에 따라 달라지며 이 표는 확정 연결표가 아닙니다.</p>"+
+      "<p>시부야 직행 공항버스는 환승이 없지만 첫차가 약 05:30에 출발하여 제1터미널에 약 07:05 도착하므로 피치항공 07:40 마감에 불리합니다. 나리타 익스프레스는 아침 08:30 국제선 출발을 위한 첫차 대안으로 권장하지 않습니다.</p>"+
+      "<div class='info-notice'><strong>공항 전날 숙박 대안</strong>기차 첫차에 의존하지 않고 06:00 전후 공항 도착을 목표로 할 수 있습니다. 비용은 숙소와 셔틀 운행에 따라 달라 비교 계산에는 넣지 않았으며, 여행 날짜에 맞는 실제 셔틀 첫차를 확인해야 합니다.</div></section>"+
+      "<section class='info-section' id='airport-combinations'><h2>왕복 선택 조합 비교</h2>"+
+      "<p>아래 기본 조합은 귀국편을 스카이라이너 첫차로 고정한 비교입니다. 스카이라이너를 입국·귀국 모두 이용할 때만 4,500엔 왕복 온라인 할인권 적용을 가정해 합계에서 120엔을 추가 차감합니다.</p>"+
+      "<div class='info-airport-table-scroll'><table class='info-table info-airport-table'><thead><tr><th scope='col'>기준</th><th scope='col'>입국편</th><th scope='col'>귀국편</th><th scope='col'>왕복 총액</th></tr></thead><tbody>"+comboRows+"</tbody></table></div>"+
+      "<div class='info-airport-custom'><h3>내 조합 직접 선택하기</h3><p>입국·귀국 방법을 눌러 교통비 합계를 비교할 수 있습니다. 요금은 예상치이며 실제 구매 및 좌석 예약을 대신하지 않습니다.</p>"+
+      "<h4>입국 선택</h4>"+airportPickButtons(airportArrivals,"data-airport-arrival",state.airportArrival)+
+      "<h4>귀국 선택</h4>"+airportPickButtons(airportReturns,"data-airport-return",state.airportReturn)+
+      "<div id='airport-combo-result' role='status' aria-live='polite'>"+airportComboDetails()+"</div></div></section>"+
+      "<section class='info-section' id='airport-tickets'><h2>발권 난이도와 꼭 확인할 정보</h2>"+
+      "<div class='info-airport-faq'><details><summary>액세스 특급은 사전 구매가 필요한가요?</summary><p>아닙니다. Suica/PASMO로 개찰구를 통과합니다. 단, 게이세이 본선과 SKY ACCESS 경로의 요금은 다르고 액세스 특급의 모든 열차가 아사쿠사바시 직통인 것은 아닙니다.</p></details>"+
+      "<details><summary>N'EX 편도는 어떻게 사나요?</summary><p>공항 JR 지정석 발매기 또는 창구에서 신주쿠행 보통차 편도를 구매합니다. 3,330엔은 신주쿠까지의 표준 가격이며 코엔지까지 별도 JR 구간을 199엔으로 계산했습니다. 통합 구간으로 발권하면 요금이 달라질 수 있습니다. 왕복 할인권 5,200엔은 귀국에 N'EX를 쓰지 않아 이번 조합과 맞지 않습니다.</p></details>"+
+      "<details><summary>스카이라이너 할인권은 어떻게 적용하나요?</summary><p>온라인 편도 할인권은 2,310엔, 일반 편도는 2,580엔입니다. 온라인 왕복권은 4,500엔이며 공항 도착 시 교환 조건과 지정석 예약 절차를 확인해야 합니다. 귀국편만 타면 편도 할인권을 선택하는 편이 낫습니다.</p></details>"+
+      "<details><summary>토요일·일요일에도 코엔지에 주오선 쾌속이 서나요?</summary><p>아닙니다. 주말·공휴일 주오선 쾌속은 코엔지를 통과하므로 주오·소부선 완행으로 이동해야 합니다. 입국일은 수요일 예정이라 평일 운행이지만 이용 직전 행선지와 정차역을 확인하세요.</p></details>"+
+      "<details><summary>항공편이 지연되거나 출입국 수속이 길어지면?</summary><p>입국은 공항에서 실시간 열차 출발판을 보고 액세스 특급 또는 N'EX 중 대기시간이 짧은 것을 고를 수 있습니다. 귀국은 첫차보다 늦게 출발하면 대체 수단이 제한적이므로 알람·역까지 이동수단·항공사 마감시간을 미리 확보하세요.</p></details></div></section>"+
+      "<section class='info-section' id='airport-sources'><h2>요금·운행·체크인 근거</h2><p>철도 운임과 버스 기본요금, 항공사 터미널은 아래 공식 안내에서 확인했습니다. 일반열차 연결·JR 구간 운임 및 소요시간은 교통 경로 검색의 예시로, 특정 여행일 실시간 예약 가능 또는 운행 확정 정보가 아닙니다.</p>"+
+      srcList([["게이세이 · 액세스 특급 운임표","https://www.keisei.co.jp/keisei/tetudou/skyliner/jp/traffic/express_fares.php"],["게이세이 · 본선 운임표","https://www.keisei.co.jp/keisei/tetudou/skyliner/jp/traffic/main_fares.php"],["게이세이 · 스카이라이너 공식 시간표","https://www.keisei.co.jp/keisei/tetudou/skyliner/us/traffic/skyliner_1123.php"],["게이세이 · 할인권","https://www.keisei.co.jp/keisei/tetudou/skyliner/us/tickets/coupon.php"],["JR 동일본 · N'EX 운임과 발권","https://www.jreast.co.jp/multi/nex/tickets/"],["TYO-NRT · 요금과 발권 방법","https://tyo-nrt.com/kr/flow"],["도큐버스 · 시부야 공항버스","https://www.tokyubus.co.jp/airport/de-futako-narita.html"],["피치항공 · 나리타 국제선 수속","https://www.flypeach.com/en/lm/ai/airports/airportguide_international/NRT"],["피치항공 · 체크인 마감","https://www.flypeach.com/en/lm/ai/airports/how_to_checkin"]])+
+      "<p class='info-note'>2026.11.06 조사. 항공편 출발시간 08:30은 여행자 제공 정보이며 항공편 번호와 일본 입국 예정 시각은 별도 확인되지 않았습니다. 여행 날짜가 변경되면 일정을 다시 확인하세요.</p></section></div>";
+  }
+
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
     const path=String(route||'info').replace(/^#/,'');
-    if(path==='info/grocery')root.innerHTML=groceryGuide();
+    if(path==='info/airport')root.innerHTML=airportTransportPage();
+    else if(path==='info/grocery')root.innerHTML=groceryGuide();
     else if(path==='info/resale')root.innerHTML=resalePage();
     else if(path==='info/taxfree')root.innerHTML=taxfree();
     else if(path==='info/pokemon')root.innerHTML=pokemon();
     else root.innerHTML=hub();
     if(path==='info/resale')updateResaleCalculator();
-    document.title=(path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
+    document.title=(path==='info/airport'?'나리타 공항 교통':path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
   }
   async function copyText(value) {
     try{
@@ -447,6 +553,8 @@
     root.addEventListener('click',event=>{
       const btn=event.target.closest('button');
       if(btn && root.contains(btn)){
+        if(btn.hasAttribute('data-airport-arrival')){const id=btn.getAttribute('data-airport-arrival');if(airportArrivals.some(x=>x.id===id)){state.airportArrival=id;refreshAirportCombo();}}
+        if(btn.hasAttribute('data-airport-return')){const id=btn.getAttribute('data-airport-return');if(airportReturns.some(x=>x.id===id)){state.airportReturn=id;refreshAirportCombo();}}
         if(btn.hasAttribute('data-info-goal')){state.goal=btn.getAttribute('data-info-goal');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}
         if(btn.hasAttribute('data-info-region')){state.region=btn.getAttribute('data-info-region');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}
         if(btn.hasAttribute('data-info-kind')){state.kind=btn.getAttribute('data-info-kind');const panel=$('info-store-results');if(panel)panel.innerHTML=storeResults();}

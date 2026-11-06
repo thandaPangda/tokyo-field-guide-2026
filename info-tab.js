@@ -443,7 +443,7 @@
   }
   function airportMethod(item) {
     return "<article class='info-airport-method'><div class='info-airport-method-head'><div><span class='info-airport-small'>"+esc(item.tag)+"</span><h3>"+esc(item.name)+"</h3></div><strong class='info-airport-fare'>"+airportFmt(item.fare)+"</strong></div>"+
-      "<div class='info-airport-metrics'><span>예상 이동 <b>"+esc(item.range)+"</b></span><span>환승 <b>"+esc(item.changes)+"</b></span><span>좌석 <b>"+esc(item.seat)+"</b></span></div>"+
+      "<div class='info-airport-metrics'><span>예상 이동 <b>"+esc(item.range)+"</b></span><span>환승 <b>"+esc(item.changes)+"</b></span><span>예상 첫 대기 <b>"+esc(item.wait)+"</b></span><span>좌석 <b>"+esc(item.seat)+"</b></span></div>"+
       airportSteps(item.route)+"<p class='info-airport-note'><b>발권</b> "+esc(item.ticket)+"</p><p class='info-airport-note'><b>고려할 점</b> "+esc(item.note)+"</p>"+
       "<p class='info-airport-basis'>운임 구성: "+esc(item.basis)+" · 공항 최초 열차 대기·입국심사는 이동시간에서 제외</p></article>";
   }

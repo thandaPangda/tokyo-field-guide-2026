@@ -13,7 +13,7 @@
 - `reservation-ux.js`, `reservation-ux.css`, `index.html`: 기존 태그의 OR 조건을 유지하면서 예약 관련 태그 선택 시 긴급도순·마감 하단 분리·공식 링크를 카드로 제공한다. 온라인 혜택과 예매 마감 태그, 기존 정렬로 복귀하는 컨트롤, 접이식 공항 교통 안내를 추가한다.
 - 기존 데이터와 충돌하는 `P26`(일반 입장 가능), `P30`(4인 이상만 예약 필수)의 일괄 필수 예약 태그를 바로잡고, 필수 입장권의 선예매 마감과 현장권 판매 가능성을 분리한다. 장소 ID·날짜·좌표·지도·저장 키는 수정하지 않는다.
 - `tests/reservation-ux.test.mjs`: 태그/정렬 우선순위, 마감 표시, 예약 정보 고유성, 기존 정렬·스크립트 유지, 접근성 기본 구조에 대한 회귀 검사를 추가한다. 모바일 실기기·실시간 예약 잔여는 미검증.
-- **관련 브랜치:** [예약 우선순위 UX 제안](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/reservation-priority-ux-20261106). PR 링크는 생성 후 보완한다.
+- **관련 브랜치:** [예약 우선순위 UX 제안](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/reservation-priority-ux-20261106). 관련 PR: [#17 예약 긴급도 태그 정렬 및 예매 마감·온라인 혜택 UX](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/17).
 
 ## [미출시] — v1.5.8 귀국 주말 첫차 시각·닛포리 환승 안내 정정 (2026-11-06 작성)
 

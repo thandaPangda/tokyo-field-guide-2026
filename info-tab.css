@@ -274,3 +274,64 @@
 #view-info .info-table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:13px;overscroll-behavior-x:contain}
 #view-info #info-bulk .info-table-scroll .info-table{min-width:650px}
 #view-info #info-bulk .info-table-scroll td,#view-info #info-bulk .info-table-scroll th{min-width:115px}
+
+
+/* Airport transfer reference · 2026-11-06. Scoped to info airport page. */
+#view-info .info-airport-page .info-airport-overview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:4px 0 18px}
+#view-info .info-airport-overview article{display:flex;flex-direction:column;gap:9px;padding:18px;border:1px solid #dbe5dd;border-radius:15px;background:#fff;min-width:0}
+#view-info .info-airport-overview article strong{color:#304938;font-size:15px;letter-spacing:-.02em;line-height:1.45}
+#view-info .info-airport-overview article b{font-size:23px;color:#3d704e;letter-spacing:-.04em}
+#view-info .info-airport-overview article p{font-size:11px;line-height:1.65;color:#697b6d;margin:0}
+#view-info .info-airport-overview .info-airport-overview-total{background:#eaf2e9;border-color:#c9decc}
+#view-info .info-airport-overview .info-airport-overview-total strong{font-size:25px;color:#28553a}
+#view-info .info-airport-small{display:block;color:#55745e;font-size:10px;font-weight:800;letter-spacing:.04em}
+#view-info .info-airport-table-scroll{max-width:100%;overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid #e1e9df;border-radius:12px;margin-top:13px}
+#view-info .info-airport-table{min-width:670px;border-radius:0}
+#view-info .info-airport-table th,#view-info .info-airport-table td{min-width:105px}
+#view-info .info-airport-methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+#view-info .info-airport-method{background:#fff;border:1px solid #e0e9de;border-radius:15px;padding:17px 18px;min-width:0}
+#view-info .info-airport-method-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#view-info .info-airport-method h3{font-size:15px;line-height:1.5;margin:5px 0 8px;letter-spacing:-.02em;color:#2d4737}
+#view-info .info-airport-fare{font-size:20px;white-space:nowrap;color:#356444}
+#view-info .info-airport-metrics{display:flex;gap:8px;flex-wrap:wrap;color:#677a6d;font-size:11px;margin:6px 0 13px}
+#view-info .info-airport-metrics span{padding:5px 8px;background:#f0f5ef;border-radius:7px;line-height:1.6}
+#view-info .info-airport-metrics b{color:#3a5944}
+#view-info .info-airport-steps{list-style:none;padding:0;margin:0 0 13px;display:grid;gap:10px}
+#view-info .info-airport-steps li{display:flex;gap:9px;align-items:flex-start;color:#425b49;font-size:12px;line-height:1.65}
+#view-info .info-airport-stepnum{display:grid;place-items:center;flex:none;width:21px;height:21px;border-radius:50%;background:#e6f0e7;font-size:10px;font-weight:750;color:#345f41}
+#view-info .info-airport-note{color:#536b59;font-size:12px;line-height:1.8;margin:7px 0}
+#view-info .info-airport-note b{color:#2d4d37}
+#view-info .info-airport-basis{color:#79887c;font-size:10px;line-height:1.65;border-top:1px solid #e6ede5;margin:13px 0 0;padding-top:10px}
+#view-info .info-airport-timeline{display:grid;gap:2px;margin:17px 0 18px;padding:8px 16px;background:#f1f6f0;border:1px solid #dde9dc;border-radius:14px}
+#view-info .info-airport-timeline>div{display:grid;grid-template-columns:78px 1fr;gap:12px;position:relative;padding:10px 0;border-bottom:1px solid #dfe9df}
+#view-info .info-airport-timeline>div:last-child{border-bottom:0}
+#view-info .info-airport-timeline b{font-size:14px;color:#2f6040;font-variant-numeric:tabular-nums}
+#view-info .info-airport-timeline span{font-size:12px;line-height:1.6;color:#48614e}
+#view-info .info-airport-custom{margin-top:20px;background:#fff;border:1px solid #dce6dc;border-radius:16px;padding:18px}
+#view-info .info-airport-custom h3{margin:0 0 6px;font-size:17px;color:#2a4636}
+#view-info .info-airport-custom h4{margin:18px 0 10px;font-size:12px;color:#52705a}
+#view-info .info-airport-custom>p{margin:0;color:#617366;font-size:12px;line-height:1.75}
+#view-info .info-airport-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#view-info .info-airport-pick{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;padding:12px;background:#fafcf9;border:1px solid #dce7db;border-radius:9px;color:#47614c;cursor:pointer;min-height:50px;font-size:12px}
+#view-info .info-airport-pick strong{white-space:nowrap;font-size:12px;color:#3a5e44}
+#view-info .info-airport-pick[aria-pressed=true]{background:#e8f2e8;border-color:#568163;box-shadow:inset 0 0 0 1px #568163}
+#view-info .info-airport-pick:focus-visible,#view-info .info-airport-faq summary:focus-visible{outline:3px solid #dba957;outline-offset:2px}
+#view-info .info-airport-combo-result{margin-top:16px;background:#edf4ee;padding:18px;border-radius:12px}
+#view-info .info-airport-total{display:block;font-size:clamp(26px,4vw,37px);letter-spacing:-.05em;color:#2f6040;margin:6px 0}
+#view-info .info-airport-combo-result p{font-size:12px;color:#4e6956;line-height:1.7;margin:7px 0 0}
+#view-info .info-airport-faq details{padding:14px 16px;background:#fff;border:1px solid #dfe8df;border-radius:10px;margin-bottom:8px}
+#view-info .info-airport-faq summary{font-weight:740;font-size:13px;color:#3a5642;cursor:pointer;line-height:1.65}
+#view-info .info-airport-faq p{font-size:12px;color:#607268;line-height:1.85;margin:9px 0 0}
+#view-info .info-airport-page .info-section{scroll-margin-top:110px}
+@media(max-width:850px){
+ #view-info .info-airport-page .info-airport-overview{grid-template-columns:1fr 1fr}
+ #view-info .info-airport-overview .info-airport-overview-total{grid-column:1/-1}
+}
+@media(max-width:650px){
+ #view-info .info-airport-page .info-airport-overview{grid-template-columns:1fr}
+ #view-info .info-airport-overview .info-airport-overview-total{grid-column:auto}
+ #view-info .info-airport-methods,#view-info .info-airport-picks{grid-template-columns:1fr}
+ #view-info .info-airport-method{padding:14px}
+ #view-info .info-airport-custom{padding:13px}
+ #view-info .info-airport-timeline>div{grid-template-columns:72px 1fr;gap:8px}
+}

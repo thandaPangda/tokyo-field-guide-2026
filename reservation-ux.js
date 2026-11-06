@@ -194,6 +194,40 @@
       renderBrowse();
     }
   });
+  // Keep one visible entry point even when advanced tag filters are collapsed.
+  var basicControls = document.querySelector('#view-discover .discovery-basic');
+  var shortcut = null;
+  if (basicControls && !document.getElementById('reservationShortcut')) {
+    shortcut = document.createElement('button');
+    shortcut.id = 'reservationShortcut';
+    shortcut.type = 'button';
+    shortcut.className = 'reservation-shortcut';
+    shortcut.textContent = '예약 모아보기';
+    shortcut.setAttribute('aria-pressed', 'false');
+    basicControls.appendChild(shortcut);
+    shortcut.addEventListener('click', function () {
+      if (bookingActive(browseState)) {
+        bookingTags.forEach(function (tag) { browseState.tags.delete(tag); });
+      } else {
+        bookingTags.forEach(function (tag) { browseState.tags.add(tag); });
+      }
+      browseState.expanded.clear();
+      renderBrowse();
+      if (bookingActive(browseState) && header && header.scrollIntoView) {
+        header.scrollIntoView({block:'start',behavior:'auto'});
+      }
+    });
+  }
+  // Keep one action button, not a duplicate filter strip.
+  var renderWithShortcut = renderBrowse;
+  renderBrowse = function () {
+    renderWithShortcut();
+    if (shortcut) {
+      var active = bookingActive(browseState);
+      shortcut.setAttribute('aria-pressed', String(active));
+      shortcut.textContent = active ? '예약 모아보기 해제' : '예약 모아보기';
+    }
+  };
   // Hook only current discovery, not map filtering or stored favorites.
   renderBrowse();
   window.__TOKYO_RESERVATION_AUDIT__ = {

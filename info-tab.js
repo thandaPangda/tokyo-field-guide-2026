@@ -432,7 +432,7 @@
     {id:"nex",name:"나리타 익스프레스(N'EX) + JR",fare:3529,range:"약 100~125분",wait:"신주쿠 직통편 대기는 길어질 수 있음",changes:"1회",seat:"전 좌석 지정석 · 짐 보관",ticket:"JR 발매기/창구에서 편도 지정석",tag:"지정석 편의",quality:"큰 짐·피로도에 유리",route:["나리타공항 제1터미널역 JR 승강장에서 신주쿠행 N'EX 승차","신주쿠역에서 JR 주오·소부선 완행(미타카 방면) 환승","코엔지역 하차"],note:"코엔지까지 더 빠르다는 보장은 없습니다. 신주쿠행 출발 대기와 역내 이동이 길어질 수 있습니다. JR 구간을 연속 구매하면 실제 운임이 달라질 수 있습니다.",basis:"N'EX 나리타공항→신주쿠 보통차 편도 3,330엔 + 신주쿠→코엔지 IC 199엔(별도 구매 가정)"}
   ];
   const airportReturns = [
-    {id:"skyliner",name:"JR 야마노테선 + 스카이라이너 첫차",fare:2563,arrival:"제1터미널역 06:24",risk:"권장 · 다만 지연 여유 적음",tag:"현실적인 1순위",route:"시부야 04:37 → 닛포리 약 05:05 → 스카이라이너 05:45 → 나리타 T1 06:24",basis:"시부야→닛포리 IC 253엔 + 스카이라이너 할인 편도 2,310엔"},
+    {id:"skyliner",name:"JR 야마노테선 + 스카이라이너 첫차",fare:2563,arrival:"제1터미널역 06:26",risk:"권장 · 다만 지연 여유 적음",tag:"현실적인 1순위",route:"시부야 04:37 → 닛포리 약 05:05 → 스카이라이너 05:45 → 나리타 T1 06:26",basis:"시부야→닛포리 IC 253엔 + 스카이라이너 할인 편도 2,310엔"},
     {id:"local",name:"JR + 게이세이 본선 일반열차",fare:1278,arrival:"첫차·접속편에 따라 07시 전후",risk:"비추천 · 체크인 여유 부족",tag:"저렴하나 위험",route:"시부야 → 닛포리 → 게이세이 본선 → 나리타 T1",basis:"JR 시부야→닛포리 253엔 + 게이세이 본선 닛포리→공항 IC 1,025엔"},
     {id:"bus",name:"시부야 직행 공항 리무진버스",fare:3600,arrival:"제1터미널 약 07:05",risk:"비추천 · 정체 시 마감 위험",tag:"환승 없음 · 늦음",route:"시부야 마크시티 약 05:30 → 나리타공항 제1터미널 약 07:05",basis:"시부야 공항 리무진버스 일반 편도 3,600엔"}
   ];
@@ -460,7 +460,7 @@
       "<strong class='info-airport-total'>"+airportFmt(total)+"</strong>"+
       "<p>"+esc(arrival.name)+" <b>"+airportFmt(arrival.fare)+"</b> + "+esc(returning.name)+" <b>"+airportFmt(returning.fare)+"</b>"+
       (roundTripDiscount?" − 스카이라이너 온라인 왕복권 추가 할인 120엔":"")+" = <b>"+airportFmt(total)+"</b></p>"+
-      "<p class='info-airport-note'>"+(returning.id==="skyliner"?"귀국 항공편은 08:30 출발입니다. 06:24 공항역 도착 이후 터미널 이동과 피치항공 체크인을 07:40 이전에 완료해야 합니다.":"선택한 귀국편은 체크인 마감 전 여유가 적어 실제 예약에 사용하기 전에 첫차·연결시간 검증이 필요합니다.")+"</p></div>";
+      "<p class='info-airport-note'>"+(returning.id==="skyliner"?"귀국 항공편은 08:30 출발입니다. 06:26 공항역 도착 이후 터미널 이동과 피치항공 체크인을 07:40 이전에 완료해야 합니다.":"선택한 귀국편은 체크인 마감 전 여유가 적어 실제 예약에 사용하기 전에 첫차·연결시간 검증이 필요합니다.")+"</p></div>";
   }
   function airportPickButtons(items,attr,chosen){
     return "<div class='info-airport-picks'>"+items.map(item=>
@@ -488,9 +488,9 @@
     return "<div class='info-wrap info-airport-page'>"+crumb("나리타 공항 교통")+
       header("AIRPORT TRANSFER · 2026.11.06","나리타 공항 교통 · 입국과 귀국","입국은 나리타공항에서 코엔지 숙소로, 귀국은 시부야에서 피치항공 08:30편을 타러 이동합니다. 가격·대기·환승·좌석·발권을 목적지 기준으로 비교합니다.","2026.11.06")+
       "<div class='info-airport-overview'><article><span class='info-airport-small'>입국 · 코엔지 숙소</span><strong>액세스 특급 + JR</strong><b>약 1,617엔</b><p>아사쿠사바시 1회 환승 · 가성비 우선</p></article>"+
-      "<article><span class='info-airport-small'>귀국 · 시부야 출발</span><strong>야마노테선 + 스카이라이너</strong><b>약 2,563엔</b><p>닛포리 05:45 출발 · 공항 T1 06:24 도착</p></article>"+
+      "<article><span class='info-airport-small'>귀국 · 시부야 출발</span><strong>야마노테선 + 스카이라이너</strong><b>약 2,563엔</b><p>닛포리 05:45 출발 · 공항 T1 06:26 도착</p></article>"+
       "<article class='info-airport-overview-total'><span class='info-airport-small'>기본 추천 왕복 예산</span><strong>4,180엔</strong><p>성인 1명, 입국 1,617엔 + 귀국 2,563엔</p></article></div>"+
-      "<div class='info-notice info-warning'><strong>귀국은 피치항공 체크인 시각이 먼저입니다.</strong>나리타 제1터미널 북쪽 윙 4층에서 국제선 체크인을 출발 120~50분 전(06:30~07:40)에 완료해야 합니다. 스카이라이너 첫차의 공항역 도착 06:24 이후 약 76분 안에 카운터로 이동하고 수속을 마쳐야 합니다. 열차 지연·수하물 위탁·면세 세관 확인을 고려하면 전날 공항 부근 숙박이 더 안정적일 수 있습니다.</div>"+
+      "<div class='info-notice info-warning'><strong>귀국은 피치항공 체크인 시각이 먼저입니다.</strong>나리타 제1터미널 북쪽 윙 4층에서 국제선 체크인을 출발 120~50분 전(06:30~07:40)에 완료해야 합니다. 스카이라이너 첫차의 공항역 도착 06:26 이후 약 74분 안에 카운터로 이동하고 수속을 마쳐야 합니다. 열차 지연·수하물 위탁·면세 세관 확인을 고려하면 전날 공항 부근 숙박이 더 안정적일 수 있습니다.</div>"+
       toc([["airport-arrival","입국 5가지 비교"],["airport-departure","귀국 3가지 비교"],["airport-combinations","왕복 조합 계산"],["airport-tickets","발권·구매 팁"],["airport-sources","확인 근거"]])+
       "<section class='info-section' id='airport-arrival'><h2>입국 · 나리타 T1 → 코엔지역</h2>"+
       "<p>한국에서 오전 08:30 출발하는 피치항공으로 입국하는 날입니다. 나리타 도착 시각은 항공편마다 다르며, 입국심사·위탁수하물 소요시간은 다음 열차 선택 전에는 확정할 수 없습니다.</p>"+
@@ -501,7 +501,7 @@
       "<div class='info-airport-timeline'><div><b>04:37</b><span>시부야역 출발 · JR 야마노테선 외선(신주쿠·이케부쿠로 방면)</span></div>"+
       "<div><b>약 05:05</b><span>닛포리역 도착 · 게이세이 스카이라이너 승강장 이동</span></div>"+
       "<div><b>05:45</b><span>스카이라이너 1호 출발</span></div>"+
-      "<div><b>06:24</b><span>나리타 제1터미널 철도역 도착 · 체크인 카운터로 이동</span></div>"+
+      "<div><b>06:26</b><span>나리타 제1터미널 철도역 도착 · 체크인 카운터로 이동</span></div>"+
       "<div><b>07:40</b><span>피치항공 국제선 체크인·위탁수하물 마감</span></div>"+
       "<div><b>08:30</b><span>피치항공 출발</span></div></div>"+
       "<div class='info-airport-table-scroll'><table class='info-table info-airport-table'><thead><tr><th scope='col'>선택지</th><th scope='col'>편도</th><th scope='col'>공항 도착</th><th scope='col'>판단</th></tr></thead><tbody>"+airportComparisonRows(airportReturns,true)+"</tbody></table></div>"+

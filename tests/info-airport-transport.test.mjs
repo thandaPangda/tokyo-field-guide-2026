@@ -55,6 +55,9 @@ test('airport route renders arrival and departure comparisons, steps, prices and
   assert.match(root.innerHTML, /1,617엔/);
   assert.match(root.innerHTML, /3,529엔/);
   assert.match(root.innerHTML, /06:26/);
+  assert.match(root.innerHTML, /05:46/);
+  assert.match(root.innerHTML, /05:24/);
+  assert.match(root.innerHTML, /22분/);
   assert.match(root.innerHTML, /07:40/);
   assert.match(root.innerHTML, /피치항공/);
   assert.match(root.innerHTML, /기차 첫차에 의존하지 않고/);

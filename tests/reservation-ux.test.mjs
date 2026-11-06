@@ -18,6 +18,8 @@ test('booking enhancement loads after original UX and preserves legacy scripts',
   assert.match(source, /formerMatches = browseMatches/);
   assert.match(source, /formerRender = renderBrowse/);
   assert.match(source, /window\.__TOKYO_RESERVATION_AUDIT__/);
+  assert.match(source, /reservationShortcut/);
+  assert.match(source, /bookingTags\.forEach/);
   assert.match(source, /bookingActive\(context\) && context\.order === 'booking'/);
   assert.doesNotMatch(source, /localStorage\.(setItem|removeItem|clear)/);
 });

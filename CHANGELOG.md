@@ -11,6 +11,7 @@
 ### 수정 / 검증
 - `info-tab.js`, `README.md`, `research/airport-transport-2026-11-06.md`: 일요일 게이세이 공식 시간표 기준 스카이라이너 첫차를 **닛포리 05:46 출발 → 나리타 제1터미널 06:26 도착**으로 수정한다. 시부야 **04:56 → 닛포리 05:24**는 조회 시점 연결 예시이며, 05:46 출발까지 **22분**이 남는다. 04:37 시부야 출발은 여유를 더 두는 대안으로 유지한다. 발권·캐리어 및 JR 11/15 날짜별 연결 확인이 필요하다는 설명을 보완한다.
 - `tests/info-airport-transport.test.mjs`: 일요일 05:46, 05:24, 환승 22분 표시를 회귀 검사한다. 실제 2026-11-15 JR 운행편, 브라우저 실기기, GitHub Pages 게시 여부는 별도 확인해야 한다.
+- **관련 PR:** [#16 — 병합 후 누락된 시간표 정정](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/16). 
 - **수정 이유:** 선행 PR이 병합된 뒤 기존 작업 브랜치에만 후속 수정이 들어가 `main`과 내용이 달라진 상황을 정정한다. [게이세이 공식 주말 시간표](https://new-www.keisei.co.jp/keisei/tetudou/skyliner/jp/traffic/skyliner_timetable.php) 기준.
 - **사용자 영향:** 귀국 첫차의 출발시각과 현실적인 환승 대기시간 안내 정확도를 높인다. 입국 요금·왕복 선택 가격·지도와 개인 데이터는 바꾸지 않는다.
 

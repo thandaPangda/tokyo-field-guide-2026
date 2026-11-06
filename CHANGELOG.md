@@ -14,7 +14,7 @@
 - `research/airport-transport-2026-11-06.md`: 게이세이·JR·피치·TYO-NRT·도큐버스 요금·운행 안내 출처, 기본 요금과 JR 구간 합산, 추정 이동시간과 공식 고정 시간표의 구분, N'EX 편도 3,330엔 및 왕복 할인권 적용 한계 기록. 항공편 번호·현장 출입국 대기·수하물 위탁은 미확인이다.
 - `tests/info-airport-transport.test.mjs`, `README.md`: 신규 경로·기존 정보 탭 유지, 귀국 피치 마감시간, 선택 조합 재계산, 모바일 스타일 회귀 테스트 및 조사·미배포 안내 추가. **검증:** 수정 JS 2개를 V8 문법 컴파일하고 모의 DOM에서 공항 화면 1회 렌더·N'EX/스카이라이너 조합 변화를 확인했다. Node 테스트 스위트 실행 및 실제 브라우저 검증은 수행하지 않았다.
 - **사용자 영향:** 기존 일정/지도/찜/면세 체크리스트를 수정하지 않고 정보 탭에서 입국·귀국을 각자 선택하여 가격과 리스크를 비교할 수 있다.
-- **변경 검토:** [작업 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/info-airport-transport-20261106). PR 링크는 생성 후 확인한다.
+- **변경 검토:** [작업 브랜치](https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/info-airport-transport-20261106). [PR #15](https://github.com/thandaPangda/tokyo-field-guide-2026/pull/15)를 검토한다.
 
 ## [미출시] — v1.5.6 식당·장보기 독립 탐색 (2026-11-06 작성)
 

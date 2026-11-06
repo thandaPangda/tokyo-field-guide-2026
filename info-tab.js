@@ -432,7 +432,7 @@
     {id:"nex",name:"나리타 익스프레스(N'EX) + JR",fare:3529,range:"약 100~125분",wait:"신주쿠 직통편 대기는 길어질 수 있음",changes:"1회",seat:"전 좌석 지정석 · 짐 보관",ticket:"JR 발매기/창구에서 편도 지정석",tag:"지정석 편의",quality:"큰 짐·피로도에 유리",route:["나리타공항 제1터미널역 JR 승강장에서 신주쿠행 N'EX 승차","신주쿠역에서 JR 주오·소부선 완행(미타카 방면) 환승","코엔지역 하차"],note:"코엔지까지 더 빠르다는 보장은 없습니다. 신주쿠행 출발 대기와 역내 이동이 길어질 수 있습니다. JR 구간을 연속 구매하면 실제 운임이 달라질 수 있습니다.",basis:"N'EX 나리타공항→신주쿠 보통차 편도 3,330엔 + 신주쿠→코엔지 IC 199엔(별도 구매 가정)"}
   ];
   const airportReturns = [
-    {id:"skyliner",name:"JR 야마노테선 + 스카이라이너 첫차",fare:2563,arrival:"제1터미널역 06:26",risk:"권장 · 다만 지연 여유 적음",tag:"현실적인 1순위",route:"시부야 04:37 → 닛포리 약 05:05 → 스카이라이너 05:45 → 나리타 T1 06:26",basis:"시부야→닛포리 IC 253엔 + 스카이라이너 할인 편도 2,310엔"},
+    {id:"skyliner",name:"JR 야마노테선 + 스카이라이너 첫차",fare:2563,arrival:"제1터미널역 06:26",risk:"권장 · 다만 지연 여유 적음",tag:"현실적인 1순위",route:"시부야 04:56 → 닛포리 05:24(현재 조회 예시) → 스카이라이너 05:46 → 나리타 T1 06:26",basis:"시부야→닛포리 IC 253엔 + 스카이라이너 할인 편도 2,310엔"},
     {id:"local",name:"JR + 게이세이 본선 일반열차",fare:1278,arrival:"첫차·접속편에 따라 07시 전후",risk:"비추천 · 체크인 여유 부족",tag:"저렴하나 위험",route:"시부야 → 닛포리 → 게이세이 본선 → 나리타 T1",basis:"JR 시부야→닛포리 253엔 + 게이세이 본선 닛포리→공항 IC 1,025엔"},
     {id:"bus",name:"시부야 직행 공항 리무진버스",fare:3600,arrival:"제1터미널 약 07:05",risk:"비추천 · 정체 시 마감 위험",tag:"환승 없음 · 늦음",route:"시부야 마크시티 약 05:30 → 나리타공항 제1터미널 약 07:05",basis:"시부야 공항 리무진버스 일반 편도 3,600엔"}
   ];
@@ -488,7 +488,7 @@
     return "<div class='info-wrap info-airport-page'>"+crumb("나리타 공항 교통")+
       header("AIRPORT TRANSFER · 2026.11.06","나리타 공항 교통 · 입국과 귀국","입국은 나리타공항에서 코엔지 숙소로, 귀국은 시부야에서 피치항공 08:30편을 타러 이동합니다. 가격·대기·환승·좌석·발권을 목적지 기준으로 비교합니다.","2026.11.06")+
       "<div class='info-airport-overview'><article><span class='info-airport-small'>입국 · 코엔지 숙소</span><strong>액세스 특급 + JR</strong><b>약 1,617엔</b><p>아사쿠사바시 1회 환승 · 가성비 우선</p></article>"+
-      "<article><span class='info-airport-small'>귀국 · 시부야 출발</span><strong>야마노테선 + 스카이라이너</strong><b>약 2,563엔</b><p>닛포리 05:45 출발 · 공항 T1 06:26 도착</p></article>"+
+      "<article><span class='info-airport-small'>귀국 · 시부야 출발</span><strong>야마노테선 + 스카이라이너</strong><b>약 2,563엔</b><p>닛포리 05:46 출발 · 공항 T1 06:26 도착</p></article>"+
       "<article class='info-airport-overview-total'><span class='info-airport-small'>기본 추천 왕복 예산</span><strong>4,180엔</strong><p>성인 1명, 입국 1,617엔 + 귀국 2,563엔</p></article></div>"+
       "<div class='info-notice info-warning'><strong>귀국은 피치항공 체크인 시각이 먼저입니다.</strong>나리타 제1터미널 북쪽 윙 4층에서 국제선 체크인을 출발 120~50분 전(06:30~07:40)에 완료해야 합니다. 스카이라이너 첫차의 공항역 도착 06:26 이후 약 74분 안에 카운터로 이동하고 수속을 마쳐야 합니다. 열차 지연·수하물 위탁·면세 세관 확인을 고려하면 전날 공항 부근 숙박이 더 안정적일 수 있습니다.</div>"+
       toc([["airport-arrival","입국 5가지 비교"],["airport-departure","귀국 3가지 비교"],["airport-combinations","왕복 조합 계산"],["airport-tickets","발권·구매 팁"],["airport-sources","확인 근거"]])+
@@ -498,14 +498,14 @@
       "<p class='info-note'>이동시간은 열차/버스 탑승과 환승의 대략적인 범위이며 공항에서 처음 기다리는 시간과 입국심사 시간은 제외합니다. 가격은 2026.11.06 조사 기준의 일반 성인 IC/온라인 할인 조합입니다.</p>"+
       "<div class='info-airport-methods'>"+airportArrivals.map(airportMethod).join("")+"</div></section>"+
       "<section class='info-section' id='airport-departure'><h2>귀국 · 시부야 → 나리타 T1 · 08:30 비행기</h2>"+
-      "<div class='info-airport-timeline'><div><b>04:37</b><span>시부야역 출발 · JR 야마노테선 외선(신주쿠·이케부쿠로 방면)</span></div>"+
-      "<div><b>약 05:05</b><span>닛포리역 도착 · 게이세이 스카이라이너 승강장 이동</span></div>"+
-      "<div><b>05:45</b><span>스카이라이너 1호 출발</span></div>"+
+      "<div class='info-airport-timeline'><div><b>04:56</b><span>시부야역 출발 · JR 야마노테선 외선(신주쿠·이케부쿠로 방면), 04:37 열차는 더 넉넉한 대안</span></div>"+
+      "<div><b>05:24</b><span>닛포리역 도착 · 스카이라이너까지 22분 환승 여유(날짜별 JR 시각 재확인)</span></div>"+
+      "<div><b>05:46</b><span>스카이라이너 1호 출발</span></div>"+
       "<div><b>06:26</b><span>나리타 제1터미널 철도역 도착 · 체크인 카운터로 이동</span></div>"+
       "<div><b>07:40</b><span>피치항공 국제선 체크인·위탁수하물 마감</span></div>"+
       "<div><b>08:30</b><span>피치항공 출발</span></div></div>"+
       "<div class='info-airport-table-scroll'><table class='info-table info-airport-table'><thead><tr><th scope='col'>선택지</th><th scope='col'>편도</th><th scope='col'>공항 도착</th><th scope='col'>판단</th></tr></thead><tbody>"+airportComparisonRows(airportReturns,true)+"</tbody></table></div>"+
-      "<p class='info-note'>시부야 04:37 → 닛포리 05:05는 확인 당시의 첫차 연결 예시입니다. 여행 종료일은 2026.11.15(일)로 추정되므로 당일 공휴일·주말 시간표와 운행 공지를 반드시 재확인해야 합니다. 게이세이 일반열차는 공항 도착 가능 시각이 운행편에 따라 달라지며 이 표는 확정 연결표가 아닙니다.</p>"+
+      "<p class='info-note'>시부야 04:56 → 닛포리 05:24는 조회 당시의 연결 예시이며 환승 여유는 22분입니다. 닛포리의 일반적인 JR→게이세이 환승 보행은 약 4~6분이지만, 캐리어 및 티켓 준비를 고려해 10~15분을 계획할 수 있습니다. 04:37 열차는 더 긴 여유를 확보하는 대안입니다. 여행 종료일은 2026.11.15(일)로 추정되므로 당일 공휴일·주말 시간표와 운행 공지를 반드시 재확인해야 합니다. 게이세이 일반열차는 공항 도착 가능 시각이 운행편에 따라 달라지며 이 표는 확정 연결표가 아닙니다.</p>"+
       "<p>시부야 직행 공항버스는 환승이 없지만 첫차가 약 05:30에 출발하여 제1터미널에 약 07:05 도착하므로 피치항공 07:40 마감에 불리합니다. 나리타 익스프레스는 아침 08:30 국제선 출발을 위한 첫차 대안으로 권장하지 않습니다.</p>"+
       "<div class='info-notice'><strong>공항 전날 숙박 대안</strong>기차 첫차에 의존하지 않고 06:00 전후 공항 도착을 목표로 할 수 있습니다. 비용은 숙소와 셔틀 운행에 따라 달라 비교 계산에는 넣지 않았으며, 여행 날짜에 맞는 실제 셔틀 첫차를 확인해야 합니다.</div></section>"+
       "<section class='info-section' id='airport-combinations'><h2>왕복 선택 조합 비교</h2>"+
@@ -518,7 +518,7 @@
       "<section class='info-section' id='airport-tickets'><h2>발권 난이도와 꼭 확인할 정보</h2>"+
       "<div class='info-airport-faq'><details><summary>액세스 특급은 사전 구매가 필요한가요?</summary><p>아닙니다. Suica/PASMO로 개찰구를 통과합니다. 단, 게이세이 본선과 SKY ACCESS 경로의 요금은 다르고 액세스 특급의 모든 열차가 아사쿠사바시 직통인 것은 아닙니다.</p></details>"+
       "<details><summary>N'EX 편도는 어떻게 사나요?</summary><p>공항 JR 지정석 발매기 또는 창구에서 신주쿠행 보통차 편도를 구매합니다. 3,330엔은 신주쿠까지의 표준 가격이며 코엔지까지 별도 JR 구간을 199엔으로 계산했습니다. 통합 구간으로 발권하면 요금이 달라질 수 있습니다. 왕복 할인권 5,200엔은 귀국에 N'EX를 쓰지 않아 이번 조합과 맞지 않습니다.</p></details>"+
-      "<details><summary>스카이라이너 할인권은 어떻게 적용하나요?</summary><p>온라인 편도 할인권은 2,310엔, 일반 편도는 2,580엔입니다. 온라인 왕복권은 4,500엔이며 공항 도착 시 교환 조건과 지정석 예약 절차를 확인해야 합니다. 귀국편만 타면 편도 할인권을 선택하는 편이 낫습니다.</p></details>"+
+      "<details><summary>스카이라이너 할인권은 어떻게 적용하나요?</summary><p>온라인 편도 할인권은 2,310엔, 일반 편도는 2,580엔입니다. 온라인 왕복권은 4,500엔이며 공항 도착 시 교환 조건과 지정석 예약 절차를 확인해야 합니다. 귀국편만 타면 편도 할인권을 선택하는 편이 낫습니다. 닛포리 환승 시 발매기나 창구에서 처음부터 표를 처리하지 않도록 사전에 좌석 지정·승차권 이용 절차를 확인하세요.</p></details>"+
       "<details><summary>토요일·일요일에도 코엔지에 주오선 쾌속이 서나요?</summary><p>아닙니다. 주말·공휴일 주오선 쾌속은 코엔지를 통과하므로 주오·소부선 완행으로 이동해야 합니다. 입국일은 수요일 예정이라 평일 운행이지만 이용 직전 행선지와 정차역을 확인하세요.</p></details>"+
       "<details><summary>항공편이 지연되거나 출입국 수속이 길어지면?</summary><p>입국은 공항에서 실시간 열차 출발판을 보고 액세스 특급 또는 N'EX 중 대기시간이 짧은 것을 고를 수 있습니다. 귀국은 첫차보다 늦게 출발하면 대체 수단이 제한적이므로 알람·역까지 이동수단·항공사 마감시간을 미리 확보하세요.</p></details></div></section>"+
       "<section class='info-section' id='airport-sources'><h2>요금·운행·체크인 근거</h2><p>철도 운임과 버스 기본요금, 항공사 터미널은 아래 공식 안내에서 확인했습니다. 일반열차 연결·JR 구간 운임 및 소요시간은 교통 경로 검색의 예시로, 특정 여행일 실시간 예약 가능 또는 운행 확정 정보가 아닙니다.</p>"+

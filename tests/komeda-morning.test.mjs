@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+import {test} from 'node:test';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const ctx={window:{}};vm.runInNewContext(read('komeda-morning-2026-11-08.js'),ctx,{timeout:1000});
+const k=ctx.window.TFGKomedaMorning2026, page=read('index.html'),guide=k.guideHtml(k.place.id);
+test('grounded place, time and no fabricated coordinates',()=>{assert.equal(k.place.id,'KOMEDA_KOENJI_NORTH_2026');assert.equal(k.place.lat,null);assert.equal(k.storeHours.weekday[0],7);assert.equal(k.storeHours.weekday[1],23);assert.match(k.place.address,/高円寺北2-3-4/);});
+test('three presets, four ordering options and sugar note',()=>{assert.equal((guide.match(/data-km-preset=/g)||[]).length,3);assert.equal((guide.match(/data-km-select=/g)||[]).length,4);assert.match(guide,/甘み抜き/);assert.match(guide,/08:00–10:30/);assert.equal(k.guideHtml('not-komeda'),'');});
+test('index loads data, hours, detail and style',()=>{assert.match(page,/komeda-morning-2026-11-08\.js/);assert.match(page,/komeda-morning-2026-11-08\.css/);assert.match(page,/STORE_HOURS\[KOMEDA_MORNING\.place\.id\]/);assert.match(page,/KOMEDA_MORNING\?\.guideHtml\(p\.id\)/);assert.match(page,/KOMEDA_MORNING\.bindGuide\(root\)/);});

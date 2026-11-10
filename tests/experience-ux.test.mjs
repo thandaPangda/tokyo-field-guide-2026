@@ -10,7 +10,7 @@ const originalInfo = readFileSync(new URL('../info-tab.js', import.meta.url), 'u
 
 test('enhancement assets load after the original application and information tab', () => {
   assert.match(html, /href="\.\/experience-ux\.css"/);
-  assert.match(html, /src="\.\/experience-ux\.js"/);
+  assert.match(html, /src="\.\/experience-ux\.js\?v=20261110-stay-nav"/);
   assert.ok(html.indexOf('info-tab.css') < html.indexOf('experience-ux.css'));
   assert.ok(html.indexOf('info-tab.js') < html.indexOf('experience-ux.js'));
   assert.match(html, /id="view-discover"/);

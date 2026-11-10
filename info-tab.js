@@ -538,12 +538,6 @@
       return obj && typeof obj==='object' && !Array.isArray(obj)?obj:{};
     }catch(_){return {};}
   }
-  function staySafePdf(value){
-    try{
-      const u=new URL(value);
-      return u.protocol==='https:' && u.hostname==='drive.google.com' && /^\/file\/d\/[\w-]+\/view/.test(u.pathname)?u.href:'';
-    }catch(_){return '';}
-  }
   function stayGuide(){
     const s=stayLocal();
     return [
@@ -553,7 +547,7 @@
       '<p class="info-lead">고엔지역 인근 · 1층 개인실 · 화장실과 욕실 공용. 호스트 메시지와 15페이지 원본 안내서를 현장에 맞게 정리했습니다.</p>',
       '<div class="stay-times"><div><small>체크인</small><strong>16:00 이후</strong></div><div><small>체크아웃</small><strong>10:00 이전</strong></div></div>',
       '<div class="stay-address"><small>숙소 주소 · 日本語</small><strong lang="ja">'+esc(stayAddress)+'</strong><button type="button" data-stay-action="copy-address">주소 복사</button></div>',
-      '<div class="stay-top-actions"><a class="stay-primary" href="'+stayMap+'" target="_blank" rel="noopener noreferrer">Google 지도 길찾기</a><button class="stay-secondary" type="button" data-stay-action="pdf">원본 PDF 열기</button></div>',
+      '<div class="stay-top-actions"><a class="stay-primary" href="'+stayMap+'" target="_blank" rel="noopener noreferrer">Google 지도 길찾기</a><a class="stay-secondary" href="https://drive.google.com/file/d/1s7nGYKYUGItIUFMDSn0hICAfRGyyHPv0/view?usp=drive_link" target="_blank" rel="noopener noreferrer">원본 PDF</a></div>',
       '<nav class="stay-shortcuts" aria-label="숙소 빠른 이동"><a href="#info/stay" data-info-jump="stay-entry">입실</a><a href="#info/stay" data-info-jump="stay-amenities">시설</a><a href="#info/stay" data-info-jump="stay-rules">규칙</a><a href="#info/stay" data-info-jump="stay-checkout">퇴실</a></nav>',
       '<section class="stay-section stay-highlight" id="stay-entry"><span class="stay-overline">01 · KEY & ENTRY</span><h2>입실과 열쇠 수령</h2>',
       '<div class="stay-grid"><article><b>가장 가까운 역</b><p>JR 고엔지역(高円寺駅). 안내서의 남쪽 출구 경로를 이용합니다.</p></article>',
@@ -569,7 +563,7 @@
       '<li>사진에 나온 작은 골목으로 왼쪽 진입합니다. <small>PDF 9쪽</small></li>',
       '<li>녹색 대문과 <span lang="ja">田村</span> 이름표를 확인합니다. <small>PDF 9쪽</small></li></ol>',
       '<p class="stay-warning">원본 PDF 9쪽의 마지막 집 위치는 중국어·영어 설명에서 좌우 방향이 서로 다릅니다. 마지막 구간은 원본 사진과 지도를 대조하세요.</p>',
-      '<button class="stay-secondary stay-wide" type="button" data-stay-action="pdf">실제 길안내 사진 보기 · PDF 7~9쪽</button></section>',
+      '</section>',
       '<section class="stay-section" id="stay-amenities"><span class="stay-overline">03 · FACILITIES</span><h2>사용 가능한 공간과 비품</h2>',
       '<div class="stay-grid"><article><b>1층 객실</b><p>개인실로 사용합니다.</p></article>',
       '<article><b>화장실·욕실·세면대</b><p>호스트와 다른 투숙객이 함께 사용합니다.</p></article>',
@@ -600,25 +594,26 @@
       '<article><b>조기 체크인</b><p>유료로 가능할 수 있으며 호스트에게 사전 문의해야 합니다.</p></article></div>',
       '<p class="stay-warning">원본 PDF는 퇴실 지연으로 청소업체가 대기할 경우 시간당 2,000엔 청구 가능성을 안내합니다. 지연이 예상되면 미리 연락하세요.</p></section>',
       '<section class="stay-section" id="stay-links"><span class="stay-overline">07 · HOST & SOURCES</span><h2>원본 문서와 호스트 연락</h2>',
-      '<div class="stay-links"><button type="button" data-stay-action="pdf">원본 PDF 보기</button><a href="https://forms.gle/wAvXegccYmS2puRH8" target="_blank" rel="noopener noreferrer">게스트 등록 양식</a>',
+      '<div class="stay-links"><a href="https://forms.gle/wAvXegccYmS2puRH8" target="_blank" rel="noopener noreferrer">게스트 등록 양식</a>',
       '<a href="https://www.airbnb.co.kr/guest/inbox" target="_blank" rel="noopener noreferrer">Airbnb 메시지함</a><button type="button" data-stay-action="contact">'+(s.phone?'저장한 연락처로 전화':'호스트 연락처 확인')+'</button></div>',
-      '<p class="stay-subtle">등록 양식은 호스트가 일본 법률상 필요하다고 안내했습니다. 원본에는 입구 사진과 장비 조작 사진이 있으며, 원본 링크는 아래에서 본인 기기에 별도 등록합니다.</p></section>',
-      '<section class="stay-section stay-privacy" id="stay-local"><span class="stay-overline">PRIVATE · DEVICE ONLY</span><h2>개인 기기에 정보 저장하기</h2>',
-      '<p>출입번호·와이파이 비밀번호·호스트 전화번호·PDF 링크는 공개 GitHub에 넣지 않았습니다. 원한다면 아래 내용을 <strong>현재 기기의 브라우저에만</strong> 저장할 수 있습니다.</p>',
-      '<p class="stay-warning">로컬 저장소는 암호화된 보관함이 아닙니다. 공유 기기에서는 사용하지 마세요. 브라우저 데이터를 지우면 사라지고 다른 기기로 동기화되지 않습니다.</p>',
+      '<p class="stay-subtle">호스트가 요청한 게스트 등록 양식입니다.</p></section>',
+      '<section class="stay-section stay-privacy" id="stay-local"><details id="stay-private-details"><summary>출입·와이파이 정보 등록 (선택)</summary>',
+      '<p>출입번호·와이파이 비밀번호·호스트 전화번호를 이 기기에 저장할 수 있습니다.</p>',
+      '<p class="stay-warning">공유 기기에서는 저장하지 마세요. 브라우저 저장 정보는 암호화되지 않습니다.</p>',
       '<form id="stay-local-form" autocomplete="off"><label>101번 키박스 비밀번호<input name="pin" type="password" class="stay-secret" inputmode="numeric" autocomplete="off" value="'+esc(s.pin||'')+'" placeholder="호스트 안내의 숫자"></label>',
       '<label>와이파이 비밀번호<input name="wifi" type="password" class="stay-secret" autocomplete="off" value="'+esc(s.wifi||'')+'" placeholder="호스트 안내의 비밀번호"></label>',
       '<label>호스트 전화번호<input name="phone" type="tel" autocomplete="off" value="'+esc(s.phone||'')+'" placeholder="전화번호"></label>',
-      '<label>원본 PDF 주소<input name="pdf" type="url" autocomplete="off" value="'+esc(s.pdf||'')+'" placeholder="https://drive.google.com/file/d/.../view"></label>',
+
       '<div class="stay-form-actions"><button type="submit" class="stay-primary">이 기기에 저장</button><button type="button" class="stay-secondary" data-stay-action="toggle">비밀번호 보기·숨기기</button><button type="button" class="stay-delete" data-stay-action="clear">저장 정보 삭제</button></div></form>',
-      '<p id="stay-feedback" class="stay-feedback" role="status" aria-live="polite">'+(staySafePdf(s.pdf||'')?'원본 PDF 링크가 등록되어 있습니다.':'원본 PDF를 보려면 링크를 한 번 등록해 주세요.')+'</p></section>',
-      '<div class="stay-floating"><a href="'+stayMap+'" target="_blank" rel="noopener noreferrer">길찾기</a><a href="#info/stay" data-info-jump="stay-entry">입실</a><a href="#info/stay" data-info-jump="stay-rules">규칙</a><button type="button" data-stay-action="pdf">원본 PDF</button></div>',
+      '<p id="stay-feedback" class="stay-feedback" role="status" aria-live="polite"></p></details></section>',
+      '<div class="stay-floating"><a href="'+stayMap+'" target="_blank" rel="noopener noreferrer">길찾기</a><a href="#info/stay" data-info-jump="stay-entry">입실</a><a href="#info/stay" data-info-jump="stay-rules">규칙</a></div>',
       '<p class="stay-provenance">자료: Miduki 호스트 Airbnb 메시지 및 高円寺101Ver2 PDF 2·3·7~13쪽. 실제 길 사진은 원본에서 확인하도록 연결했습니다.</p>',
       '</div>'
     ].join('');
   }
   function stayFeedback(message){const target=$('stay-feedback');if(target)target.textContent=message;}
   function stayJumpToSetup(){
+    const details=$('stay-private-details');if(details)details.open=true;
     $('stay-local')?.scrollIntoView({behavior:'smooth',block:'start'});
     stayFeedback('개인 정보 저장란에서 먼저 등록해 주세요.');
   }
@@ -635,12 +630,6 @@
     if(action==='copy-address'){stayCopy(stayAddress,'주소를');return;}
     if(action==='copy-pin'){stayCopy(s.pin,'출입 비밀번호를');return;}
     if(action==='copy-wifi'){stayCopy(s.wifi,'와이파이 비밀번호를');return;}
-    if(action==='pdf'){
-      const url=staySafePdf(s.pdf||'');
-      if(url)window.open(url,'_blank','noopener,noreferrer');
-      else stayJumpToSetup();
-      return;
-    }
     if(action==='contact'){
       const number=String(s.phone||'').replace(/[\s-]/g,'');
       if(/^\+?\d{6,16}$/.test(number))window.location.href='tel:'+number;
@@ -662,10 +651,8 @@
     event.preventDefault();
     const form=event.target;
     const val=name=>(form.querySelector('[name="'+name+'"]')?.value||'').trim();
-    const pdf=val('pdf');
-    if(pdf&&!staySafePdf(pdf)){stayFeedback('Google Drive PDF 파일의 보기 주소를 입력해 주세요.');return;}
     try{
-      window.localStorage?.setItem(stayLocalKey,JSON.stringify({pin:val('pin'),wifi:val('wifi'),phone:val('phone'),pdf}));
+      window.localStorage?.setItem(stayLocalKey,JSON.stringify({pin:val('pin'),wifi:val('wifi'),phone:val('phone')}));
       window.renderInfoTab('info/stay');
       stayFeedback('이 브라우저에만 저장했습니다. GitHub에 전송되지 않습니다.');
     }catch(_){stayFeedback('브라우저에 저장할 수 없습니다. 저장소 권한을 확인해 주세요.');}

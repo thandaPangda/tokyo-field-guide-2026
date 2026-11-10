@@ -1,5 +1,16 @@
 # TOKYO FIELD GUIDE 2026 — 패치 노트 (CHANGELOG)
 
+
+## [미출시] — v1.5.11 찜 목록 JSON 내보내기 (2026-11-10 작성)
+**상태:** feat/saved-json-export-20261110 브랜치의 PR 제안으로 미병합·미배포. GitHub Pages 적용과 모바일 실제 다운로드는 미확인.
+
+### 추가 / 검증
+- [experience-ux.js, experience-ux.css] 기존 찜 화면 필터·검색 옆에 작은 JSON 내보내기 버튼을 추가했다. 클릭하면 현재 찜 목록 전체를 브라우저에서 파일로 내려받고, 서버로 전송하거나 기존 목록을 변경하지 않는다.
+- 출력에는 저장 키(tokyo-field-guide:saved:v1)의 kind:id 목록, 매칭 가능한 공연·장소·전시의 이름·지역·시간·좌표·원본 상세 정보가 포함된다. 기존 데이터에서 사라진 ID도 missing 표시와 원본 키로 보존한다. 현재 검색·필터와 무관하게 전체 찜을 내보낸다.
+- [tests/saved-export.test.mjs] 버튼 위치·스크립트 문법·저장소 변경 없음·JSON 키와 내용·누락 항목·빈 목록에 대한 회귀 테스트를 추가했다. 기존 라우팅·지도·데이터는 변경하지 않았다.
+- 검증 명령: node --test tests/saved-export.test.mjs tests/experience-ux.test.mjs. 실제 브라우저와 배포는 별도 확인이 필요하다.
+- 관련 코드: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/saved-json-export-20261110
+
 ## [수정] — 2026-11-10 숙소 메뉴 정리
 
 - [`index.html`, `info-tab.css`] 사용자 요청에 따라 별도로 생성한 **숙소** 주요 메뉴 버튼과 관련 활성 상태 및 여섯 칸 모바일 내비게이션을 제거했습니다. 기존 **정보** 탭에서 숙소 카드로 들어가며, 직접 진입 `#info/stay`는 계속 작동합니다.

@@ -36,6 +36,23 @@
     return { categories, top: categories.slice(0, 2) };
   }
 
+  // Distinct bookmarked content IDs in the currently visible map group.
+  function savedCount(items, savedIds) {
+    if (!savedIds || typeof savedIds.has !== 'function') return 0;
+    const keys = new Set();
+    for (const item of items || []) {
+      if (item?.kind == null || item?.id == null) continue;
+      const key = String(item.kind) + ':' + String(item.id);
+      if (savedIds.has(key)) keys.add(key);
+    }
+    return keys.size;
+  }
+  function savedBadge(count, isCluster) {
+    const n = Math.max(0, Number(count) || 0);
+    return n ? '<span class="pin-saved-badge" aria-hidden="true">★' +
+      (isCluster ? n : '') + '</span>' : '';
+  }
+
   // SVG paths come from the fixed local markerSVG table, never user content.
   function icon(kind, markerSVG, className = '') {
     const paths = markerSVG[kind] || markerSVG.other;
@@ -49,7 +66,7 @@
     // tap detail, where labels can be read without obscuring nearby positions.
     return '<span class="cluster-glyph" aria-hidden="true">' +
       folderGlyph + '</span><span class="cluster-number">' +
-      Number(group.siteCount) + '</span>';
+      Number(group.siteCount) + '</span>' + savedBadge(group.savedCount, true);
   }
   function compositionMarkup(group, markerSVG) {
     const categories = group.categorySummary?.categories || [];
@@ -66,10 +83,11 @@
     const summary = group.categorySummary?.categories || [];
     const names = summary.map(x => x.label + ' ' + x.count + '곳');
     return '근처 ' + group.siteCount + '개 위치, ' + group.items.length +
-      '개 콘텐츠' + (names.length ? ', 포함 유형 ' + names.join(', ') : '') +
+      '개 콘텐츠' + (group.savedCount ? ', 찜 ' + group.savedCount + '개' : '') +
+      (names.length ? ', 포함 유형 ' + names.join(', ') : '') +
       '. 선택하면 구성과 장소 목록을 볼 수 있습니다';
   }
   root.TFGMapMarkers = Object.freeze({
-    summarizeNodes, clusterMarkup, compositionMarkup, clusterLabel, labels: LABELS
+    summarizeNodes, savedCount, savedBadge, clusterMarkup, compositionMarkup, clusterLabel, labels: LABELS
   });
 })(window);

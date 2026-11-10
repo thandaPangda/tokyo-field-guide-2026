@@ -571,3 +571,50 @@
 }
 #view-map .pin.pin-symbol.pin-spider { z-index: 5; }
 #view-map .pin.pin-symbol.pin-spider.selected { z-index: 10; }
+
+/* Save emphasis, without overriding the place-category palette. */
+#view-map .pin.pin-symbol.pin-saved {
+  border: 3px solid #dfa72f !important;
+  box-shadow: 0 0 0 2px #fff, 0 4px 14px rgba(117,78,17,.35) !important;
+  z-index: 7;
+}
+#view-map .pin.pin-symbol.pin-saved.selected,
+#view-map .pin.pin-symbol.pin-saved.pin-spider.selected { z-index: 11; }
+#view-map .pin.pin-symbol.pin-saved .pin-saved-badge {
+  position: absolute;
+  top: -10px;
+  right: -11px;
+  z-index: 2;
+  box-sizing: border-box;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  background: #d79b25;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 1px 5px rgba(78,54,15,.32);
+  pointer-events: none;
+}
+#view-map .pin.pin-symbol.pin-cluster.pin-saved .pin-saved-badge {
+  top: -11px;
+  right: -14px;
+  min-width: 23px;
+  height: 20px;
+  font-size: 10px;
+}
+#view-map .pin.pin-symbol.pin-saved .pin-count { top: auto; bottom: -8px; }
+#view-map .pin.pin-symbol.pin-saved.pin-approx:not(.pin-cluster)::after {
+  top: auto; right: auto; bottom: -5px; left: -5px;
+}
+#view-map .pin.pin-symbol.pin-saved.clock-unknown { opacity: .82; }
+#view-map .pin.pin-symbol.pin-saved.clock-closed { opacity: .58; }
+#view-map .map-saved-legend { color: #946419; font-weight: 750; }

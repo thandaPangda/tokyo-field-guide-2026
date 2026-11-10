@@ -74,7 +74,7 @@ test('representative selection is deterministic and honors visible input only', 
 });
 
 test('map integrates new category aggregation and preserves time-based aria labels', () => {
-  assert.match(mapHtml, /src="\.\/map-marker-system\.js"/);
+  assert.match(mapHtml, /src="\.\/map-marker-system\.js(?:\?[^"]*)?"/);
   assert.match(mapHtml, /categorySummary:window\.TFGMapMarkers\?\.summarizeNodes\(nodes,symbolKind\)/);
   assert.match(mapHtml, /TFGMapMarkers\?\.clusterMarkup\(g,markerSVG,MAP_CLUSTER_GLYPH\)/);
   assert.match(mapHtml, /TFGMapMarkers\?\.compositionMarkup\(g,markerSVG\)/);

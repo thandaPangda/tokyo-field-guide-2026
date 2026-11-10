@@ -1,5 +1,16 @@
 # TOKYO FIELD GUIDE 2026 — 패치 노트 (CHANGELOG)
 
+## [미출시] — 지도 찜 표시 강조 (2026-11-11 작성)
+**상태:** main 직접 반영 대상. GitHub Pages 배포와 모바일 실기기 검증은 별도 확인 필요.
+
+### 추가 / 변경 / 검증
+- [index.html, map-marker-system.js, map-mobile-ux.css] 종류별 색상을 유지하고 저장한 위치 마커에 금색 테두리와 ★ 배지를 추가한다. 클러스터는 전체 위치 수를 유지하면서 현재 필터에 보이는 고유 kind:id 찜 항목 수를 별도 ★N으로 보여준다.
+- [index.html] 지도·다른 탭에서 찜할 때 즉시 핀을 갱신한다. 찜만 보기 모드는 기존 필터로 재계산하고, 일반 지도에서는 날짜·필터·중심·확대를 초기화하지 않는다. 지도 범례 및 접근성 라벨을 보강한다.
+- [tests/map-saved-markers.test.mjs, tests/map-marker-categories.test.mjs] 고유 집계, 배지, 개별 마커, 저장 변경 반영, 스크립트 로드 버전에 대한 회귀 테스트를 추가한다. JS 구문 및 핵심 지도 렌더링 로직은 모의 환경에서 검증했으며 실기기 시각 검증은 미실시다.
+- 유효 좌표를 가진 현재 필터 항목만 지도에서 강조한다. 위치 미확인 장소는 기존 목록에 남는다.
+- 관련 이력: https://github.com/thandaPangda/tokyo-field-guide-2026/commits/main
+
+
 
 ## [미출시] — v1.5.11 찜 목록 JSON 내보내기 (2026-11-10 작성)
 **상태:** feat/saved-json-export-20261110 브랜치의 PR 제안으로 미병합·미배포. GitHub Pages 적용과 모바일 실제 다운로드는 미확인.

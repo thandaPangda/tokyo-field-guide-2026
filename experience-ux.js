@@ -301,3 +301,92 @@
   initDiscovery();
   installInformationEnhancement();
 })();
+
+/* Saved-list JSON export. Read-only: existing bookmark keys are preserved. */
+(function installSavedJsonExport() {
+  'use strict';
+  const count = document.getElementById('savedTotal');
+  const toolbar = count && count.parentElement;
+  if (!toolbar || document.getElementById('savedExportJson')) return;
+
+  const button = document.createElement('button');
+  button.id = 'savedExportJson';
+  button.type = 'button';
+  button.className = 'saved-export-btn';
+  button.textContent = 'JSON 내보내기';
+  button.title = '전체 찜 목록을 JSON 파일로 저장';
+  button.setAttribute('aria-label', '전체 찜 목록 JSON 내보내기');
+
+  button.addEventListener('click', function () {
+    let keys;
+    // Prefer live in-memory bookmarks when storage is unavailable.
+    if (typeof savedIds !== 'undefined' && savedIds &&
+        typeof savedIds[Symbol.iterator] === 'function') {
+      keys = Array.from(savedIds);
+    } else {
+      try {
+        const stored = JSON.parse(localStorage.getItem('tokyo-field-guide:saved:v1') || '[]');
+        keys = Array.isArray(stored) ? stored.filter(x => typeof x === 'string') : [];
+      } catch (error) {
+        keys = [];
+      }
+    }
+
+    const entries = typeof ALL_BROWSE !== 'undefined' && Array.isArray(ALL_BROWSE)
+      ? ALL_BROWSE : [];
+    const lookup = new Map(entries.map(x => [x.kind + ':' + x.id, x]));
+    const items = keys.map(function (key) {
+      const entry = lookup.get(key);
+      if (!entry) {
+        const separator = key.indexOf(':');
+        return {
+          key: key,
+          kind: separator < 0 ? null : key.slice(0, separator),
+          id: separator < 0 ? null : key.slice(separator + 1),
+          missing: true
+        };
+      }
+      const data = entry.data || {};
+      const item = {
+        key: key,
+        kind: entry.kind,
+        id: entry.id,
+        name: entry.name,
+        region: entry.area,
+        category: entry.kind === 'place' ? (data.category || '장소')
+          : (entry.kind === 'event' ? '공연' : '전시'),
+        date: data.date || null,
+        time: data.time || null,
+        address: data.address || null,
+        latitude: Number.isFinite(entry.lat) ? entry.lat : null,
+        longitude: Number.isFinite(entry.lon) ? entry.lon : null,
+        details: data
+      };
+      if (entry.kind === 'event' && typeof VENUES !== 'undefined') {
+        item.venue = VENUES[data.venue] || null;
+      }
+      return item;
+    });
+
+    const payload = {
+      format: 'tokyo-field-guide-saved',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      storageKey: 'tokyo-field-guide:saved:v1',
+      savedKeys: keys,
+      items: items
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: 'application/json;charset=utf-8'
+    });
+    const objectUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = objectUrl;
+    link.download = 'tokyo-field-guide-saved.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
+  });
+  toolbar.appendChild(button);
+})();

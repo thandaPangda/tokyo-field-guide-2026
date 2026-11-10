@@ -137,3 +137,14 @@
  #view-info .info-quick-links a{transition:none}
  .discovery-story:hover{transform:none}
 }
+
+/* Small export action in the saved-list toolbar. */
+#view-saved .saved-export-btn{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:36px;padding:8px 11px;border:1px solid #dbe4dc;
+ border-radius:9px;background:#fafcf9;color:#486451;
+ font-size:11px;font-weight:750;line-height:1.25;font-family:inherit;
+ white-space:nowrap;cursor:pointer
+}
+#view-saved .saved-export-btn:hover{background:#eef4ee;border-color:#a9bdab}
+#view-saved .saved-export-btn:focus-visible{outline:2px solid #cf9148;outline-offset:2px}

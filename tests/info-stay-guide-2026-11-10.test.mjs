@@ -44,12 +44,21 @@ test('source-grounded facilities, supplies, rules, and checkout appear',()=>{
     '반려동물 금지','실내 금연','가연성','불연성','재활용품','무료 짐 보관','열쇠 반납','2,000엔',
     '10,000엔','서로 다릅니다','スタート','自動','暖房']) assert.ok(page.includes(word),word);
 });
-test('no host credentials or private PDF id are checked in',()=>{
-  for(const value of ['3333','22446688','08043508583','1s7nGYKYUGItIUFMDSn0hICAfRGyyHPv0']){
+test('only one working PDF link, with no dead PDF buttons or PDF setup field',()=>{
+  const page=mount().root.innerHTML;
+  const pdfUrl='https://drive.google.com/file/d/1s7nGYKYUGItIUFMDSn0hICAfRGyyHPv0/view?usp=drive_link';
+  assert.equal(page.split(pdfUrl).length-1,1);
+  assert.match(page, /원본 PDF<\/a>/);
+  assert.ok(!page.includes('data-stay-action="pdf"'));
+  assert.ok(!page.includes('name="pdf"'));
+  assert.match(page, /stay-private-details/);
+  assert.match(css, /\.stay-floating\{[^}]*grid-template-columns:repeat\(3,1fr\)/);
+});
+test('entry PIN, Wi-Fi password and phone are not hardcoded',()=>{
+  for(const value of ['3333','22446688','08043508583']){
     assert.ok(!src.includes(value),'JS contains '+value);
     assert.ok(!css.includes(value),'CSS contains '+value);
   }
-  assert.match(src,/staySafePdf/);
   assert.match(src,/window\.localStorage\?\.setItem\(stayLocalKey/);
   assert.match(src,/removeItem\(stayLocalKey/);
 });
@@ -58,8 +67,9 @@ test('secrets require explicit local setup',()=>{
   assert.equal(store.size,0);
   assert.match(root.innerHTML,/name="pin" type="password"/);
   assert.match(root.innerHTML,/name="wifi" type="password"/);
-  assert.match(root.innerHTML,/암호화된 보관함이 아닙니다/);
+  assert.match(root.innerHTML,/암호화되지 않습니다/);
   assert.match(root.innerHTML,/저장 정보 삭제/);
+  assert.match(root.innerHTML,/<details id="stay-private-details">/);
 });
 test('mobile styles preserve large touch targets and sticky quick access',()=>{
   assert.match(css,/\.stay-primary/);

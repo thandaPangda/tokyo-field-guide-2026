@@ -1,5 +1,19 @@
 # TOKYO FIELD GUIDE 2026 — 패치 노트 (CHANGELOG)
 
+## [미출시] — v1.4.1 예정 (2026-11-10 작성 · 숙소 접근성 수정 PR)
+**상태:** 신규 수정 PR 미병합·미배포. 이전 PR #18은 2026-11-10 19:38 KST 병합 완료, GitHub Pages 작업은 19:39 KST 성공했습니다.
+
+### 변경
+- [`index.html`] 정보 탭에만 있던 `#info/stay` 숙소 페이지를 주요 내비게이션의 전용 **숙소** 버튼으로 연결했습니다. 모바일에서 정보 탭 안의 카드를 찾지 않아도 원터치로 바로 열 수 있습니다. 기존 정보·탐색·지도·찜은 유지합니다.
+- [`index.html`] `info-tab.js`, `experience-ux.js`, `info-tab.css` 로드 주소에 버전 쿼리를 추가했습니다. 새 Pages HTML이 도착했을 때 구형 캐시된 파일 대신 새 코드가 요청되도록 합니다.
+- [`info-tab.css`] 모바일 주요 메뉴를 5개에서 6개로 재배치하고 숙소 버튼 활성 스타일을 추가했습니다.
+- [`tests/info-tab.smoke.test.mjs`, `tests/experience-ux.test.mjs`, `tests/info-stay-guide-2026-11-10.test.mjs`] 내비게이션 연결, 버전 쿼리, 6개 메뉴 레이아웃에 맞춰 회귀 검증 조건을 갱신했습니다.
+
+### 검증 및 제한
+- 2026-11-10 19:39 KST GitHub Pages 이전 배포 성공 기록: https://github.com/thandaPangda/tokyo-field-guide-2026/actions/runs/42800915356 . 원본 숙소 `info-tab.js`/`info-tab.css` 파일이 배포 산출물에 포함됐습니다.
+- 이후 수정안의 실제 웹 동작과 구형 캐시 여부는 신규 PR 병합/배포 후 실기기에서 확인해야 합니다. 최신 배포 후에도 기존 HTML이 남는 경우 브라우저 강력 새로고침이나 URL 쿼리로 확인이 필요합니다.
+
+
 ## [미출시] — v1.4.0 예정 (2026-11-10 작성 · PR 제안)
 **상태:** 미병합·미배포. GitHub Pages 실제 반영 여부는 확인되지 않았습니다.
 

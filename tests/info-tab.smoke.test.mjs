@@ -30,13 +30,15 @@ function mount(initialHash = '#info') {
 
 test('index integrates info tab, offline fallback, and route', () => {
   assert.match(html, /id="navInfo"/);
+  assert.match(html, /id="navStay"/);
+  assert.match(html, /navigate\('info\/stay'\)/);
   assert.match(html, /id="view-info"/);
   assert.match(html, /id="offline-info"/);
-  assert.match(html, /href="\.\/info-tab\.css"/);
-  assert.match(html, /src="\.\/info-tab\.js"/);
+  assert.match(html, /href="\.\/info-tab\.css\?v=20261110-stay-nav"/);
+  assert.match(html, /src="\.\/info-tab\.js\?v=20261110-stay-nav"/);
   assert.match(html, /route\.startsWith\('info\/'\)/);
   assert.match(html, /renderInfoTab\?\.\(route\)/);
-  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/);
+  assert.match(css, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)!important/);
 });
 
 test('information hub navigates to both content sections', () => {

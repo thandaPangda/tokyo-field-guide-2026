@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import vm from 'node:vm';
 
 const src=readFileSync(new URL('../info-tab.js',import.meta.url),'utf8');
+const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const css=readFileSync(new URL('../info-tab.css',import.meta.url),'utf8');
 const ux=readFileSync(new URL('../experience-ux.js',import.meta.url),'utf8');
 function mount(hash='#info/stay'){
@@ -19,6 +20,13 @@ function mount(hash='#info/stay'){
   vm.runInNewContext(src,{window:win,document:doc,navigator:{clipboard:{writeText:async()=>{}}},URL},{timeout:1000});
   return {root,status,win,store};
 }
+test('dedicated stay tab, route action, and versioned scripts are in the actual HTML',()=>{
+  assert.match(html, /id="navStay"/);
+  assert.match(html, /navigate\('info\/stay'\)/);
+  assert.match(html, /src="\.\/info-tab\.js\?v=20261110-stay-nav"/);
+  assert.match(html, /href="\.\/info-tab\.css\?v=20261110-stay-nav"/);
+  assert.match(css, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)!important/);
+});
 test('lodging route renders and appears in the info hub',()=>{
   const home=mount('#info').root.innerHTML;
   const page=mount().root.innerHTML;

@@ -214,13 +214,14 @@
     var wrap = root.querySelector('.info-wrap');
     if (!wrap || wrap.classList.contains('info-enhanced')) return;
     wrap.classList.add('info-enhanced');
+    if (path === 'info/stay') return; // Keep the action-first lodging layout visible; no auto-collapse.
 
     if (!guides[path]) {
       wrap.classList.add('info-home-enhanced');
       var homeTitle = wrap.querySelector('.info-title');
       var homeLead = wrap.querySelector('.info-lead');
       if (homeTitle) homeTitle.textContent = '여행 중 필요한 정보만 골라보세요';
-      if (homeLead) homeLead.textContent = '쇼핑, 면세, 식료품, 리셀 정보를 목적별로 정리했습니다. 궁금한 주제를 선택하면 먼저 해야 할 일부터 볼 수 있습니다.';
+      if (homeLead) homeLead.textContent = '숙소, 쇼핑, 면세, 식료품, 리셀 정보를 목적별로 정리했습니다. 궁금한 주제를 선택하면 먼저 해야 할 일부터 볼 수 있습니다.';
       var tiles = wrap.querySelectorAll('.info-tile');
       tiles.forEach(function (tile, i) {
         var index = document.createElement('span');

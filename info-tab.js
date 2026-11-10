@@ -67,7 +67,7 @@
 
   function hub() {
     return '<div class="info-wrap">'+header('TOKYO FIELD GUIDE · ESSENTIALS','도쿄 여행 정보','쇼핑과 현지 이용 규칙을 실제 행동 중심으로 정리했습니다. 검증된 규정과 경험에 근거한 참고 팁을 구분합니다.')+
-      '<div class="info-grid">'+
+      '<div class="info-grid">'+'<a class="info-tile" href="#info/stay"><span class="eyebrow">MY STAY · KOENJI</span><h2>고엔지 숙소 · 체크인과 생활 규칙</h2><p>지도·열쇠·와이파이·공용 시설·세탁·짐 보관·퇴실 안내. 개인 비밀번호는 현재 기기에만 등록합니다.</p></a>'+
       '<a class="info-tile" href="#info/airport"><span class="eyebrow">AIRPORT · TRAIN / BUS</span><h2>나리타 공항 교통 · 왕복 선택</h2><p>입국 나리타→코엔지, 귀국 시부야→나리타. 5가지 입국편과 3가지 귀국편의 환승·대기·편도요금, 왕복 조합 계산을 확인합니다.</p></a><a class="info-tile" href="#info/pokemon"><span class="eyebrow">SHOPPING · TCG</span><h2>포켓몬 카드 구매 가이드</h2><p>포켓몬센터·편의점·카드 전문점의 차이, 벌크·스토리지, 새 팩과 박스, 폐업 매장 구분 및 영업시간을 살펴봅니다.</p></a>'+
       '<a class="info-tile" href="#info/taxfree"><span class="eyebrow">CUSTOMS · TAX REFUND</span><h2>2026년 11월 일본 면세 환급</h2><p>세금 포함 결제, 출국 전 세관 확인, 영수증 거래 단위, 밀봉 포장 규정 변경을 확인합니다.</p></a>'+ 
       '<a class="info-tile" href="#info/grocery"><span class="eyebrow">SUPERMARKET · FOOD</span><h2>마트 흑모와규 · 할인 라벨 읽기</h2><p>사진 속 20% 할인은 특정 상품 사례입니다. 일본어 라벨·취사 숙소 조건·면세 여부를 구분합니다.</p></a>'+
@@ -526,18 +526,164 @@
       "<p class='info-note'>2026.11.06 조사. 항공편 출발시간 08:30은 여행자 제공 정보이며 항공편 번호와 일본 입국 예정 시각은 별도 확인되지 않았습니다. 여행 날짜가 변경되면 일정을 다시 확인하세요.</p></section></div>";
   }
 
+
+  // Koenji lodging: source-derived public information only.
+  // Entry codes, Wi-Fi password, private PDF URL and contact number are never hardcoded.
+  const stayLocalKey='tokyo-field-guide:stay-local:v1';
+  const stayAddress='〒166-0003 東京都杉並区高円寺南2丁目43-12-3';
+  const stayMap='https://maps.app.goo.gl/bL4HZKW4pxGwgTSP8?g_st=ic';
+  function stayLocal(){
+    try{
+      const obj=JSON.parse(window.localStorage?.getItem(stayLocalKey)||'{}');
+      return obj && typeof obj==='object' && !Array.isArray(obj)?obj:{};
+    }catch(_){return {};}
+  }
+  function staySafePdf(value){
+    try{
+      const u=new URL(value);
+      return u.protocol==='https:' && u.hostname==='drive.google.com' && /^\/file\/d\/[\w-]+\/view/.test(u.pathname)?u.href:'';
+    }catch(_){return '';}
+  }
+  function stayGuide(){
+    const s=stayLocal();
+    return [
+      '<div class="info-wrap stay-wrap">',
+      crumb('고엔지 숙소'),
+      '<div class="info-kicker">MY STAY · KOENJI</div><h1 class="info-title">고엔지 숙소</h1>',
+      '<p class="info-lead">고엔지역 인근 · 1층 개인실 · 화장실과 욕실 공용. 호스트 메시지와 15페이지 원본 안내서를 현장에 맞게 정리했습니다.</p>',
+      '<div class="stay-times"><div><small>체크인</small><strong>16:00 이후</strong></div><div><small>체크아웃</small><strong>10:00 이전</strong></div></div>',
+      '<div class="stay-address"><small>숙소 주소 · 日本語</small><strong lang="ja">'+esc(stayAddress)+'</strong><button type="button" data-stay-action="copy-address">주소 복사</button></div>',
+      '<div class="stay-top-actions"><a class="stay-primary" href="'+stayMap+'" target="_blank" rel="noopener noreferrer">Google 지도 길찾기</a><button class="stay-secondary" type="button" data-stay-action="pdf">원본 PDF 열기</button></div>',
+      '<nav class="stay-shortcuts" aria-label="숙소 빠른 이동"><a href="#info/stay" data-info-jump="stay-entry">입실</a><a href="#info/stay" data-info-jump="stay-amenities">시설</a><a href="#info/stay" data-info-jump="stay-rules">규칙</a><a href="#info/stay" data-info-jump="stay-checkout">퇴실</a></nav>',
+      '<section class="stay-section stay-highlight" id="stay-entry"><span class="stay-overline">01 · KEY & ENTRY</span><h2>입실과 열쇠 수령</h2>',
+      '<div class="stay-grid"><article><b>가장 가까운 역</b><p>JR 고엔지역(高円寺駅). 안내서의 남쪽 출구 경로를 이용합니다.</p></article>',
+      '<article><b>숙소 외관</b><p>녹색 대문과 <span lang="ja">田村(Tamura)</span> 이름표를 찾습니다.</p></article>',
+      '<article><b>열쇠 위치</b><p>가스 계량기 근처 <strong>101번 키박스</strong>입니다.</p></article>',
+      '<article><b>출입 비밀번호</b><p>공개 사이트에는 표시하지 않습니다.</p><button class="stay-text-button" type="button" data-stay-action="copy-pin">'+(s.pin?'기기에 등록한 비밀번호 복사':'비밀번호 개인 등록')+'</button></article></div>',
+      '<p class="stay-subtle">원본 PDF 2~3쪽 및 호스트 최근 메시지 기준. 안내서에는 모르는 사람에게 출입문을 열어주지 말라고 적혀 있습니다.</p></section>',
+      '<section class="stay-section" id="stay-route"><span class="stay-overline">02 · WALKING ROUTE</span><h2>고엔지역에서 걸어가는 길</h2>',
+      '<ol class="stay-steps"><li>남쪽 출구로 나와 길을 건너 표시된 방향으로 직진합니다. <small>PDF 7쪽</small></li>',
+      '<li>도로를 따라 계속 직진합니다. <small>PDF 7쪽</small></li>',
+      '<li>안내서 사진의 교차점에서 왼쪽으로 돌아 직진합니다. <small>PDF 8쪽</small></li>',
+      '<li>다음 사진 지점에서 오른쪽으로 돌아 직진합니다. <small>PDF 8쪽</small></li>',
+      '<li>사진에 나온 작은 골목으로 왼쪽 진입합니다. <small>PDF 9쪽</small></li>',
+      '<li>녹색 대문과 <span lang="ja">田村</span> 이름표를 확인합니다. <small>PDF 9쪽</small></li></ol>',
+      '<p class="stay-warning">원본 PDF 9쪽의 마지막 집 위치는 중국어·영어 설명에서 좌우 방향이 서로 다릅니다. 마지막 구간은 원본 사진과 지도를 대조하세요.</p>',
+      '<button class="stay-secondary stay-wide" type="button" data-stay-action="pdf">실제 길안내 사진 보기 · PDF 7~9쪽</button></section>',
+      '<section class="stay-section" id="stay-amenities"><span class="stay-overline">03 · FACILITIES</span><h2>사용 가능한 공간과 비품</h2>',
+      '<div class="stay-grid"><article><b>1층 객실</b><p>개인실로 사용합니다.</p></article>',
+      '<article><b>화장실·욕실·세면대</b><p>호스트와 다른 투숙객이 함께 사용합니다.</p></article>',
+      '<article><b>2층 주방</b><p>사용할 수 있습니다. 호스트 가족의 생활 공간입니다.</p></article>',
+      '<article><b>냉장고·전자레인지</b><p>게스트가 사용할 수 있습니다.</p></article>',
+      '<article><b>세탁기</b><p>사용 가능하지만 세제는 직접 가져와야 합니다.</p></article>',
+      '<article><b>샴푸·바디솝</b><p>욕실에 비치되어 있습니다.</p></article>',
+      '<article><b>목욕 수건</b><p>1인당 1장을 제공합니다.</p></article>',
+      '<article><b>와이파이</b><p>네트워크: <strong>koenji house</strong></p><button class="stay-text-button" type="button" data-stay-action="copy-wifi">'+(s.wifi?'기기에 등록한 비밀번호 복사':'비밀번호 개인 등록')+'</button></article></div>',
+      '<p class="stay-subtle">2층에는 호스트의 아기가 있으며 생활 공간이 어수선할 수 있습니다. 주방 사용은 허용되지만 조리기구나 식재료 제공은 확인되지 않았습니다.</p>',
+      '<h3>직접 챙겨야 하는 물품</h3><div class="stay-chips"><span>칫솔</span><span>치약</span><span>슬리퍼</span><span>세탁 세제 (세탁할 경우)</span></div></section>',
+      '<section class="stay-section" id="stay-rules"><span class="stay-overline">04 · HOUSE RULES</span><h2>생활 규칙</h2>',
+      '<div class="stay-rule"><strong>실내 금연 · 반려동물 금지</strong><p>호스트 메시지는 실내 금연을 강조하며 원본 PDF에는 반려동물 금지도 기재되어 있습니다.</p></div>',
+      '<div class="stay-rule"><strong>공용 공간 청결 유지</strong><p>화장실·욕실·세면대·주방을 사용한 뒤 다음 사람이 편하게 이용하도록 정리해 주세요.</p></div>',
+      '<div class="stay-rule"><strong>호스트 가족과 다른 게스트 배려</strong><p>2층은 호스트의 생활 공간이며 아기가 있습니다. 다른 투숙객도 생활하는 쉐어하우스입니다.</p></div>',
+      '<div class="stay-rule"><strong>낯선 사람에게 문 열어주지 않기</strong><p>안내서에 명시된 출입 보안 규칙입니다.</p></div>',
+      '<div class="stay-rule"><strong>쓰레기는 종류별로 분리배출</strong><p>가연성(<span lang="ja">燃やせるゴミ</span>), 불연성(<span lang="ja">燃やせないゴミ</span>), 재활용품을 구분해 숙소 지정 쓰레기통에 버립니다.</p></div>',
+      '<div class="stay-rule"><strong>숙소 외부 쓰레기 집하장 이용 금지</strong><p>주방 또는 녹색 대문 안쪽 지정 쓰레기통에 버리며, 외부 집하장에 버리지 않습니다.</p></div>',
+      '<p class="stay-warning">PDF에는 주변 무단 쓰레기 투기 시 10,000엔 벌금이라는 문구가 있습니다. 이는 호스트 문서에 기재된 안내이며 일반적인 법정 벌금으로 따로 검증한 내용은 아닙니다.</p></section>',
+      '<section class="stay-section" id="stay-appliances"><span class="stay-overline">05 · HOW TO USE</span><h2>가전제품 사용법</h2>',
+      '<details><summary>에어컨 리모컨 버튼</summary><dl class="stay-terms"><dt lang="ja">運転/停止</dt><dd>켜기·끄기</dd><dt lang="ja">冷房</dt><dd>냉방</dd><dt lang="ja">暖房</dt><dd>난방</dd><dt lang="ja">除湿</dt><dd>제습</dd><dt lang="ja">送風</dt><dd>송풍</dd><dt lang="ja">温度</dt><dd>온도</dd><dt lang="ja">運転切換</dt><dd>모드 전환</dd><dt lang="ja">風向</dt><dd>바람 방향</dd></dl><p>출처: PDF 10쪽.</p></details>',
+      '<details><summary>욕조 온수 조작</summary><p>주방이나 욕실 벽의 온수 조작 패널을 사용합니다. <b lang="ja">運転 入/切</b>는 전원, <b lang="ja">温度</b>는 온도입니다. <b lang="ja">自動</b> 또는 <b lang="ja">お湯はり</b>를 누르면 표시된 온도로 욕조에 물을 채운다고 안내되어 있습니다.</p><p>출처: PDF 10쪽. 공용 욕실이므로 사용 전 상황을 확인하세요.</p></details>',
+      '<details><summary>세탁기 기본 작동 순서</summary><ol><li><b lang="ja">運転入/切</b>로 전원을 켭니다.</li><li><b lang="ja">コース</b>에서 코스를 선택합니다. 일반적인 표준 세탁은 <b lang="ja">標準</b>입니다.</li><li>준비한 세제를 넣고 <b lang="ja">スタート</b>를 누릅니다.</li></ol><p><b lang="ja">お急ぎ</b>는 급속, <b lang="ja">すすぎ</b>는 헹굼, <b lang="ja">脱水</b>는 탈수, <b lang="ja">乾燥</b>는 건조입니다. 출처: PDF 11쪽.</p></details></section>',
+      '<section class="stay-section" id="stay-checkout"><span class="stay-overline">06 · CHECKOUT & BAGGAGE</span><h2>퇴실과 짐 보관</h2>',
+      '<div class="stay-grid"><article><b>10:00 전에 퇴실</b><p>다음 게스트를 위한 청소 일정이 있으므로 시간을 지킵니다.</p></article>',
+      '<article><b>열쇠 반납</b><p>체크인 때 열쇠를 꺼낸 키박스에 다시 넣습니다.</p></article>',
+      '<article><b>무료 짐 보관</b><p>체크인 전과 체크아웃 후, 녹색 대문과 현관 사이에 둘 수 있습니다.</p></article>',
+      '<article><b>조기 체크인</b><p>유료로 가능할 수 있으며 호스트에게 사전 문의해야 합니다.</p></article></div>',
+      '<p class="stay-warning">원본 PDF는 퇴실 지연으로 청소업체가 대기할 경우 시간당 2,000엔 청구 가능성을 안내합니다. 지연이 예상되면 미리 연락하세요.</p></section>',
+      '<section class="stay-section" id="stay-links"><span class="stay-overline">07 · HOST & SOURCES</span><h2>원본 문서와 호스트 연락</h2>',
+      '<div class="stay-links"><button type="button" data-stay-action="pdf">원본 PDF 보기</button><a href="https://forms.gle/wAvXegccYmS2puRH8" target="_blank" rel="noopener noreferrer">게스트 등록 양식</a>',
+      '<a href="https://www.airbnb.co.kr/guest/inbox" target="_blank" rel="noopener noreferrer">Airbnb 메시지함</a><button type="button" data-stay-action="contact">'+(s.phone?'저장한 연락처로 전화':'호스트 연락처 확인')+'</button></div>',
+      '<p class="stay-subtle">등록 양식은 호스트가 일본 법률상 필요하다고 안내했습니다. 원본에는 입구 사진과 장비 조작 사진이 있으며, 원본 링크는 아래에서 본인 기기에 별도 등록합니다.</p></section>',
+      '<section class="stay-section stay-privacy" id="stay-local"><span class="stay-overline">PRIVATE · DEVICE ONLY</span><h2>개인 기기에 정보 저장하기</h2>',
+      '<p>출입번호·와이파이 비밀번호·호스트 전화번호·PDF 링크는 공개 GitHub에 넣지 않았습니다. 원한다면 아래 내용을 <strong>현재 기기의 브라우저에만</strong> 저장할 수 있습니다.</p>',
+      '<p class="stay-warning">로컬 저장소는 암호화된 보관함이 아닙니다. 공유 기기에서는 사용하지 마세요. 브라우저 데이터를 지우면 사라지고 다른 기기로 동기화되지 않습니다.</p>',
+      '<form id="stay-local-form" autocomplete="off"><label>101번 키박스 비밀번호<input name="pin" type="password" class="stay-secret" inputmode="numeric" autocomplete="off" value="'+esc(s.pin||'')+'" placeholder="호스트 안내의 숫자"></label>',
+      '<label>와이파이 비밀번호<input name="wifi" type="password" class="stay-secret" autocomplete="off" value="'+esc(s.wifi||'')+'" placeholder="호스트 안내의 비밀번호"></label>',
+      '<label>호스트 전화번호<input name="phone" type="tel" autocomplete="off" value="'+esc(s.phone||'')+'" placeholder="전화번호"></label>',
+      '<label>원본 PDF 주소<input name="pdf" type="url" autocomplete="off" value="'+esc(s.pdf||'')+'" placeholder="https://drive.google.com/file/d/.../view"></label>',
+      '<div class="stay-form-actions"><button type="submit" class="stay-primary">이 기기에 저장</button><button type="button" class="stay-secondary" data-stay-action="toggle">비밀번호 보기·숨기기</button><button type="button" class="stay-delete" data-stay-action="clear">저장 정보 삭제</button></div></form>',
+      '<p id="stay-feedback" class="stay-feedback" role="status" aria-live="polite">'+(staySafePdf(s.pdf||'')?'원본 PDF 링크가 등록되어 있습니다.':'원본 PDF를 보려면 링크를 한 번 등록해 주세요.')+'</p></section>',
+      '<div class="stay-floating"><a href="'+stayMap+'" target="_blank" rel="noopener noreferrer">길찾기</a><a href="#info/stay" data-info-jump="stay-entry">입실</a><a href="#info/stay" data-info-jump="stay-rules">규칙</a><button type="button" data-stay-action="pdf">원본 PDF</button></div>',
+      '<p class="stay-provenance">자료: Miduki 호스트 Airbnb 메시지 및 高円寺101Ver2 PDF 2·3·7~13쪽. 실제 길 사진은 원본에서 확인하도록 연결했습니다.</p>',
+      '</div>'
+    ].join('');
+  }
+  function stayFeedback(message){const target=$('stay-feedback');if(target)target.textContent=message;}
+  function stayJumpToSetup(){
+    $('stay-local')?.scrollIntoView({behavior:'smooth',block:'start'});
+    stayFeedback('개인 정보 저장란에서 먼저 등록해 주세요.');
+  }
+  async function stayCopy(value,what){
+    if(!value){stayJumpToSetup();return;}
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('clipboard unavailable');
+      await navigator.clipboard.writeText(value);
+      stayFeedback(what+' 복사했습니다.');
+    }catch(_){stayFeedback('자동 복사가 불가능합니다. 저장란에서 값을 길게 눌러 직접 복사해 주세요.');}
+  }
+  function stayAction(action){
+    const s=stayLocal();
+    if(action==='copy-address'){stayCopy(stayAddress,'주소를');return;}
+    if(action==='copy-pin'){stayCopy(s.pin,'출입 비밀번호를');return;}
+    if(action==='copy-wifi'){stayCopy(s.wifi,'와이파이 비밀번호를');return;}
+    if(action==='pdf'){
+      const url=staySafePdf(s.pdf||'');
+      if(url)window.open(url,'_blank','noopener,noreferrer');
+      else stayJumpToSetup();
+      return;
+    }
+    if(action==='contact'){
+      const number=String(s.phone||'').replace(/[\s-]/g,'');
+      if(/^\+?\d{6,16}$/.test(number))window.location.href='tel:'+number;
+      else window.open('https://www.airbnb.co.kr/guest/inbox','_blank','noopener,noreferrer');
+      return;
+    }
+    if(action==='toggle'){
+      const fields=$('stay-local-form')?.querySelectorAll('.stay-secret')||[];
+      for(const el of fields)el.type=el.type==='password'?'text':'password';
+    }
+    if(action==='clear'){
+      try{window.localStorage?.removeItem(stayLocalKey);}catch(_){}
+      window.renderInfoTab('info/stay');
+      stayFeedback('이 브라우저에 저장된 숙소 개인 정보를 삭제했습니다.');
+    }
+  }
+  function staySubmit(event){
+    if(event.target?.id!=='stay-local-form')return;
+    event.preventDefault();
+    const form=event.target;
+    const val=name=>(form.querySelector('[name="'+name+'"]')?.value||'').trim();
+    const pdf=val('pdf');
+    if(pdf&&!staySafePdf(pdf)){stayFeedback('Google Drive PDF 파일의 보기 주소를 입력해 주세요.');return;}
+    try{
+      window.localStorage?.setItem(stayLocalKey,JSON.stringify({pin:val('pin'),wifi:val('wifi'),phone:val('phone'),pdf}));
+      window.renderInfoTab('info/stay');
+      stayFeedback('이 브라우저에만 저장했습니다. GitHub에 전송되지 않습니다.');
+    }catch(_){stayFeedback('브라우저에 저장할 수 없습니다. 저장소 권한을 확인해 주세요.');}
+  }
+
   function renderInfoTab(route) {
     const root=$('view-info');
     if(!root)return;
     const path=String(route||'info').replace(/^#/,'');
-    if(path==='info/airport')root.innerHTML=airportTransportPage();
+    if(path==='info/stay')root.innerHTML=stayGuide();
+    else if(path==='info/airport')root.innerHTML=airportTransportPage();
     else if(path==='info/grocery')root.innerHTML=groceryGuide();
     else if(path==='info/resale')root.innerHTML=resalePage();
     else if(path==='info/taxfree')root.innerHTML=taxfree();
     else if(path==='info/pokemon')root.innerHTML=pokemon();
     else root.innerHTML=hub();
     if(path==='info/resale')updateResaleCalculator();
-    document.title=(path==='info/airport'?'나리타 공항 교통':path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
+    document.title=(path==='info/stay'?'고엔지 숙소':path==='info/airport'?'나리타 공항 교통':path==='info/resale'?'도쿄 리셀 소싱':path==='info/pokemon'?'포켓몬 카드 구매':path==='info/taxfree'?'일본 면세 환급':path==='info/grocery'?'마트 흑모와규 가이드':'여행 정보')+' · TOKYO FIELD GUIDE';
   }
   async function copyText(value) {
     try{
@@ -552,6 +698,7 @@
   if(root){
     root.addEventListener('click',event=>{
       const btn=event.target.closest('button');
+       if(btn && root.contains(btn) && btn.hasAttribute('data-stay-action'))stayAction(btn.getAttribute('data-stay-action'));
       if(btn && root.contains(btn)){
         if(btn.hasAttribute('data-airport-arrival')){const id=btn.getAttribute('data-airport-arrival');if(airportArrivals.some(x=>x.id===id)){state.airportArrival=id;refreshAirportCombo();}}
         if(btn.hasAttribute('data-airport-return')){const id=btn.getAttribute('data-airport-return');if(airportReturns.some(x=>x.id===id)){state.airportReturn=id;refreshAirportCombo();}}
@@ -574,6 +721,7 @@
         const target=$(jump.getAttribute('data-info-jump'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}
       }
     });
+    root.addEventListener('submit',staySubmit);
     root.addEventListener('input',event=>{const t=event.target;
       if(t?.id==='resale-store-search'){state.resaleSearch=t.value;const el=$('resale-store-results');if(el){const start=t.selectionStart,end=t.selectionEnd;el.innerHTML=resaleStoreResults();const next=$('resale-store-search');next?.focus();try{next?.setSelectionRange(start,end);}catch(_){}}}
       if(['rs-yen','rs-rate','rs-sell','rs-fee','rs-extra'].includes(t?.id))updateResaleCalculator();

@@ -68,7 +68,7 @@
 .info-copy-result{font-size:12px;color:#44644b;min-height:18px;margin:8px 0}
 #navInfo::before{content:'04'}
 @media(max-width:800px){
- .topnav{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:1px!important;padding-left:6px!important;padding-right:6px!important}
+ .topnav{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:1px!important;padding-left:6px!important;padding-right:6px!important}
  .topnav .navbtn{font-size:10px!important;min-width:0!important;padding-left:1px!important;padding-right:1px!important;white-space:nowrap}
  .topnav .navbtn .saved-nav-count{margin-left:1px}
  .info-wrap{padding:22px 15px calc(100px + env(safe-area-inset-bottom))}
@@ -408,10 +408,6 @@
 }
 @media(prefers-reduced-motion:reduce){#view-info .stay-floating{backdrop-filter:none}}
 
-/* Lodging top navigation shortcut; consistently visible on phone and desktop. */
-.topnav .nav-stay{font-weight:800;color:#3d7550;border-color:#bcd5c1;background:#eef7ed}
-.topnav .nav-stay.active{background:#315740;color:#fff;border-color:#315740}
-@media(max-width:800px){.topnav .nav-stay{font-size:10px!important;padding-left:2px!important;padding-right:2px!important}}
 
 #view-info .stay-privacy>details{margin:0;background:transparent;border:0;padding:0}
 #view-info .stay-privacy>details>summary{font-size:15px;font-weight:780;min-height:35px;cursor:pointer}

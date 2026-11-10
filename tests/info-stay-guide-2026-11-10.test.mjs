@@ -20,12 +20,12 @@ function mount(hash='#info/stay'){
   vm.runInNewContext(src,{window:win,document:doc,navigator:{clipboard:{writeText:async()=>{}}},URL},{timeout:1000});
   return {root,status,win,store};
 }
-test('dedicated stay tab, route action, and versioned scripts are in the actual HTML',()=>{
-  assert.match(html, /id="navStay"/);
-  assert.match(html, /navigate\('info\/stay'\)/);
+test('stay stays inside the info tab with versioned scripts',()=>{
+  assert.match(html, /id="navInfo"/);
+  assert.doesNotMatch(html, /id="navStay"/);
   assert.match(html, /src="\.\/info-tab\.js\?v=20261110-stay-nav"/);
   assert.match(html, /href="\.\/info-tab\.css\?v=20261110-stay-nav"/);
-  assert.match(css, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)!important/);
+  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/);
 });
 test('lodging route renders and appears in the info hub',()=>{
   const home=mount('#info').root.innerHTML;

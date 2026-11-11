@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import vm from 'node:vm';
 const index=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const study=readFileSync(new URL('../japanese.html',import.meta.url),'utf8');
+const infoCss=readFileSync(new URL('../info-tab.css',import.meta.url),'utf8');
 const sw=readFileSync(new URL('../service-worker.js',import.meta.url),'utf8');
 const reg=readFileSync(new URL('../pwa-register.js',import.meta.url),'utf8');
 const manifest=JSON.parse(readFileSync(new URL('../japanese-manifest.webmanifest',import.meta.url),'utf8'));
@@ -11,7 +12,7 @@ const data=JSON.parse(study.match(/<script id="studyData" type="application\/jso
 test('header links to the Japanese page without expanding the mobile bottom navigation',()=>{
   assert.match(index, /id="japaneseNav"[^>]+href="\.\/japanese\.html"/);
   assert.match(index, /id="navInfo"/);
-  assert.match(index, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/);
+  assert.match(infoCss, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/);
   assert.match(study, /href="\.\/index\.html"[^>]*>← 여행 일정으로 돌아가기/);
 });
 test('Japanese vocabulary data stays complete and unique',()=>{

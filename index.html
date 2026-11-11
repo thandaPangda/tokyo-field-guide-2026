@@ -800,14 +800,21 @@ body.app-ready #sento-static{display:none!important}#sento-static{max-width:1050
 #view-map .map-saved-only.active{background:#355640;color:#fff;border-color:#355640}
 #view-map .map-saved-only:focus-visible{outline:2px solid #cf9148;outline-offset:2px}
 @media(max-width:440px){#view-map .map-main-row .map-summary{order:3;flex:1 0 100%;text-align:left}#view-map .map-main-row .map-saved-only{order:1;margin-left:auto}#view-map .map-main-row #mapFilterEdit{order:2}}
+
+.jp-header-link{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;border:1px solid #b6c9ba;border-radius:10px;padding:9px 13px;background:#edf5ed;color:#28513b!important;text-decoration:none;font-size:12px;font-weight:800;white-space:nowrap;transition:background .15s}
+.jp-header-link:hover{background:#e0eee2}
+.jp-header-link:focus-visible{outline:3px solid #d39a46;outline-offset:2px}
+.jp-header-link span[lang=ja]{font-size:13px}
+@media(max-width:800px){.site-header .topline{justify-content:space-between}.jp-header-link{margin-left:auto;min-height:35px;padding:7px 10px;font-size:11px;gap:5px}}
+@media(max-width:360px){.jp-header-link span[lang=ja]{display:none}.jp-header-link{padding:7px 9px}}
 </style><!-- Mobile map-first UX: branch-only enhancement -->
 <link rel="stylesheet" href="./map-mobile-ux.css?v=20261111-saved"/>
 <link rel="stylesheet" href="./info-tab.css?v=20261110-stay-nav"/>
 <link rel="stylesheet" href="./experience-ux.css"/>
 <link rel="stylesheet" href="./reservation-ux.css"/><link rel="stylesheet" href="./komeda-morning-2026-11-08.css"/>
-</head>
+<link rel="manifest" href="./japanese-manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"></head>
 <body>
-<header class="site-header"><div class="topline"><div class="brand"><div class="brand-mark">TFG</div><div><div class="brand-title">TOKYO<span class="brand-divider"></span><span class="brand-secondary">FIELD GUIDE</span></div><div class="brand-sub">11—15 NOV 2026   ·   THREE PEOPLE, ONE CITY</div></div></div><nav aria-label="주요 메뉴" class="topnav"><a class="navbtn" href="#offline-events" id="navDiscover">탐색</a><a class="navbtn" href="#offline-map" id="navMap">지도</a><a class="navbtn" href="#offline-events" id="navExplore">전체 검색</a><a class="navbtn" href="#saved" id="navSaved">찜 <span class="saved-nav-count" id="savedCountMini">0</span></a><a class="navbtn" href="#offline-info" id="navInfo">정보</a><a aria-hidden="true" class="navbtn nav-hidden" href="#offline-art" id="navArt" tabindex="-1">현대미술</a></nav></div></header>
+<header class="site-header"><div class="topline"><div class="brand"><div class="brand-mark">TFG</div><div><div class="brand-title">TOKYO<span class="brand-divider"></span><span class="brand-secondary">FIELD GUIDE</span></div><div class="brand-sub">11—15 NOV 2026   ·   THREE PEOPLE, ONE CITY</div></div></div><nav aria-label="주요 메뉴" class="topnav"><a class="navbtn" href="#offline-events" id="navDiscover">탐색</a><a class="navbtn" href="#offline-map" id="navMap">지도</a><a class="navbtn" href="#offline-events" id="navExplore">전체 검색</a><a class="navbtn" href="#saved" id="navSaved">찜 <span class="saved-nav-count" id="savedCountMini">0</span></a><a class="navbtn" href="#offline-info" id="navInfo">정보</a><a aria-hidden="true" class="navbtn nav-hidden" href="#offline-art" id="navArt" tabindex="-1">현대미술</a></nav><a id="japaneseNav" class="jp-header-link" href="./japanese.html" aria-label="일본어 회화 학습장 열기"><span lang="ja">日本語</span><span>일본어</span></a></div></header>
 <main>
 <section aria-labelledby="static-title" class="static-page" id="static-fallback">
 <div class="static-hero"><div class="static-eyebrow">OFFLINE-FIRST · 2026 NOVEMBER</div>
@@ -1983,4 +1990,4 @@ window.__TOKYO_TEST__={mapState,mapFilters,mapClock,zoomAt,panBy,position,render
 <script src="./info-tab.js?v=20261110-stay-nav"></script>
 <script src="./experience-ux.js?v=20261110-stay-nav"></script>
 <script src="./reservation-data-2026-11-06.js"></script>
-<script src="./reservation-ux.js"></script></body></html>
+<script src="./reservation-ux.js"></script><script src="./pwa-register.js" defer></script></body></html>

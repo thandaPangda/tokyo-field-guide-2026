@@ -1,0 +1,19 @@
+{
+  "name": "TOKYO FIELD GUIDE · 일본어 회화",
+  "short_name": "도쿄 가이드",
+  "lang": "ko",
+  "description": "여행 일정과 일본어 단어·회화의 오프라인 학습",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f4",
+  "theme_color": "#f6f7f4",
+  "icons": [
+    {
+      "src": "./japanese-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

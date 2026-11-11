@@ -1,5 +1,17 @@
 # TOKYO FIELD GUIDE 2026 — 패치 노트 (CHANGELOG)
 
+## [미출시] — v1.6.0 일본어 회화 학습장·오프라인 이용 (2026-11-11 작성)
+**상태:** `feat/japanese-pocket-offline-20261111` 브랜치의 미병합·미배포 제안. GitHub Pages 및 iPhone 실기기 배포 검증은 별도 확인 필요.
+
+### 추가 / 변경 / 검증
+- [index.html] 기존 탐색·지도·전체 검색·찜·정보의 모바일 하단 메뉴 5개는 유지하고, 상단 헤더 오른쪽에 **日本語 · 일본어** 버튼을 추가해 독립 페이지로 연결한다. 지도·여행 데이터·찜 저장 키는 변경하지 않는다.
+- [japanese.html] 검수된 개인 학습 자료 425개 단어·표현, 단어별 일본어·한국어 예문, 상황별 118문장, 8개 조수사 종류와 등급·검색·암기 카드·읽기를 유지한다. 학습장에서 일정으로 돌아갈 수 있다.
+- [japanese.html] 학습 기록을 기존 localStorage 키와 추가 IndexedDB 스냅샷에 이중 저장하고, 최신 스냅샷 복구·JSON 내보내기/가져오기·초기화·저장 보호 요청 UI를 제공한다. 기기/브라우저별 기록 격리 및 Safari의 저장소 정리 가능성은 남아 있다.
+- [service-worker.js, pwa-register.js, japanese-manifest.webmanifest, japanese-icon.svg] 첫 온라인 방문에 일본어 학습장과 여행 가이드 HTML을 캐시하고, 로컬 CSS·JS도 가능하면 캐시해 오프라인 접근을 지원한다. 외부 지도 타일·외부 링크·TTS 음성은 오프라인에서 보장되지 않는다.
+- [tests/japanese-offline.test.mjs] 사이트 진입 버튼, 단어 수·중복·요미가나, 서비스 워커 캐시, 이중 저장, 백업 기능에 대한 정적 회귀 테스트를 추가했다. 실제 모바일 브라우저 테스트 및 공개 게시 상태는 미확인.
+- 관련 코드: https://github.com/thandaPangda/tokyo-field-guide-2026/tree/feat/japanese-pocket-offline-20261111
+
+
 ## [미출시] — 지도 찜 표시 강조 (2026-11-11 작성)
 **상태:** main 직접 반영 대상. GitHub Pages 배포와 모바일 실기기 검증은 별도 확인 필요.
 

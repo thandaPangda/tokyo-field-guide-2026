@@ -1,5 +1,5 @@
 /* Offline cache. Scope is confined to this GitHub Pages project. */
-const VERSION='tokyo-field-guide-ja-v2-20261112-koenji-kissaten';
+const VERSION='tokyo-field-guide-ja-v3-20261112-matsunaga';
 const CACHE=VERSION;
 const PRIMARY=['./index.html','./japanese.html','./pwa-register.js','./japanese-manifest.webmanifest','./japanese-icon.svg'];
 const SECONDARY=[

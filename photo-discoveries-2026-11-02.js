@@ -174,6 +174,78 @@ window.TFGPhotoUpdates={
         "2026-11-15"
       ],
       "tripNote": "11/11 수 저녁은 공식 LINE과 타베로그 내용 상충하므로 점심만 확실한 후보. 11/12 목 점심/저녁, 11/13–14 저녁. 11/15 일 휴무."
+    },
+    {
+      "id": "PHOTO_KOENJI_AROUMU_20261112",
+      "name": "아로무 (あろうむ)",
+      "category": "킷사텐",
+      "description": "1978년 개업한 고엔지의 소규모 쇼와풍 킷사텐. 카운터와 테이블이 있는 14석 규모로 커피와 모닝 세트를 즐길 수 있으며, 점포 등록정보상 전 좌석 흡연 가능.",
+      "area": "코엔지 · 남쪽 출구 · 고엔지미나미 2초메",
+      "address": "東京都杉並区高円寺南2-52-12 光コーポ1F",
+      "hours": "월–토 07:00–16:00 · 일 휴무",
+      "url": "https://tabelog.com/tokyo/A1319/A131904/13077418/",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "address_verified_no_exact_entrance_coordinates; GSI block geocode only",
+      "tags": [
+        "레트로 킷사텐",
+        "모닝",
+        "전석 흡연",
+        "현금 결제",
+        "일요일 휴무"
+      ],
+      "smoking": {
+        "status": "all",
+        "label": "전석 흡연",
+        "note": "타베로그 등록정보상 객석 전석 흡연 가능. 흡연 방식 및 최신 규정은 방문 전 현장에서 재확인해야 합니다.",
+        "evidenceUrl": "https://tabelog.com/tokyo/A1319/A131904/13077418/",
+        "secondaryEvidenceUrl": "https://tobacco.tokyo.jp/cafe/2334",
+        "basis": "제3자 점포 등록정보(타베로그·도쿄 흡연 안내)",
+        "researchedAt": "2026-11-12",
+        "currentSiteConfirmation": false
+      },
+      "origin": "user_requested_2026-11-12",
+      "researchedAt": "2026-11-12",
+      "closedDates": [
+        "2026-11-15"
+      ],
+      "tripNote": "JR 고엔지역 남쪽 출구에서 도보 약 6분. 2026/11/11–14 방문 후보이며 일요일 11/15는 정기휴무. 카드·전자머니·QR 결제 불가로 등록되어 현금 준비 권장. 임시휴무와 흡연 규정은 현장 확인."
+    },
+    {
+      "id": "PHOTO_KOENJI_POPPINS_20261112",
+      "name": "포핀즈 (ポピンズ · Poppins Coffee and Tea)",
+      "category": "킷사텐",
+      "description": "고엔지역 남쪽 출구에서 가까운 반지하(B1F)의 작은 레트로 킷사텐. 토스트·모닝 세트와 커피·홍차, 레어치즈케이크 방문 후기가 있으며, 카운터 7석과 테이블 1개가 있는 소규모 공간. 점포 등록정보상 전 좌석 흡연 가능.",
+      "area": "코엔지 · 남쪽 출구 · 고엔지미나미 4초메",
+      "address": "東京都杉並区高円寺南4-27-17 恒陽サンクレスト高円寺 B1F",
+      "hours": "월·화·수·금·토·일 09:30–19:00 · 목·공휴일 휴무",
+      "url": "https://tabelog.com/tokyo/A1319/A131904/13076218/",
+      "lat": null,
+      "lon": null,
+      "coordinate_status": "address_verified_no_exact_entrance_coordinates; GSI block geocode only",
+      "tags": [
+        "레트로 킷사텐",
+        "모닝",
+        "전석 흡연",
+        "현금 결제",
+        "목요일 휴무"
+      ],
+      "smoking": {
+        "status": "all",
+        "label": "전석 흡연",
+        "note": "타베로그 등록정보상 객석 전석 흡연 가능. 흡연 방식 및 최신 규정은 방문 전 현장에서 재확인해야 합니다.",
+        "evidenceUrl": "https://tabelog.com/tokyo/A1319/A131904/13076218/",
+        "secondaryEvidenceUrl": "https://tobacco.tokyo.jp/cafe/2328",
+        "basis": "제3자 점포 등록정보(타베로그·도쿄 흡연 안내)",
+        "researchedAt": "2026-11-12",
+        "currentSiteConfirmation": false
+      },
+      "origin": "user_screenshot_2026-11-12",
+      "researchedAt": "2026-11-12",
+      "closedDates": [
+        "2026-11-12"
+      ],
+      "tripNote": "JR 고엔지역 남쪽 출구 도보 약 2분, B1F. 첨부한 Google 지도 사진은 목요일 11/12 영업 종료·금요일 09:30 재개로 표시. 타베로그도 목요일·공휴일 휴무를 안내하며 11/13–15 방문 후보. 카드·전자머니·QR 불가 등록, 현금 준비 권장."
     }
   ],
   "arts": [
@@ -420,6 +492,53 @@ window.TFGPhotoUpdates={
       "status": "listed",
       "source": "https://page.line.me/837rjvih",
       "reason": "수요일 저녁은 공식 LINE과 타베로그 시간 상충. 일·월·공휴일 휴무."
+    },
+    "PHOTO_KOENJI_AROUMU_20261112": {
+      "wednesday": [
+        7,
+        16
+      ],
+      "thursday": [
+        7,
+        16
+      ],
+      "friday": [
+        7,
+        16
+      ],
+      "saturday": [
+        7,
+        16
+      ],
+      "sunday": null,
+      "status": "listed",
+      "source": "https://tabelog.com/tokyo/A1319/A131904/13077418/",
+      "reason": "2026-11-12 점포 등록정보(타베로그·구루나비)상 월–토 07:00–16:00, 일요일 휴무. 임시 변경·최신 흡연 규정은 방문 전 확인."
+    },
+    "PHOTO_KOENJI_POPPINS_20261112": {
+      "wednesday": [
+        9.5,
+        19
+      ],
+      "thursday": null,
+      "friday": [
+        9.5,
+        19
+      ],
+      "saturday": [
+        9.5,
+        19
+      ],
+      "sunday": [
+        9.5,
+        19
+      ],
+      "status": "listed",
+      "source": "https://tabelog.com/tokyo/A1319/A131904/13076218/",
+      "reason": "2026-11-12 등록정보상 목요일·공휴일 휴무, 그 외 09:30–19:00. 사용자 사진에도 목요일 휴무 표시. 임시 변경 여부는 현장 확인."
     }
+  },
+  "laterResearch": {
+    "koenjiSmokingKissaten": "2026-11-12"
   }
 };
